@@ -5,7 +5,7 @@ export default function Login() {
     
     return (
         <>
-        <header className='bg-blue-600 p-4 rounded-b-2xl flex justify-center'>
+        <header className='bg-blue-600 p-4 rounded-b-2xl flex justify-center shadow-xl'>
             <img src={imgLogo} alt='logo da APAE leilão' className='w-[200px] md:w-[250px]'/>
         </header>
         <main className="px-4">
@@ -17,12 +17,12 @@ export default function Login() {
             {/* FORMULARIO DE LOGIN */}
             <form>
                 <div className="flex flex-col text-xl gap-2 mb-4 md:items-center">
-                    <label htmlFor="login">Email ou CPF:</label>
+                    <label className='md:w-1/2' htmlFor="login">Email ou CPF:</label>
                     <input className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type="text" name="login" id="login"/>
                 </div>
 
                 <div className="flex flex-col text-xl gap-2 mb-4 md:items-center">
-                    <label htmlFor="password">Senha:</label>
+                    <label className='md:w-1/2' htmlFor="password">Senha:</label>
                     <input className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type="password" name="password" id="password"/>
                 </div>
 
@@ -31,7 +31,7 @@ export default function Login() {
                 </div>
 
                 <div className="flex flex-col items-center gap-4 my-4">
-                    <Link to="/">Esqueceu sua Senha?</Link>
+                    <Link className='underline' to="/">Esqueceu sua Senha?</Link>
                     <div className='flex items-center gap-1'>
                         <input className="w-4 h-4" type="checkbox" id="conected" name="conected"/>
                         <label htmlFor="conected">Deseja continuar conectado?</label>
@@ -43,8 +43,8 @@ export default function Login() {
                 </div>
             </form>
         </main>
-        <footer className='fixed bottom-0 w-full text-center font-semibold py-4 bg-blue-600'>
-            <p>Ainda não possui uma conta? <Link className='text-yellow-400' to="/cadastro">Clique Aqui</Link> </p>
+        <footer className='fixed bottom-0 w-full text-center font-semibold py-4 bg-blue-600 shadow-xl'>
+            <p>Ainda não possui uma conta? <Link className='text-white' to="/cadastro">Clique Aqui</Link> </p>
         </footer>
         </>
     )
