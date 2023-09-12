@@ -92,7 +92,7 @@ export default function Cadastro() {
 
             </form>
         </main>
-        <footer className='max-md:sticky max-md:top-0 mt-4 w-full text-center font-semibold py-4 bg-blue-600 shadow-xl'>
+        <footer className='max-md:fixed max-md:bottom-0 mt-4 w-full text-center font-semibold py-4 bg-blue-600 shadow-xl'>
             <p className='text-white'>Já possui uma conta? <Link className='text-yellow-400' to="/login">Clique Aqui</Link></p>
         </footer>
         </>
