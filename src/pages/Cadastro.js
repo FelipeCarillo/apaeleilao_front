@@ -54,6 +54,7 @@ export default function Cadastro() {
     }
 
     function POSTCadastrar(){
+        // VALIDAÇÕES
         var cpfFormat = cpf.replace(/-/g, '')
         cpfFormat = cpfFormat.replace(/\./g, '')
         cpfFormat = cpfFormat.replace(/_/g, '')
