@@ -3,13 +3,6 @@ import Alerta from '../components/Alerta';
 import { useState } from 'react';
 import ReactInputMask from 'react-input-mask';
 
-function back() {
-    let cadastro1 = document.getElementById('cadastro1');
-    let cadastro2 = document.getElementById('cadastro2');
-    cadastro1.classList.remove('hidden');
-    cadastro2.classList.add('hidden');
-}
-
 export default function Cadastro() {
     const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
     // Set Infos
@@ -28,6 +21,15 @@ export default function Cadastro() {
     const passWeb = ''
     const [statusCode, setStatusCode] = useState('')
     const [message, setMessage] = useState('')
+
+    function back() {
+        let cadastro1 = document.getElementById('cadastro1');
+        let cadastro2 = document.getElementById('cadastro2');
+        cadastro1.classList.remove('hidden');
+        cadastro2.classList.add('hidden');
+        setStatusCode('')
+        setMessage('')
+    }
 
     function next() {
         if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName)){

@@ -73,7 +73,7 @@ export default function Login() {
                 </div>
                 
                 <div className="flex justify-center mt-4">
-                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full">LOGIN</label>
+                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer">LOGIN</label>
                 </div>
             </form>
         </main>
