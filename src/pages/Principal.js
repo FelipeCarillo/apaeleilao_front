@@ -1,9 +1,48 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import Carrossel from "../components/Carrossel"
 
 export default function Principal() {
     const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
     const [menu, setMenu] = useState(false)
+
+    const data = [
+        {
+            img: 'http://via.placeholder.com/500x500',
+            imgDesc: 'Imagem 1',
+            nome: "Fusca",
+            descricao: 'Usado',
+            preco: '3.000,00'
+        },
+        {
+            img: 'http://via.placeholder.com/500x500',
+            imgDesc: 'Imagem 2',
+            nome: "Ford Ka",
+            descricao: 'novo',
+            preco: '2.000,00'
+        },
+        {
+            img: 'http://via.placeholder.com/500x500',
+            imgDesc: 'Imagem 3',
+            nome: "Jetta",
+            descricao: 'Usado',
+            preco: '1.600,00'
+        },
+        {
+            img: 'http://via.placeholder.com/500x500',
+            imgDesc: 'Imagem 4',
+            nome: "HB-20",
+            descricao: 'Usado',
+            preco: '6.000,00'
+        },
+        {
+            img: 'http://via.placeholder.com/500x500',
+            imgDesc: 'Imagem 5',
+            nome: "Celta",
+            descricao: 'Usado',
+            preco: '750,00'
+        },
+    ]
 
     return (
         <>
@@ -32,7 +71,8 @@ export default function Principal() {
                             <h2 className="text-2xl">Fusca 3 portas</h2>
                             <p className="text-xl">Usado</p>
                             <p>Informações</p>
-                            <p className="font-bold text-3xl">Valor: R$18.000,00</p>
+                            <p>Data: 23/08/2023 - 12:00 à 14:00</p>
+                            <p className="font-bold text-3xl">Lance: R$18.000,00</p>
                         </div>
                         <div>
                             <label className="bg-yellow-300 text-xl rounded-full py-2 px-5 font-medium max-md:text-3xl"><i class="fa-solid fa-gavel"></i> Dar Lance</label>
@@ -42,10 +82,8 @@ export default function Principal() {
             </section>
 
             <section className="text-white bg-blue-500 py-4">
-                <h1 className="text-center text-4xl underline">Próximos Leilões</h1>
-                <div>
-                    carrossel
-                </div>
+                <h1 className="text-center text-4xl underline mb-8">Próximos Leilões</h1>
+                <Carrossel data={data}/>
             </section>
         </main>
         <footer className="bg-blue-600 text-6xl text-center text-white">
