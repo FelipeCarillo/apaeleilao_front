@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import Carrossel from "../components/Carrossel"
+import Rodape from "../components/Rodape"
 
 export default function Principal() {
     const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
@@ -48,7 +49,7 @@ export default function Principal() {
         <>
         <header className="bg-blue-600 p-4 flex justify-between items-center">
             <img className="w-[200px]" src={imgLogo} alt="Logo da APAE"/>
-            <ul className={`flex gap-16 text-3xl text-white ${menu ? 'max-lg:absolute max-lg:bg-black max-lg:flex-col max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:h-full max-lg:justify-center max-lg:items-center' : 'max-lg:hidden'}`}>
+            <ul className={`flex gap-16 items-center text-3xl text-white ${menu ? 'max-lg:absolute max-lg:bg-black max-lg:flex-col max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:h-full max-lg:justify-center max-lg:items-center' : 'max-lg:hidden'}`}>
                 <li className="text-yellow-400 border-b-2 border-yellow-400"><Link to='/'>Início</Link></li>
                 <li><Link to='/leiloes'>Leilões</Link></li>
                 <li><Link to='/participados'>Leilões Participados</Link></li>
@@ -86,9 +87,7 @@ export default function Principal() {
                 <Carrossel data={data}/>
             </section>
         </main>
-        <footer className="bg-blue-600 text-6xl text-center text-white">
-            RODAPE
-        </footer>
+        <Rodape/>
         </>
     )
 }
