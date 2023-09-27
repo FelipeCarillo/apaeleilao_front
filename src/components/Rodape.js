@@ -12,7 +12,6 @@ export default function Rodape(){
                     <h2 className="text-2xl font-bold">Navegação</h2>
                     <div className="flex flex-col text-xl">    
                         <Link to='/'><i className="fa-solid fa-check text-green-500"></i> Início</Link>
-                        <Link to='/leiloes'><i className="fa-solid fa-check text-green-500"></i> Leilões</Link>
                         <Link to='/participados'><i className="fa-solid fa-check text-green-500"></i> Leilões Participados</Link>
                         <Link to='/login'><i className="fa-solid fa-check text-green-500"></i> Login</Link>
                     </div>
