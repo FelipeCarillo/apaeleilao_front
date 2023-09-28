@@ -12,10 +12,9 @@ export default function Login() {
     const [message, setMessage] = useState('')
 
     function Login(){
-        console.log(login)
-        console.log(password)
         const json = {
-
+            'user': login,
+            'password': password
         }
         
         fetch('', {

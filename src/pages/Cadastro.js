@@ -140,7 +140,7 @@ export default function Cadastro() {
         .then(data => {
             console.log(JSON.stringify(data))
             setStatusCode(data.status)
-            setMessage(data.message)
+            setMessage(data.body)
         })
     }
 
