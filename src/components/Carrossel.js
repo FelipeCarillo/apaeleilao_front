@@ -35,8 +35,8 @@ const Carrossel = ({ data }) => {
             {visibleCards.map((item, index) => (
                 <div key={index} className={`border-2 text-black text-center bg-white rounded-2xl`}>
                     {/* Conteúdo do card */}
-                    <img className=" rounded-t-2xl shadow-lg mb-4 w-full h-[350px]" src={item.img} alt={item.imgDesc}/>
-                    <div className="px-2 mx-16">
+                    <img className=" rounded-t-2xl shadow-lg mb-4 w-full h-[300px]" src={item.img} alt={item.imgDesc}/>
+                    <div className="px-2">
                         <h2 className="text-2xl">{item.nome}</h2>
                         <p>{item.descricao}</p>
                         <p className="font-bold text-xl">R${item.preco}</p>
