@@ -5,7 +5,6 @@ export default function Alerta({...props}) {
                 <i className="fa-solid fa-circle-exclamation text-4xl"></i>
                 <p className="text-xl">{props.message}</p>
             </div>
-            <i className="fa-solid fa-x fixed top-3 right-3"></i>
         </div>
     )
 }

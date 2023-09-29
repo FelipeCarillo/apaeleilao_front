@@ -17,8 +17,6 @@ export default function Cadastro() {
     const [len, setlen] = useState('')
 
     // ALERT
-    const keyWeb = ''
-    const passWeb = ''
     const [statusCode, setStatusCode] = useState('')
     const [message, setMessage] = useState('')
 
@@ -114,10 +112,6 @@ export default function Cadastro() {
         }
         
         const json = {
-            'auth': {
-                'user_id': keyWeb,
-                'password': passWeb
-            },
             'body': {
                 'first_Name': firstName,
                 'last_Name': lastName,
@@ -126,7 +120,6 @@ export default function Cadastro() {
                 'phone': phoneFormat,
                 'password': password,
                 'is_veri': true,
-                
             }
         }
 
@@ -148,7 +141,8 @@ export default function Cadastro() {
         <>
         {/* ALERTA */}
         <div>
-           <Alerta statusCode={statusCode} message={message}/>
+            <i onClick={() => {setStatusCode('')}} className={`fa-solid fa-x fixed top-3 right-3 cursor-pointer z-20 ${statusCode === '' ? "hidden" : "block"}`}></i>
+            <Alerta statusCode={statusCode} message={message}/>
         </div>
 
         <header className='bg-blue-600 flex justify-center p-4 rounded-b-2xl shadow-xl'>

@@ -52,6 +52,7 @@ export default function Principal() {
             <ul className={`flex gap-16 items-center text-3xl text-white ${menu ? 'max-lg:absolute max-lg:bg-black max-lg:flex-col max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:h-full max-lg:justify-center max-lg:items-center' : 'max-lg:hidden'}`}>
                 <li className="text-yellow-400 border-b-2 border-yellow-400"><Link to='/'>Início</Link></li>
                 <li><Link to='/participados'>Leilões Participados</Link></li>
+                <li><Link to='/meuPerfil'>Meu Perfil</Link></li>
                 <li className="absolute top-5 right-5 hidden max-lg:block"><label onClick={(e)=>{setMenu(!menu)}}><i className="fa-solid fa-x"></i></label></li>
                 <Link className="bg-yellow-300 text-black py-4 px-5 text-2xl rounded-full font-semibold" to='/login'><i class="fa-regular fa-circle-user"></i> Login</Link>
             </ul>

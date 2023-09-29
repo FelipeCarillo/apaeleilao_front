@@ -4,14 +4,24 @@ import { useState } from 'react'
 
 export default function Login() {
     const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
-    const [login, setLogin] = useState(null)
-    const [password, setPassword] = useState(null)
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
     
     // ALERT
     const [statusCode, setStatusCode] = useState('')
     const [message, setMessage] = useState('')
 
     function Login(){
+        if(login === ''){
+            setStatusCode('422')
+            setMessage('Login Inválido')
+            return
+        }
+        if(password === ''){
+            setStatusCode('422')
+            setMessage('Senha Inválida')
+            return
+        }
         const json = {
             'user': login,
             'password': password
@@ -35,7 +45,8 @@ export default function Login() {
         <>
         {/* ALERTA */}
         <div>
-            <Alerta  statusCode={statusCode} message={message}/>
+            <i onClick={() => {setStatusCode('')}} className={`fa-solid fa-x fixed top-3 right-3 cursor-pointer z-20 ${statusCode === '' ? "hidden" : "block"}`}></i>
+            <Alerta statusCode={statusCode} message={message}/>
         </div>
 
         <header className='bg-blue-600 flex justify-center p-4 rounded-b-2xl shadow-xl'>
