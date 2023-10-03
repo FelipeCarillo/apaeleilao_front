@@ -31,12 +31,12 @@ export default function Participados() {
             </div>
             <div className="h-[1px] w-full bg-black"/>
             <div className="grid grid-cols-1 my-4 gap-10 lg:gap-18 max-sm:mx-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                <CardParticipados nome='Fusca de 3 Portas' preco="1.000" prazo='23/05/2023 (3 dias)' podio='' stage='P'/>
-                <CardParticipados nome='Celta Preto' preco="1.000" prazo='' podio='' stage='C'/>
-                <CardParticipados nome='Ford Ka' preco="1.000" prazo='' podio='' stage='E'/>
-                <CardParticipados nome='Jetta' preco="1.000" prazo='' podio='2º lugar' stage='B'/>
-                <CardParticipados nome='Corsa' preco="1.000" prazo='23/05/2023 (3 dias)' podio='' stage='C'/>
-                <CardParticipados nome='Ford Ka' preco="1.000" prazo='' podio='' stage='E'/>
+                <CardParticipados nome='exemplo1' preco="1.000" prazo='23/05/2023 (3 dias)' podio='' stage='P'/>
+                <CardParticipados nome='exemplo2' preco="1.000" prazo='' podio='' stage='C'/>
+                <CardParticipados nome='exemplo3' preco="1.000" prazo='' podio='' stage='E'/>
+                <CardParticipados nome='exemplo4' preco="1.000" prazo='' podio='2º lugar' stage='B'/>
+                <CardParticipados nome='exemplo5' preco="1.000" prazo='23/05/2023 (3 dias)' podio='' stage='C'/>
+                <CardParticipados nome='exemplo6' preco="1.000" prazo='' podio='' stage='E'/>
             </div>
         </main>
         <Rodape/>

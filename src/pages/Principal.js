@@ -11,35 +11,35 @@ export default function Principal() {
         {
             img: 'http://via.placeholder.com/500x500',
             imgDesc: 'Imagem 1',
-            nome: "Fusca",
+            nome: "Exemplo1",
             descricao: 'Usado',
             preco: '3.000,00'
         },
         {
             img: 'http://via.placeholder.com/500x500',
             imgDesc: 'Imagem 2',
-            nome: "Ford Ka",
+            nome: "Exemplo2",
             descricao: 'novo',
             preco: '2.000,00'
         },
         {
             img: 'http://via.placeholder.com/500x500',
             imgDesc: 'Imagem 3',
-            nome: "Jetta",
+            nome: "Exemplo3",
             descricao: 'Usado',
             preco: '1.600,00'
         },
         {
             img: 'http://via.placeholder.com/500x500',
             imgDesc: 'Imagem 4',
-            nome: "HB-20",
+            nome: "Exemplo4",
             descricao: 'Usado',
             preco: '6.000,00'
         },
         {
             img: 'http://via.placeholder.com/500x500',
             imgDesc: 'Imagem 5',
-            nome: "Celta",
+            nome: "Exemplo5",
             descricao: 'Usado',
             preco: '750,00'
         },
@@ -70,7 +70,7 @@ export default function Principal() {
                     <div className="flex flex-col w-full items-end gap-12 p-4 max-md:flex-col max-md:items-center">
                         <div className="flex flex-col self-start gap-2 text-lg">
                             <div>
-                                <h2 className="text-3xl">Fusca 3 portas</h2>
+                                <h2 className="text-3xl">Exemplo</h2>
                                 <p className="text-2xl">Usado</p>
                             </div>
                             <p>Informações</p>
