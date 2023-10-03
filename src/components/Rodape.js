@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 export default function Rodape(){
-    const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
+    const imgLogo = 'https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg'
 
     return (
         <footer className="bg-rodape bg-no-repeat bg-cover h-full p-32">

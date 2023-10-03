@@ -4,7 +4,7 @@ import Rodape from "../components/Rodape"
 import CardParticipados from "../components/CardParticipados"
 
 export default function Participados() {
-    const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
+    const imgLogo = 'https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg'
     const [menu, setMenu] = useState(false)
 
     return (
@@ -30,12 +30,13 @@ export default function Participados() {
                 <button className="flex items-center gap-4 bg-yellow-300 px-8 py-2 text-2xl max-sm:text-lg rounded-lg hover:bg-yellow-400">Filtrar<i className="fa-solid fa-filter"></i></button>
             </div>
             <div className="h-[1px] w-full bg-black"/>
-            <div className="grid grid-cols-1 my-4 gap-10 lg:gap-28 max-sm:mx-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                <CardParticipados nome='Fusca de 3 Portas' preco="1.000" prazo='23/05/2023 (3 dias)' stage='P'/>
-                <CardParticipados nome='Celta Preto' preco="1.000" prazo='' stage='C'/>
-                <CardParticipados nome='Ford Ka' preco="1.000" prazo='' stage='E'/>
-                <CardParticipados nome='Jetta' preco="1.000" prazo='' stage='B'/>
-                <CardParticipados nome='Corsa' preco="1.000" prazo='23/05/2023 (3 dias)'/>
+            <div className="grid grid-cols-1 my-4 gap-10 lg:gap-18 max-sm:mx-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <CardParticipados nome='Fusca de 3 Portas' preco="1.000" prazo='23/05/2023 (3 dias)' podio='' stage='P'/>
+                <CardParticipados nome='Celta Preto' preco="1.000" prazo='' podio='' stage='C'/>
+                <CardParticipados nome='Ford Ka' preco="1.000" prazo='' podio='' stage='E'/>
+                <CardParticipados nome='Jetta' preco="1.000" prazo='' podio='2º lugar' stage='B'/>
+                <CardParticipados nome='Corsa' preco="1.000" prazo='23/05/2023 (3 dias)' podio='' stage='C'/>
+                <CardParticipados nome='Ford Ka' preco="1.000" prazo='' podio='' stage='E'/>
             </div>
         </main>
         <Rodape/>

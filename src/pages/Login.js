@@ -3,7 +3,7 @@ import Alerta from '../components/Alerta'
 import { useState } from 'react'
 
 export default function Login() {
-    const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
+    const imgLogo = 'https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg'
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import ReactInputMask from 'react-input-mask';
 
 export default function Cadastro() {
-    const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
+    const imgLogo = 'https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg'
     // Set Infos
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')

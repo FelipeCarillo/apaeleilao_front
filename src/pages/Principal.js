@@ -4,7 +4,7 @@ import Carrossel from "../components/Carrossel"
 import Rodape from "../components/Rodape"
 
 export default function Principal() {
-    const imgLogo = 'https://apaeleilaoimt.s3.sa-east-1.amazonaws.com/galery/logo-apaeleilao-branco.jpg'
+    const imgLogo = 'https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg'
     const [menu, setMenu] = useState(false)
 
     const data = [
