@@ -1,13 +1,11 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
-export default function Rodape(){
-    const imgLogo = 'https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg'
-
+export default function Footer(){
+    const LogoApae = "https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg"
     return (
         <footer className="bg-rodape bg-no-repeat bg-cover h-full p-32">
             <div className="flex flex-wrap gap-8 justify-around items-start border-b-2 border-dotted border-yellow-500 pb-8 mb-8 max-md:justify-start">
-                <img src={imgLogo} width='300' alt="Logo da APAE"/>
+                <img src={LogoApae} width='300' alt="Logo da APAE"/>
                 <div className="text-yellow-500">
                     <h2 className="text-2xl font-bold">Navegação</h2>
                     <div className="flex flex-col text-xl">    

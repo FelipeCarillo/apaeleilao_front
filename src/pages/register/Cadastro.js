@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom'
-import Alerta from '../components/Alerta';
-import { useState } from 'react';
-import ReactInputMask from 'react-input-mask';
+import { useState } from "react";
+import Navbar from "../../components/Navbar";
+import ReactInputMask from "react-input-mask";
+import { Link } from "react-router-dom";
 
 export default function Cadastro() {
-    const imgLogo = 'https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg'
     // Set Infos
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -16,41 +15,27 @@ export default function Cadastro() {
     const [termos, setTermos] = useState(false)
     const [len, setlen] = useState('')
 
-    // ALERT
-    const [statusCode, setStatusCode] = useState('')
-    const [message, setMessage] = useState('')
-
     function back() {
         let cadastro1 = document.getElementById('cadastro1');
         let cadastro2 = document.getElementById('cadastro2');
         cadastro1.classList.remove('hidden');
         cadastro2.classList.add('hidden');
-        setStatusCode('')
-        setMessage('')
     }
 
     function next() {
         if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName)){
-            setStatusCode('422')
-            setMessage('Nome não pode conter número')
             return
         }
         if(firstName === '' && firstName === ''){
-            setStatusCode('422')
-            setMessage('Nome Inválido')
             return
         }
         if(Email === ''){
-            setStatusCode('422')
-            setMessage('Email Inválido')
             return
         }
         let cadastro1 = document.getElementById('cadastro1');
         let cadastro2 = document.getElementById('cadastro2');
         cadastro1.classList.add('hidden');
         cadastro2.classList.remove('hidden');
-        setStatusCode('')
-        setMessage('')
     }
 
     function POSTCadastrar(){
@@ -59,8 +44,6 @@ export default function Cadastro() {
         cpfFormat = cpfFormat.replace(/\./g, '')
         cpfFormat = cpfFormat.replace(/_/g, '')
         if(cpfFormat.length !== 11){
-            setStatusCode('422')
-            setMessage('CPF Inválido')
             return
         }
 
@@ -69,45 +52,29 @@ export default function Cadastro() {
         phoneFormat = phoneFormat.replace(/-/g, '')
         phoneFormat = phoneFormat.replace(/_/g, '')
         if(phoneFormat.length !== 11){
-            setStatusCode('422')
-            setMessage('Telefone Inválido')
             return
         }
         
         if(termos !== true){
-            setStatusCode('422')
-            setMessage('Aceite os Termos')
             return
         }
         if(password !== ''){
             if(!/[A-Z]/.test(password)){
-                setStatusCode('422')
-                setMessage('Senha Inválida')
                 return
             }
             if(!/[0-9]/.test(password)){
-                setStatusCode('422')
-                setMessage('Senha Inválida')
                 return
             }
             if(!/[^A-Za-z0-9]/.test(password)){
-                setStatusCode('422')
-                setMessage('Senha Inválida')
                 return
             }
             if(password.length < 8){
-                setStatusCode('422')
-                setMessage('Senha Inválida')
                 return
             }
             if(password !== confirmPass){
-                setStatusCode('422')
-                setMessage('Senha Inválida')
                 return
             }
         }else{
-            setStatusCode('422')
-            setMessage('Senha Inválida')
             return
         }
         
@@ -132,22 +99,15 @@ export default function Cadastro() {
         }).then(response => response.json())
         .then(data => {
             console.log(JSON.stringify(data))
-            setStatusCode(data.status)
-            setMessage(data.body)
+            // setStatusCode(data.status)
+            // setMessage(data.body)
         })
     }
 
     return (
         <>
-        {/* ALERTA */}
-        <div>
-            <i onClick={() => {setStatusCode('')}} className={`fa-solid fa-x fixed top-3 right-3 cursor-pointer z-20 ${statusCode === '' ? "hidden" : "block"}`}></i>
-            <Alerta statusCode={statusCode} message={message}/>
-        </div>
+        <Navbar />
 
-        <header className='bg-blue-600 flex justify-center p-4 rounded-b-2xl shadow-xl'>
-            <img src={imgLogo} alt='logo da APAE leilão' className='w-[200px] self-center md:w-[250px]'/>
-        </header>
         <main className="px-4 flex flex-col justify-center">
             <h1 className="text-4xl text-center mt-4 font-medium text-blue-900 md:text-5xl">Registrar-se</h1>
             <div className="flex justify-center">

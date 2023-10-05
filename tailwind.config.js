@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'azul': '#2C4FBC',
+      },
       backgroundImage: {
         'rodape': "url('/img/imgRodape.png')",
       }

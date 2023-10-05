@@ -1,25 +1,16 @@
-import {Link} from 'react-router-dom'
-import Alerta from '../components/Alerta'
-import { useState } from 'react'
+import { useState } from "react"
+import Navbar from "../../components/Navbar"
+import { Link } from "react-router-dom"
 
-export default function Login() {
-    const imgLogo = 'https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg'
+export default function Login(){
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-    
-    // ALERT
-    const [statusCode, setStatusCode] = useState('')
-    const [message, setMessage] = useState('')
 
     function Login(){
         if(login === ''){
-            setStatusCode('422')
-            setMessage('Login Inválido')
             return
         }
         if(password === ''){
-            setStatusCode('422')
-            setMessage('Senha Inválida')
             return
         }
         const json = {
@@ -36,23 +27,16 @@ export default function Login() {
         }).then(response => response.json())
         .then(data => {
             console.log(JSON.stringify(data))
-            setStatusCode(data.status)
-            setMessage(data.message)
+            // setStatusCode(data.status)
+            // setMessage(data.message)
         })
     }
 
     return (
         <>
-        {/* ALERTA */}
-        <div>
-            <i onClick={() => {setStatusCode('')}} className={`fa-solid fa-x fixed top-3 right-3 cursor-pointer z-20 ${statusCode === '' ? "hidden" : "block"}`}></i>
-            <Alerta statusCode={statusCode} message={message}/>
-        </div>
-
-        <header className='bg-blue-600 flex justify-center p-4 rounded-b-2xl shadow-xl'>
-            <img src={imgLogo} alt='logo da APAE leilão' className='w-[200px] self-center md:w-[250px]'/>
-        </header>
-        <main className="px-4 flex flex-col justify-center">
+        <Navbar />
+        
+        <main className="px-4 my-8 flex flex-col justify-center">
             <h1 className="text-4xl text-center mt-4 font-medium text-blue-900 md:text-5xl">Login</h1>
             <div className="flex justify-center">
                 <div className="w-[90%] h-[2px] bg-gray-200 my-2 md:my-4" />
@@ -87,7 +71,8 @@ export default function Login() {
                 </div>
             </form>
         </main>
-        <footer className='fixed bottom-0 mt-8 w-full text-center font-medium py-4 bg-blue-600 shadow-xl'>
+
+        <footer className='fixed bottom-0 mt-8 w-full text-center font-medium py-4 bg-azul shadow-xl'>
             <p className='text-white'>Ainda não possui uma conta? <Link className='text-yellow-400' to="/cadastro">Clique Aqui</Link> </p>
         </footer>
         </>

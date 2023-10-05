@@ -1,9 +1,9 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import Login from './pages/Login'
 import Principal from './pages/Principal'
-import Cadastro from './pages/Cadastro'
-import Participados from './pages/Participados'
-import MeuPerfil from './pages/MeuPerfil'
+import Login from './pages/register/Login'
+import Cadastro from './pages/register/Cadastro'
+import MeuPerfil from './pages/user/MeuPerfil'
+import Participados from './pages/user/Participados'
 
 export default function App() {
   return (
