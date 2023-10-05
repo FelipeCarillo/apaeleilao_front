@@ -11,11 +11,11 @@ export default function Carrossel({data}) {
     }, [])
 
     return (
-        <div className="w-full mx-auto my-0 max-w-[900px] flex items-center justify-center">
+        <div className="w-full mx-auto my-0 max-w-[900px] lg:max-w-[1200px] flex items-center justify-center">
             <motion.div ref={carousel} className='cursor-grab overflow-hidden' whileTap={{cursor: 'grabbing'}}>
-                <motion.div className='flex gap-4 px-8' drag="x"  dragConstraints={{right: 0, left: -width}} initial={{x: 100}} animate={{x: 0}} transition={{ duration: 0.8}}>
+                <motion.div className='flex gap-4 px-8' drag="x"  dragConstraints={{right: 0, left: -width}} initial={{x: 100}} animate={{x: 0}} transition={{ duration: 0.5}}>
                     {data.map(data => (
-                        <motion.div key={data} className={`border-2 text-black min-w-[250px] text-center bg-white rounded-2xl`}>
+                        <motion.div key={data.nome} className={`border-2 text-black min-w-[250px] text-center bg-white rounded-2xl`}>
                         {/* Conteúdo do card */}
                         <img className=" rounded-t-2xl shadow-lg mb-4 w-full" src={data.img} alt={data.descImg}/>
                         <div className="px-2">
