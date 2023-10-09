@@ -6,6 +6,7 @@ import MeuPerfil from './pages/user/MeuPerfil'
 import Participados from './pages/user/Participados'
 
 export default function App() {
+  
   return (
     <Router>
       <Routes>

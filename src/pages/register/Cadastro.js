@@ -7,7 +7,7 @@ export default function Cadastro() {
     // Set Infos
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [Email, setEmail] = useState('')
+    const [email, setEmail] = useState('')
     const [cpf, setCpf] = useState('')
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
@@ -23,15 +23,16 @@ export default function Cadastro() {
     }
 
     function next() {
-        if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName)){
+        if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName) || firstName.length < 3 || firstName.length > 200 || lastName.length < 3 || lastName.length > 200){
             return
         }
         if(firstName === '' && firstName === ''){
             return
         }
-        if(Email === ''){
+        if(email === '' || email.length > 250){
             return
         }
+
         let cadastro1 = document.getElementById('cadastro1');
         let cadastro2 = document.getElementById('cadastro2');
         cadastro1.classList.add('hidden');
@@ -74,19 +75,19 @@ export default function Cadastro() {
             if(password !== confirmPass){
                 return
             }
-        }else{
+        }else {
             return
         }
         
         const json = {
             'body': {
-                'first_Name': firstName,
-                'last_Name': lastName,
-                'email': Email,
-                'cpf': cpfFormat,
-                'phone': phoneFormat,
-                'password': password,
-                'is_veri': true,
+                "password": password,
+                "email": email,
+                "accepted_terms": termos,
+                "first_name": firstName,
+                "last_name": lastName,
+                "cpf": cpfFormat,
+                "phone": phoneFormat
             }
         }
 
@@ -99,8 +100,7 @@ export default function Cadastro() {
         }).then(response => response.json())
         .then(data => {
             console.log(JSON.stringify(data))
-            // setStatusCode(data.status)
-            // setMessage(data.body)
+            console.log(data.status)
         })
     }
 
@@ -143,7 +143,7 @@ export default function Cadastro() {
                     </div>
 
                     <div className='flex justify-center'>
-                        <label className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer" onClick={next}>Continuar</label>
+                        <label htmlFor="" className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer" onClick={next}>Continuar</label>
                     </div>
                 </section>
 
@@ -160,7 +160,7 @@ export default function Cadastro() {
 
                     <div className='flex flex-col items-center text-xl gap-4 my-4'>
                         <div className='flex flex-col items-center max-md:self-start gap-1 md:w-1/2'>
-                        <label className='self-start'>Sua senha deve conter:</label>
+                        <label htmlFor="" className='self-start'>Sua senha deve conter:</label>
                         <ul className='pl-2 self-start'>
                             <li><i className={`fa-solid ${len.length < 8 ? 'fa-spinner animate-spin' : 'fa-check text-green-500'}`}></i> No mínimo 8 caracteres;</li>
                             <li><i className={`fa-solid ${/[A-Z]/.test(len) ? 'fa-check text-green-500' : 'fa-spinner animate-spin'}`}></i> Ao menos 1 letra maiúscula;</li>
@@ -185,7 +185,7 @@ export default function Cadastro() {
 
             </form>
         </main>
-        <footer className='md:fixed md:bottom-0 mt-4 w-full text-center font-semibold py-4 bg-blue-600 shadow-xl'>
+        <footer className='md:fixed md:bottom-0 mt-4 w-full text-center font-semibold py-4 bg-azul shadow-xl'>
             <p className='text-white'>Já possui uma conta? <Link className='text-yellow-400' to="/login">Clique Aqui</Link></p>
         </footer>
         </>

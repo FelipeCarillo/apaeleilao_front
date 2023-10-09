@@ -16,8 +16,8 @@ export default function Footer(){
                 </div>
                 <div className="text-yellow-500 self-start">
                     <h2 className="text-2xl font-bold">Contato</h2>
-                    <p><i class="fa-solid fa-location-dot"></i> Alameda São Caetano, 2772 Bairro Santa Maria São Caetano do Sul - SP</p>
-                    <p><i class="fa-solid fa-envelope"></i> apaescsul@apaescsul.org.br</p>
+                    <p><i className="fa-solid fa-location-dot"></i> Alameda São Caetano, 2772 Bairro Santa Maria São Caetano do Sul - SP</p>
+                    <p><i className="fa-solid fa-envelope"></i> apaescsul@apaescsul.org.br</p>
                 </div>
             </div>
             <p className="text-xl text-center text-yellow-500 font-bold">&copy; Copyright 2023. Todos os Direitos Reservados. Site feito em parceria com o <label className="text-yellow-600 hover:underline">IMT</label></p>

@@ -45,7 +45,7 @@ export default function Login(){
             {/* FORMULARIO DE LOGIN */}
             <form>
                 <div className="flex flex-col text-xl gap-2 mb-4 md:items-center">
-                    <label className='md:w-1/2' htmlFor="login">Email ou CPF:</label>
+                    <label className='md:w-1/2' htmlFor="login">Email:</label>
                     <input onChange={(e) => {setLogin(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type="text" name="login" id="login"/>
                 </div>
 
