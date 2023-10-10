@@ -4,6 +4,7 @@ import Login from './pages/register/Login'
 import Cadastro from './pages/register/Cadastro'
 import MeuPerfil from './pages/user/MeuPerfil'
 import Participados from './pages/user/Participados'
+import Leiloes from './pages/admin/Leiloes'
 
 export default function App() {
   
@@ -15,6 +16,8 @@ export default function App() {
         <Route path='/cadastro' element={<Cadastro />}/>
         <Route path='/participados' element={<Participados />}/>
         <Route path='/meuPerfil' element={<MeuPerfil />} />
+        {/* ADMIN */}
+        <Route path='/admin/leiloes' element={<Leiloes />} />
       </Routes>
     </Router>
   )

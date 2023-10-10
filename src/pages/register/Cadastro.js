@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import ReactInputMask from "react-input-mask";
 import { Link } from "react-router-dom";
+// import {v4 as uuidv4} from 'uuid';
 
 export default function Cadastro() {
     // Set Infos
@@ -39,7 +40,8 @@ export default function Cadastro() {
         cadastro2.classList.remove('hidden');
     }
 
-    function POSTCadastrar(){
+    async function POSTCadastrar(){
+        // let id = uuidv4();
         // VALIDAÇÕES
         var cpfFormat = cpf.replace(/-/g, '')
         cpfFormat = cpfFormat.replace(/\./g, '')
@@ -80,28 +82,39 @@ export default function Cadastro() {
         }
         
         const json = {
-            'body': {
-                "password": password,
-                "email": email,
-                "accepted_terms": termos,
-                "first_name": firstName,
-                "last_name": lastName,
-                "cpf": cpfFormat,
-                "phone": phoneFormat
-            }
+            "password": password,
+            "email": email,
+            "accepted_terms": true,
+            "first_name": firstName,
+            "last_name": lastName,
+            "cpf": cpfFormat,
+            "phone": phoneFormat
         }
+        console.log(JSON.stringify(json))
 
-        fetch('', {
+        await fetch('https://w5os3zgc5d.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/create-user', {
+            mode: 'cors',
             method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify(json),
-        }).then(response => response.json())
-        .then(data => {
-            console.log(JSON.stringify(data))
-            console.log(data.status)
-        })
+        }).then(response => {
+            if(response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+            }
+        }).then(data => {
+            // AQUI VC CONTROLA O JSON DE RETORNO
+            console.log("data: " + data.message)
+        }).catch(error => {
+            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+            console.log("ERROOOO" + error.status);
+            // 3. get error messages, if any
+            error.json().then((json: any) => {
+              console.log(json);
+              console.log(json.message);
+            })
+        })            
+
     }
 
     return (

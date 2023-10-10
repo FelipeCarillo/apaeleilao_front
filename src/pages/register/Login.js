@@ -6,30 +6,36 @@ export default function Login(){
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
 
-    function Login(){
+    async function Login(){
         if(login === ''){
             return
         }
         if(password === ''){
             return
         }
-        const json = {
-            'user': login,
-            'password': password
-        }
-        
-        fetch('', {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(json),
-        }).then(response => response.json())
-        .then(data => {
-            console.log(JSON.stringify(data))
-            // setStatusCode(data.status)
-            // setMessage(data.message)
-        })
+
+        await fetch('https://w5os3zgc5d.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/get-user?email='+login+'&password='+password, {
+            mode: 'cors',
+            method: 'GET',
+        }).then(response => {
+            if(response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+            }
+        }).then(data => {
+            // AQUI VC CONTROLA O JSON DE RETORNO
+            console.log("data: " + JSON.stringify(data.body.user))
+        }).catch(error => {
+            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+            console.log("ERROOOO" + error.status);
+            // 3. get error messages, if any
+            error.json().then((json: any) => {
+              console.log(json);
+              console.log(json.message);
+            })
+        })       
+
     }
 
     return (
