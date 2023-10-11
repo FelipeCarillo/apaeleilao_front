@@ -1,6 +1,8 @@
 import { useState } from "react"
 import Navbar from "../../components/Navbar"
 import { Link } from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login(){
     const [login, setLogin] = useState('')
@@ -8,10 +10,28 @@ export default function Login(){
 
     async function Login(){
         if(login === ''){
-            return
+            return toast.error('Email Inválido', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
         if(password === ''){
-            return
+            return toast.error('Senha Inválida', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
 
         await fetch('https://w5os3zgc5d.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/get-user?email='+login+'&password='+password, {
@@ -32,7 +52,16 @@ export default function Login(){
             // 3. get error messages, if any
             error.json().then((json: any) => {
               console.log(json);
-              console.log(json.message);
+              toast.error(json.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
             })
         })       
 
@@ -43,6 +72,8 @@ export default function Login(){
         <Navbar />
         
         <main className="px-4 my-8 flex flex-col justify-center">
+            <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
+ 
             <h1 className="text-4xl text-center mt-4 font-medium text-blue-900 md:text-5xl">Login</h1>
             <div className="flex justify-center">
                 <div className="w-[90%] h-[2px] bg-gray-200 my-2 md:my-4" />

@@ -2,7 +2,8 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import ReactInputMask from "react-input-mask";
 import { Link } from "react-router-dom";
-// import {v4 as uuidv4} from 'uuid';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Cadastro() {
     // Set Infos
@@ -25,13 +26,28 @@ export default function Cadastro() {
 
     function next() {
         if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName) || firstName.length < 3 || firstName.length > 200 || lastName.length < 3 || lastName.length > 200){
-            return
-        }
-        if(firstName === '' && firstName === ''){
-            return
+            return toast.error('Nome Inválido', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
         if(email === '' || email.length > 250){
-            return
+            return  toast.error('Email Inválido', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
 
         let cadastro1 = document.getElementById('cadastro1');
@@ -47,7 +63,16 @@ export default function Cadastro() {
         cpfFormat = cpfFormat.replace(/\./g, '')
         cpfFormat = cpfFormat.replace(/_/g, '')
         if(cpfFormat.length !== 11){
-            return
+            return toast.error('CPF Inválido', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
 
         var phoneFormat = phone.replace(/\(/g, '')
@@ -55,30 +80,104 @@ export default function Cadastro() {
         phoneFormat = phoneFormat.replace(/-/g, '')
         phoneFormat = phoneFormat.replace(/_/g, '')
         if(phoneFormat.length !== 11){
-            return
+            return toast.error('Telefone Inválido', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
         
         if(termos !== true){
-            return
+            return toast.error('Aceite os Termos', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
+
         if(password !== ''){
             if(!/[A-Z]/.test(password)){
-                return
+                return toast.error('Senha Inválida', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
             }
             if(!/[0-9]/.test(password)){
-                return
+                return toast.error('Senha Inválida', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
             }
             if(!/[^A-Za-z0-9]/.test(password)){
-                return
+                return toast.error('Senha Inválida', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
             }
             if(password.length < 8){
-                return
+                return toast.error('Senha Inválida', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
             }
             if(password !== confirmPass){
-                return
+                return toast.error('Senha Inválida', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
             }
+
         }else {
-            return
+            return toast.error('Senha Inválida', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
         
         const json = {
@@ -104,14 +203,33 @@ export default function Cadastro() {
             }
         }).then(data => {
             // AQUI VC CONTROLA O JSON DE RETORNO
+            toast.success(data.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
             console.log("data: " + data.message)
         }).catch(error => {
             // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
             console.log("ERROOOO" + error.status);
             // 3. get error messages, if any
             error.json().then((json: any) => {
-              console.log(json);
-              console.log(json.message);
+                console.log(json);
+                toast.error(json.message, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
             })
         })            
 
@@ -122,6 +240,8 @@ export default function Cadastro() {
         <Navbar />
 
         <main className="px-4 flex flex-col justify-center">
+        <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
+            
             <h1 className="text-4xl text-center mt-4 font-medium text-blue-900 md:text-5xl">Registrar-se</h1>
             <div className="flex justify-center">
                 <div className="w-[90%] h-[2px] bg-gray-200 my-2 md:my-4" />
