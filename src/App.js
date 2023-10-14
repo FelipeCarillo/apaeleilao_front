@@ -5,6 +5,7 @@ import Cadastro from './pages/register/Cadastro'
 import MeuPerfil from './pages/user/MeuPerfil'
 import Participados from './pages/user/Participados'
 import Leiloes from './pages/admin/Leiloes'
+import Verificacao from './pages/register/Verificacao'
 
 export default function App() {
   
@@ -14,6 +15,7 @@ export default function App() {
         <Route path='/' element={<Principal />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/cadastro' element={<Cadastro />}/>
+        <Route path='/verificacao' element={<Verificacao />}/>
         <Route path='/participados' element={<Participados />}/>
         <Route path='/meuPerfil' element={<MeuPerfil />} />
         {/* ADMIN */}
