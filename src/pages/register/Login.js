@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Navbar from "../../components/Navbar"
+import Footer from '../../components/Footer'
 import { Link } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Login(){
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const [viewPass, setViewPass] = useState(false)
 
     async function Login(){
         if(login === ''){
@@ -88,8 +90,11 @@ export default function Login(){
 
                 <div className="flex flex-col text-xl gap-2 mb-4 md:items-center">
                     <label className='md:w-1/2' htmlFor="password">Senha:</label>
-                    <input onChange={(e) => {setPassword(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type="password" name="password" id="password"/>
-                    <Link className='underline max-md:self-start md:w-1/2' to="/">Esqueceu sua Senha?</Link>
+                    <input onChange={(e) => {setPassword(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type={`${viewPass ? "text" : "password"}`} name="password" id="password"/>
+                    <div className="flex justify-between w-1/2 max-md:w-full">
+                        <Link className='underline max-md:self-start md:w-1/2' to="/">Esqueceu sua Senha?</Link>
+                        <label onClick={(e) => {setViewPass(!viewPass)}}>Mostrar Senha</label>  
+                    </div>
                 </div>
 
                 <div className="flex justify-center mt-8">
@@ -107,11 +112,9 @@ export default function Login(){
                     <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer">LOGIN</label>
                 </div>
             </form>
+            <p className="text-lg text-center my-4">Ainda não possui uma conta? <Link className='text-azul' to="/cadastro">Clique Aqui</Link> </p>
         </main>
-
-        <footer className='fixed bottom-0 mt-8 w-full text-center font-medium py-4 bg-azul shadow-xl'>
-            <p className='text-white'>Ainda não possui uma conta? <Link className='text-yellow-400' to="/cadastro">Clique Aqui</Link> </p>
-        </footer>
+        <Footer />
         </>
     )
 }

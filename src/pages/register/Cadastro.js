@@ -4,6 +4,7 @@ import ReactInputMask from "react-input-mask";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from "../../components/Footer";
 
 export default function Cadastro() {
     // Set Infos
@@ -298,6 +299,7 @@ export default function Cadastro() {
                             <li><i className={`fa-solid ${/[A-Z]/.test(len) ? 'fa-check text-green-500' : 'fa-spinner animate-spin'}`}></i> Ao menos 1 letra maiúscula;</li>
                             <li><i className={`fa-solid ${/[0-9]/.test(len) ? 'fa-check text-green-500' : 'fa-spinner animate-spin'}`}></i> Ao menos 1 número;</li>
                             <li><i className={`fa-solid ${/[^A-Za-z0-9]/.test(len) ? "fa-check text-green-500" : "fa-spinner animate-spin"}`}></i> Ao menos 1 caracter especial;</li>
+                            <li><i className={`fa-solid ${password === confirmPass && password !== "" && confirmPass !== "" ? "fa-check text-green-500" : "fa-spinner animate-spin"}`}></i> Senha Confirmada</li>
                         </ul>
                         </div>
                     </div>
@@ -316,10 +318,10 @@ export default function Cadastro() {
                 </section>
 
             </form>
+            <p className='text-lg text-center my-4'>Já possui uma conta? <Link className='text-azul' to="/login">Clique Aqui</Link></p>
         </main>
-        <footer className='md:fixed md:bottom-0 mt-4 w-full text-center font-semibold py-4 bg-azul shadow-xl'>
-            <p className='text-white'>Já possui uma conta? <Link className='text-yellow-400' to="/login">Clique Aqui</Link></p>
-        </footer>
+
+        <Footer />
         </>
     )
 }
