@@ -57,7 +57,6 @@ export default function Cadastro() {
     }
 
     async function POSTCadastrar(){
-        // let id = uuidv4();
         // VALIDAÇÕES
         var cpfFormat = cpf.replace(/-/g, '')
         cpfFormat = cpfFormat.replace(/\./g, '')
