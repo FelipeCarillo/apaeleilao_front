@@ -13,7 +13,7 @@ export default function Leiloes() {
         "encerramento" : "10/10/2021"},
       ]
   
-    function Dropdown({}){
+    function Dropdown(){
       var x = document.getElementById('myDIV');
       if (x.style.display === 'flex') {
         x.style.display = 'none';
@@ -22,7 +22,7 @@ export default function Leiloes() {
       }
     }
 
-    function LeiloesC({}){
+    function LeiloesC(){
       var a = document.getElementById('LeiloesCriados');
       var b = document.getElementById('LeiloesCriadosCards');
       var c = document.getElementById('LeiloesFinalizados');
@@ -33,7 +33,7 @@ export default function Leiloes() {
       d.style.display = 'none';
     }
 
-    function LeiloesF({}){
+    function LeiloesF(){
       var a = document.getElementById('LeiloesCriados');
       var b = document.getElementById('LeiloesCriadosCards');
       var c = document.getElementById('LeiloesFinalizados');

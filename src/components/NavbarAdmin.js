@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import LogoApae from './logoApae.jpg'
 
 export default function NavbarAdmin({...props}){
-    const LogoApae = "https://apaeleilaoimtphotos.s3.sa-east-1.amazonaws.com/logo-apaeleilao/logo-apaeleilao-branco.jpg"
     const [menu, setMenu] = useState(false)
     
     return (

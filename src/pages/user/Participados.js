@@ -41,7 +41,7 @@ export default function Participados() {
       },
     ]
 
-    function Dropdown({}){
+    function Dropdown(){
       var x = document.getElementById('myDIV');
       if (x.style.display === 'flex') {
         x.style.display = 'none';
