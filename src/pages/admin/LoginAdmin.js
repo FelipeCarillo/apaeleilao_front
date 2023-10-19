@@ -5,70 +5,14 @@ import { Link } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Login(){
+export default function LoginAdmin() {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [viewPass, setViewPass] = useState(false)
 
-    async function Login(){
-        if(login === ''){
-            return toast.error('Email Inválido', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-        }
-        if(password === ''){
-            return toast.error('Senha Inválida', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-        }
-
-        await fetch('https://w5os3zgc5d.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/get-user?email='+login+'&password='+password, {
-            mode: 'cors',
-            method: 'GET',
-        }).then(response => {
-            if(response.ok){
-                return response.json()
-            }else{
-                return Promise.reject(response);
-            }
-        }).then(data => {
-            // AQUI VC CONTROLA O JSON DE RETORNO
-            console.log("data: " + JSON.stringify(data.body.user))
-        }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO" + error.status);
-            // 3. get error messages, if any
-            error.json().then((json: any) => {
-              console.log(json);
-              toast.error(json.message, {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-            })
-        })       
+    function Login() {
 
     }
-
     return (
         <>
         <Navbar />
@@ -76,7 +20,7 @@ export default function Login(){
         <main className="px-4 my-8 flex flex-col justify-center">
             <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
  
-            <h1 className="text-4xl text-center mt-4 font-medium text-blue-900 md:text-5xl">Login</h1>
+            <h1 className="text-4xl text-center mt-4 font-medium text-blue-900 md:text-5xl">Login Administrativo</h1>
             <div className="flex justify-center">
                 <div className="w-[90%] h-[2px] bg-gray-200 my-2 md:my-4" />
             </div>
@@ -84,15 +28,14 @@ export default function Login(){
             {/* FORMULARIO DE LOGIN */}
             <form>
                 <div className="flex flex-col text-xl gap-2 mb-4 md:items-center">
-                    <label className='md:w-1/2' htmlFor="login">Email:</label>
+                    <label className='md:w-1/2' htmlFor="login">Código de Acesso:</label>
                     <input onChange={(e) => {setLogin(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type="text" name="login" id="login"/>
                 </div>
 
                 <div className="flex flex-col text-xl gap-2 mb-4 md:items-center">
                     <label className='md:w-1/2' htmlFor="password">Senha:</label>
                     <input onChange={(e) => {setPassword(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type={`${viewPass ? "text" : "password"}`} name="password" id="password"/>
-                    <div className="flex justify-between w-1/2 max-md:w-full">
-                        <Link className='underline max-md:self-start md:w-1/2' to="/">Esqueceu sua Senha?</Link>
+                    <div className="flex justify-end w-1/2 max-md:w-full">
                         <label className="cursor-pointer" onClick={(e) => {setViewPass(!viewPass)}}>Mostrar Senha</label>  
                     </div>
                 </div>

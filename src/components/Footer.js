@@ -12,6 +12,7 @@ export default function Footer(){
                         <Link to='/' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Início</Link>
                         <Link to='/participados' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Leilões Participados</Link>
                         <Link to='/login' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Login</Link>
+                        <Link to='/admin/login' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Login administrativo</Link>
                     </div>
                 </div>
                 <div className="text-yellow-500 self-start">

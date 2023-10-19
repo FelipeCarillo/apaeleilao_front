@@ -6,6 +6,7 @@ import MeuPerfil from './pages/user/MeuPerfil'
 import Participados from './pages/user/Participados'
 import Leiloes from './pages/admin/Leiloes'
 import Verificacao from './pages/register/Verificacao'
+import LoginAdmin from './pages/admin/LoginAdmin'
 
 export default function App() {
   
@@ -20,6 +21,7 @@ export default function App() {
         <Route path='/meuPerfil' element={<MeuPerfil />} />
         {/* ADMIN */}
         <Route path='/admin/leiloes' element={<Leiloes />} />
+        <Route path='/admin/login' element={<LoginAdmin />} />
       </Routes>
     </Router>
   )
