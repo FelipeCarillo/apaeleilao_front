@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import ReactInputMask from "react-input-mask";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "../../components/Footer";
@@ -17,6 +17,9 @@ export default function Cadastro() {
     const [confirmPass, setConfirmPass] = useState('')
     const [termos, setTermos] = useState(false)
     const [len, setlen] = useState('')
+
+    // REDIRECT
+    const history = useNavigate();
 
     function back() {
         let cadastro1 = document.getElementById('cadastro1');
@@ -183,15 +186,15 @@ export default function Cadastro() {
         const json = {
             "password": password,
             "email": email,
-            "accepted_terms": true,
-            "first_name": firstName,
-            "last_name": lastName,
+            "accepted_terms": termos,
+            "first_name": String.prototype.toUpperCase(firstName),
+            "last_name": String.prototype.toUpperCase(lastName),
             "cpf": cpfFormat,
             "phone": phoneFormat
         }
         console.log(JSON.stringify(json))
 
-        await fetch('https://w5os3zgc5d.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/create-user', {
+        await fetch('https://0qwpk6pzki.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/create-user', {
             mode: 'cors',
             method: 'POST',
             body: JSON.stringify(json),
@@ -213,10 +216,14 @@ export default function Cadastro() {
                 progress: undefined,
                 theme: "light",
             })
-            console.log("data: " + data.message)
+            localStorage.setItem('token', data.body.token)
+            setTimeout(() => {
+                history('/verificacao')
+            }, 5000)
+            // console.log("data: " + data.message)
         }).catch(error => {
             // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO" + error.status);
+            console.log("ERROOOO " + error.status);
             // 3. get error messages, if any
             error.json().then((json: any) => {
                 console.log(json);

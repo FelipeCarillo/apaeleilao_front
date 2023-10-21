@@ -9,7 +9,6 @@ import Verificacao from './pages/register/Verificacao'
 import LoginAdmin from './pages/admin/LoginAdmin'
 
 export default function App() {
-  
   return (
     <Router>
       <Routes>
