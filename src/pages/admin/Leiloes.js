@@ -93,7 +93,7 @@ export default function Leiloes() {
                 <CardCriados data={participados}/>
               </section>
               </main>
-            
+            {/* Footer */}
             <Footer />
         </>
     )
