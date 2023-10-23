@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 export default function MeuPerfil() {
     return (
         <>
+        {/* NAVBAR */}
         <Navbar pag='Perfil'/>
 
         <main>
