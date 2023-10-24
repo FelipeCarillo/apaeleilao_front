@@ -29,7 +29,7 @@ export default function Cadastro() {
     }
 
     function next() {
-        if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName) || firstName.length < 3 || firstName.length > 200 || lastName.length < 3 || lastName.length > 200){
+        if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName) || firstName.length < 3 || firstName.length > 200 || lastName.length < 3 || lastName.length > 200 || firstName.trim() === '' || lastName.trim() === ''){
             return toast.error('Nome Inválido', {
                 position: "top-center",
                 autoClose: 3000,
