@@ -27,10 +27,10 @@ export default function MeuPerfil() {
                 </div>
             {/* DADOS */}
             </section>
-           <form className="border-black mx-[100px] text-2xl mr-24 mt-4 ml-24 box-content h-100 w-2200">
-                <div className="flex justify-end">
+           <form className="mx-[100px] text-2xl mr-24 mt-4 ml-24 box-content h-100 w-2200">
+                {/* <div className="flex justify-end">
                     <button className="border bg-[#f4db33] text-xl rounded-full py-1 px-2"><i className="fa-solid fa-pen"></i></button>
-                </div>
+                </div> */}
                 <div className="flex flex-col gap-2 mb-4">
                     <label className='md:w-1/2' htmlFor="Perfil">Nome:</label>
                     <input type="text" className="bg-gray-300 rounded-full py-1 px-3 w-full"/>
@@ -65,7 +65,7 @@ export default function MeuPerfil() {
                 
            </form>
            <div className="flex justify-center">
-                <button className="bg-yellow-300 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2" onClick={()=>{setProcess(!process)}}><i className={`fa-solid fa-circle-notch animate-spin ${process ? 'block' : 'hidden'}`}></i>Enviar</button>
+                <button className="bg-yellow-300 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2" onClick={()=>{setProcess(!process)}}><i className={`fa-solid fa-pen ${process ? '' : ''}`}></i>Editar</button>
             </div>
            {/* <section>
             <div className="flex flex-col gap-2 mb-4 mt-4 text-center">
