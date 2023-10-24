@@ -16,7 +16,7 @@ export default function Navbar({...props}){
                 <Link className="bg-yellow-300 text-black py-4 px-5 text-2xl rounded-full font-semibold" to='/login'><i className="fa-regular fa-circle-user"></i> Login</Link>
             </ul>
             <div className="flex items-center justify-center gap-4">
-                <label className="text-4xl hidden text-white max-lg:block" onClick={(e) => {setMenu(!menu)}}><i className="fa-solid fa-bars"></i></label>
+                <button className="text-4xl hidden text-white max-lg:block" onClick={(e) => {setMenu(!menu)}}><i className="fa-solid fa-bars"></i></button>
             </div>
         </nav>
     )
