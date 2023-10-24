@@ -115,7 +115,7 @@ export default function Login(){
                     <label className='md:w-1/2' htmlFor="password">Senha:</label>
                     <input onChange={(e) => {setPassword(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type={`${viewPass ? "text" : "password"}`} name="password" id="password"/>
                     <div className="flex justify-between w-1/2 max-md:w-full">
-                        <Link className='underline max-md:self-start md:w-1/2' to="/">Esqueceu sua Senha?</Link>
+                        <Link className='underline max-md:self-start md:w-1/2' to="/redefinirSenha">Esqueceu sua Senha?</Link>
                         <label className="cursor-pointer" onClick={(e) => {setViewPass(!viewPass)}}>Mostrar Senha</label>  
                     </div>
                 </div>
