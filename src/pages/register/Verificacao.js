@@ -93,6 +93,7 @@ export default function Verificacao() {
                 progress: undefined,
                 theme: "light",
             })
+            localStorage.removeItem("token")
             setTimeout(() => {
                 history('/login')
             }, 5000)

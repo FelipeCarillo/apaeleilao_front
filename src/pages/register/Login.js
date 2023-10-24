@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Navbar from "../../components/Navbar"
 import Footer from '../../components/Footer'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,6 +9,9 @@ export default function Login(){
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [viewPass, setViewPass] = useState(false)
+    const [connected, setConnected] = useState(false)
+    // REDIRECT
+    const history = useNavigate();
 
     async function Login(){
         if(login === ''){
@@ -36,9 +39,16 @@ export default function Login(){
             })
         }
 
-        await fetch('https://w5os3zgc5d.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/get-user?email='+login+'&password='+password, {
+        const json = {
+            "email": login,
+            "password": password,
+            "keep_login": connected
+        }
+        console.log(json)
+        await fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/get-token', {
             mode: 'cors',
-            method: 'GET',
+            method: 'POST',
+            body: JSON.stringify(json),
         }).then(response => {
             if(response.ok){
                 return response.json()
@@ -47,14 +57,7 @@ export default function Login(){
             }
         }).then(data => {
             // AQUI VC CONTROLA O JSON DE RETORNO
-            console.log("data: " + JSON.stringify(data.body.user))
-        }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO" + error.status);
-            // 3. get error messages, if any
-            error.json().then((json: any) => {
-              console.log(json);
-              toast.error(json.message, {
+            toast.success(data.message, {
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -64,8 +67,28 @@ export default function Login(){
                 progress: undefined,
                 theme: "light",
             })
+            localStorage.setItem('token', data.body.token)
+            setTimeout(() => {
+                history('/')
+            }, 5000)
+        }).catch(error => {
+            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+            console.log("ERROOOO " + error.status);
+            // 3. get error messages, if any
+            error.json().then((json: any) => {
+                console.log(json);
+                toast.error(json.message, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
             })
-        })       
+        })         
 
     }
 
@@ -103,7 +126,7 @@ export default function Login(){
 
                 <div className="flex flex-col items-center text-xl gap-4 my-4">
                     <div className='flex items-center max-md:self-start gap-1 md:w-1/2'>
-                        <input className="w-4 h-4" type="checkbox" id="conected" name="conected"/>
+                        <input className="w-4 h-4" type="checkbox" id="conected" name="conected" onChange={(e)=>{setConnected(e.target.checked)}}/>
                         <label htmlFor="conected">Deseja continuar conectado?</label>
                     </div>
                 </div>
