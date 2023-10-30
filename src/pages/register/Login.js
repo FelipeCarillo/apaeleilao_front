@@ -10,6 +10,10 @@ export default function Login(){
     const [password, setPassword] = useState('')
     const [viewPass, setViewPass] = useState(false)
     const [connected, setConnected] = useState(false)
+
+    // MODAL ESQUECEU SENHA
+    const [modal, setModal] = useState(false)
+    const [forgetPass, setForgetPass] = useState('')
     // REDIRECT
     const history = useNavigate();
 
@@ -45,7 +49,7 @@ export default function Login(){
             "keep_login": connected
         }
         console.log(json)
-        await fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/get-token', {
+        await fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/get-token', {
             mode: 'cors',
             method: 'POST',
             body: JSON.stringify(json),
@@ -57,20 +61,20 @@ export default function Login(){
             }
         }).then(data => {
             // AQUI VC CONTROLA O JSON DE RETORNO
-            toast.success(data.message, {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
+            // toast.success(data.message, {
+            //     position: "top-center",
+            //     autoClose: 3000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: "light",
+            // })
             localStorage.setItem('token', data.body.token)
             setTimeout(() => {
                 history('/')
-            }, 5000)
+            }, 2000)
         }).catch(error => {
             // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
             console.log("ERROOOO " + error.status);
@@ -89,6 +93,14 @@ export default function Login(){
                 })
             })
         })         
+
+    }
+
+    function forgetPassUser(){
+        const json = {
+            "email": forgetPass
+        }
+        console.log(json)
 
     }
 
@@ -115,7 +127,7 @@ export default function Login(){
                     <label className='md:w-1/2' htmlFor="password">Senha:</label>
                     <input onChange={(e) => {setPassword(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type={`${viewPass ? "text" : "password"}`} name="password" id="password"/>
                     <div className="flex justify-between w-1/2 max-md:w-full">
-                        <Link className='underline max-md:self-start md:w-1/2' to="/redefinirSenha">Esqueceu sua Senha?</Link>
+                        <label className='underline max-md:self-start md:w-1/2 cursor-pointer' onClick={()=>{setModal(true)}}>Esqueceu sua Senha?</label>
                         <label className="cursor-pointer" onClick={(e) => {setViewPass(!viewPass)}}>Mostrar Senha</label>  
                     </div>
                 </div>
@@ -138,6 +150,29 @@ export default function Login(){
             <p className="text-lg text-center my-4">Ainda não possui uma conta? <Link className='text-azul' to="/cadastro">Clique Aqui</Link> </p>
         </main>
         <Footer />
+
+        {/* MODAL */}
+        <div className={`${modal ? 'relative z-10' : 'hidden'}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div className="">
+                        <h3 className="font-semibold text-center">Esqueceu sua senha?</h3>
+                        <p className="text-center my-2">Informe seu email de login para alterar sua senha e recuperar sua conta:</p>
+                        <input className="w-full border-2 rounded-lg p-1" placeholder="Digite seu Email" type="email" onChange={(e)=>{setForgetPass(e.target.value)}}/>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" className="inline-flex w-full justify-center rounded-md bg-yellow-300 px-3 py-2 text-sm font-semibold shadow-sm hover:bg-yellow-400 sm:ml-3 sm:w-auto" onClick={()=>{forgetPassUser()}}>Enviar Email</button>
+                    <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={()=>{setModal(false)}}>Voltar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
         </>
     )
 }

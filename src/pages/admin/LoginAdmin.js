@@ -1,18 +1,63 @@
 import { useState } from "react"
 import Navbar from "../../components/Navbar"
 import Footer from '../../components/Footer'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginAdmin() {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const [connected, setConnected] = useState(false)
     const [viewPass, setViewPass] = useState(false)
+
+    // REDIRECT
+    const history = useNavigate();
 
     function Login() {
 
+        const json = {
+            "access_key": login,
+            "password": password,
+            "keep_login": connected
+        }
+
+        fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/get-token', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify(json)
+        }).then(response => {
+            if(response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+            }
+        }).then(data => {
+            // AQUI VC CONTROLA O JSON DE RETORNO
+            localStorage.setItem('token', data.body.token)
+            setTimeout(() => {
+                history('/admin')
+            }, 2000)
+        }).catch(error => {
+            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+            console.log("ERROOOO " + error.status);
+            // 3. get error messages, if any
+            error.json().then((json: any) => {
+                console.log(json);
+                toast.error(json.message, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            })
+        })  
     }
+
     return (
         <>
         <Navbar />
@@ -46,7 +91,7 @@ export default function LoginAdmin() {
 
                 <div className="flex flex-col items-center text-xl gap-4 my-4">
                     <div className='flex items-center max-md:self-start gap-1 md:w-1/2'>
-                        <input className="w-4 h-4" type="checkbox" id="conected" name="conected"/>
+                        <input className="w-4 h-4" type="checkbox" id="conected" name="conected" onChange={(e)=>{setConnected(e.target.checked)}}/>
                         <label htmlFor="conected">Deseja continuar conectado?</label>
                     </div>
                 </div>

@@ -5,6 +5,11 @@ export default function RedefinirSenha() {
     return (
         <>
         <Navbar />
+
+        <main>
+            
+        </main>
+
         <Footer />
         </>
     )

@@ -194,7 +194,7 @@ export default function Cadastro() {
         }
         // console.log(JSON.stringify(json))
 
-        await fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/create-user', {
+        await fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/create-user', {
             mode: 'cors',
             method: 'POST',
             body: JSON.stringify(json),

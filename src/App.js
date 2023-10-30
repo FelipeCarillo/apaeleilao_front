@@ -21,7 +21,7 @@ export default function App() {
         <Route path='/meuPerfil' element={<MeuPerfil />} />
         <Route path='/redefinirSenha' element={<RedefinirSenha />} />
         {/* ADMIN */}
-        <Route path='/admin/' element={<Leiloes />} />
+        <Route path='/admin' element={<Leiloes />} />
         <Route path='/admin/login' element={<LoginAdmin />} />
       </Routes>
     </Router>
