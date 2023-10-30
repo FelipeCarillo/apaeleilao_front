@@ -7,7 +7,7 @@ export default function RedefinirSenha() {
         <Navbar />
 
         <main>
-            
+            {/* REDEFINIR SENHA */}
         </main>
 
         <Footer />
