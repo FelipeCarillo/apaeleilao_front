@@ -20,7 +20,6 @@ export default function Carrossel({data}) {
                         <img className=" rounded-t-2xl shadow-lg mb-4 w-full" src={data.img} alt={data.descImg}/>
                         <div className="px-2">
                             <h2 className="text-2xl">{data.nome}</h2>
-                            <p>{data.desc}</p>
                             <p className="font-bold text-xl">R${data.lance}</p>
                             <div>
                                 <p>Abre:{data.date} - {data.timeStart}</p>

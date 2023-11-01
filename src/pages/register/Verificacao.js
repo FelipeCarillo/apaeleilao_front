@@ -11,7 +11,7 @@ export default function Verificacao() {
     const history = useNavigate();
 
     function enviarEmail(){
-        fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/send-verification-email-code', {
+        fetch(process.env.REACT_APP_API+'/send-verification-email-code', {
             method: "GET",
             mode: "cors",
             headers: {
@@ -66,7 +66,7 @@ export default function Verificacao() {
         }
         console.log(json)
 
-        await fetch("https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/confirm-verification-email-code", {
+        await fetch(process.env.REACT_APP_API+"/confirm-verification-email-code", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

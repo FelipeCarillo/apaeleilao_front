@@ -192,9 +192,8 @@ export default function Cadastro() {
             "cpf": cpfFormat,
             "phone": phoneFormat
         }
-        // console.log(JSON.stringify(json))
 
-        await fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/create-user', {
+        await fetch(process.env.REACT_APP_API+'/create-user', {
             mode: 'cors',
             method: 'POST',
             body: JSON.stringify(json),

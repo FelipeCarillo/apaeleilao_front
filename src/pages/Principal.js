@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import Carrossel from "../components/Carrossel"
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Principal() {
     const data = [
@@ -51,11 +52,45 @@ export default function Principal() {
         },
     ]
 
+    function getLeiloes(){
+        fetch(process.env.REACT_APP_API+'/get-all-auctions-menu', {
+            method: 'GET',
+        }).then(response => {
+            if(response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+            }
+        }).then(data => {
+            console.log(data)
+        }).catch(error => {
+            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+            console.log("ERROOOO " + error.status);
+            // 3. get error messages, if any
+            error.json().then((json: any) => {
+                console.log(json);
+                toast.error(json.message, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            })
+        })  
+    }
+
     return (
         <>
         <Navbar pag="Inicio"/>
         
         <main>
+            <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
+ 
+            {getLeiloes()}
             <section className="px-4 py-8 mb-12 flex flex-col gap-8 items-center">
                 <h1 className="text-4xl text-center">Leilão Ativo</h1>
                 {/* CARD LEITAO ATIVO */}
@@ -65,7 +100,6 @@ export default function Principal() {
                         <div className="flex flex-col self-start gap-2 text-lg">
                             <div>
                                 <h2 className="text-3xl">Exemplo</h2>
-                                <p className="text-2xl">Usado</p>
                             </div>
                             <p className="underline">Informações</p>
                             <p>Data: 23/08/2023 - 12:00 à 12:30</p>

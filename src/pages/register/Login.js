@@ -49,8 +49,9 @@ export default function Login(){
             "keep_login": connected
         }
         console.log(json)
-        await fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/get-token', {
-            mode: 'cors',
+        
+        await fetch(process.env.REACT_APP_API+'/get-token', {
+            // mode: 'no-cors',
             method: 'POST',
             body: JSON.stringify(json),
         }).then(response => {

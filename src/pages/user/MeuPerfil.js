@@ -11,13 +11,13 @@ export default function MeuPerfil() {
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
 
-    const [process,setProcess] = useState(false)
+    const [edit,setEdit] = useState(false)
     const [viewPass,setviewPass] =useState(false)
 
     const [placeholder, setPlaceholder] = useState(false)
 
     function getUser() {
-        fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/get-user', {
+        fetch(process.env.REACT_APP_API+'/get-user', {
             method: 'GET',
             headers: {
                 'Authorization': localStorage.getItem('token'),
@@ -102,7 +102,7 @@ export default function MeuPerfil() {
                 
            </form>
            <div className="flex justify-center">
-                <button className="bg-yellow-300 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2" onClick={()=>{setProcess(!process)}}><i className={`fa-solid fa-pen ${process ? '' : ''}`}></i>Editar</button>
+                <button className="bg-yellow-300 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2" onClick={()=>{setEdit(!edit)}}><i className={`fa-solid fa-pen ${edit ? '' : ''}`}></i>Editar</button>
             </div>
         </main>
 
