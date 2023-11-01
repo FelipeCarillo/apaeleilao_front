@@ -62,7 +62,7 @@ export default function Participados() {
                     <input className="w-[100%] h-14 shadow appearance-none border-2 border-black rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Pesquisar..."/>
                   </div>
                   <div className="col-span-10 md:col-span-2">
-                    <button onClick={Dropdown} className="w-[100%] relative bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl text-center">Filtro <i className="fa-solid fa-filter"></i></button>
+                    <button onClick={Dropdown} className="w-[100%] flex justify-center bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl text-center">Filtro <i className="fa-solid fa-filter"></i></button>
                     <div id="myDIV" className="hidden flex-col mt-1 border border-black absolute bg-white w-[228px] md:w-[315px]">
                       <button className="text-xl hover:bg-azul">Participou</button>
                       <button className="text-xl hover:bg-azul">Pagar</button>
