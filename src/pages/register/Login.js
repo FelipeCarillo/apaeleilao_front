@@ -101,7 +101,6 @@ export default function Login(){
             "email": forgetPass
         }
         console.log(json)
-
     }
 
     return (

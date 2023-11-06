@@ -106,8 +106,9 @@ export default function MeuPerfil() {
                 </div>
                 
            </form>
-           <div className="flex justify-between px-24">
+           <div className="flex justify-between px-24 max-md:flex-col">
                 <button className="bg-yellow-300 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2" onClick={()=>{setEdit(!edit)}}><i className={`fa-solid fa-pen ${edit ? '' : ''}`}></i>Editar</button>
+                <button className="bg-red-500 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2 text-white" onClick={sair}>Sair</button>
             </div>
         </main>
 

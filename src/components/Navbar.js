@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import logoApae from './logoApae.jpg'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
@@ -7,6 +7,8 @@ export default function Navbar({...props}){
     const [menu, setMenu] = useState(false)
     const [validado, setValidado] = useState()
 
+    // REDIRECT
+    const history = useNavigate();
     menu ? disableBodyScroll(document) : enableBodyScroll(document)
 
     async function login(){
@@ -17,7 +19,6 @@ export default function Navbar({...props}){
                 'Authorization': localStorage.getItem('token') ? localStorage.getItem('token') : '',
             }   
         }).then(response => {
-            console.log(response)
             if(response.ok){
                 return response.json()
             }else{
@@ -25,10 +26,14 @@ export default function Navbar({...props}){
                 
             }
         }).then(data => {
-            console.log(data.body)
-            if(data.status === 400){
+            if(data.status === 401){
                 setValidado(false)
             }else{
+                if(data.body.status_account === 'PENDING'){
+                    setTimeout(() => {
+                        history('/validacao')
+                    }, 1000);   
+                }
                 data.body.status_account === 'ACTIVE' ? setValidado(true) : setValidado(false)
             }
         }).catch(error => {
