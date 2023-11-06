@@ -17,6 +17,7 @@ export default function Cadastro() {
     const [confirmPass, setConfirmPass] = useState('')
     const [termos, setTermos] = useState(false)
     const [len, setlen] = useState('')
+    const [loading, setLoading] = useState(false)
 
     // REDIRECT
     const history = useNavigate();
@@ -61,6 +62,8 @@ export default function Cadastro() {
     }
 
     async function POSTCadastrar(){
+        setLoading(true)
+        setTimeout(() => {setLoading(false)}, 5000)
         // VALIDAÇÕES
         var cpfFormat = cpf.replace(/-/g, '')
         cpfFormat = cpfFormat.replace(/\./g, '')
@@ -319,7 +322,7 @@ export default function Cadastro() {
 
                     <div className='flex max-sm:flex-col-reverse text-center justify-between md:justify-center gap-4'>
                         <label className="py-4 px-10 text-xl rounded-full border-2 border-yellow-300 cursor-pointer" onClick={back}>Voltar</label>
-                        <label className="bg-yellow-300 py-4 px-10 text-xl rounded-full cursor-pointer" onClick={POSTCadastrar}>Cadastrar</label>
+                        <label className="bg-yellow-300 py-4 px-10 text-xl rounded-full cursor-pointer" onClick={POSTCadastrar}><i class={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> Cadastrar</label>
                     </div>
                 </section>
 

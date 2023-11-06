@@ -14,10 +14,12 @@ export default function Login(){
     // MODAL ESQUECEU SENHA
     const [modal, setModal] = useState(false)
     const [forgetPass, setForgetPass] = useState('')
+    const [loading, setLoading] = useState(false)
     // REDIRECT
     const history = useNavigate();
 
     async function Login(){
+        setLoading(true)
         if(login === ''){
             return toast.error('Email Inválido', {
                 position: "top-center",
@@ -143,7 +145,7 @@ export default function Login(){
                 </div>
                 
                 <div className="flex justify-center mt-4">
-                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer">LOGIN</label>
+                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer"><i class={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</label>
                 </div>
             </form>
             <p className="text-lg text-center my-4">Ainda não possui uma conta? <Link className='text-azul' to="/cadastro">Clique Aqui</Link> </p>
