@@ -51,7 +51,6 @@ export default function Login(){
         console.log(json)
         
         await fetch(process.env.REACT_APP_API+'/get-token', {
-            // mode: 'no-cors',
             method: 'POST',
             body: JSON.stringify(json),
         }).then(response => {

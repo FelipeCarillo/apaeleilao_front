@@ -13,7 +13,6 @@ export default function Verificacao() {
     function enviarEmail(){
         fetch(process.env.REACT_APP_API+'/send-verification-email-code', {
             method: "GET",
-            mode: "cors",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": localStorage.getItem("token")
@@ -39,7 +38,9 @@ export default function Verificacao() {
             // console.log("data: " + data.message)
         }).catch(error => {
             // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
+            // console.log("ERROOOO " + error.status);
+            // console.log(error.data);
+            console.log(error);
             // 3. get error messages, if any
             error.json().then((json: any) => {
                 console.log(json);
@@ -64,7 +65,6 @@ export default function Verificacao() {
         const json = {
             "verification_email_code": codeString
         }
-        console.log(json)
 
         await fetch(process.env.REACT_APP_API+"/confirm-verification-email-code", {
             method: "POST",
