@@ -6,6 +6,7 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 export default function Navbar({...props}){
     const [menu, setMenu] = useState(false)
     const [validado, setValidado] = useState()
+    const [user, setUser] = useState('')
 
     // REDIRECT
     const history = useNavigate();
@@ -31,10 +32,12 @@ export default function Navbar({...props}){
             }else{
                 if(data.body.status_account === 'PENDING'){
                     setTimeout(() => {
-                        history('/validacao')
+                        history('/verificacao')
                     }, 1000);   
                 }
                 data.body.status_account === 'ACTIVE' ? setValidado(true) : setValidado(false)
+                setUser(data.body.first_name)
+
             }
         }).catch(error => {
             console.log(error)
@@ -49,7 +52,7 @@ export default function Navbar({...props}){
                 <li className={`${props.pag === 'Participados' ? "text-yellow-400 underline" : ""}`}><Link to='/participados'>Leilões Participados</Link></li>
                 <li className={`${props.pag === 'Perfil' ? "text-yellow-400 underline" : ""}`}><Link to={`${validado ? '/meuPerfil' : '/login'}`}>Meu Perfil</Link></li>
                 <li className="absolute top-5 right-5 hidden max-lg:block"><label onClick={(e)=>{setMenu(!menu)}}><i className="fa-solid fa-x"></i></label></li>
-                <Link className="bg-yellow-300 text-black py-4 px-5 text-2xl rounded-full font-semibold" to={validado ? "/meuPerfil" : "/login"}><i className="fa-regular fa-circle-user"></i>{validado ? " Logado" : " Login"}</Link>
+                <Link className="bg-yellow-300 text-black py-4 px-5 text-2xl rounded-full font-semibold" to={validado ? "/meuPerfil" : "/login"}><i className="fa-regular fa-circle-user"></i> {validado ? user : "Login"}</Link>
             </ul>
             <div className="flex items-center justify-center gap-4">
                 <button className="text-4xl hidden text-white max-lg:block" onClick={(e) => {setMenu(!menu)}}><i className="fa-solid fa-bars"></i></button>

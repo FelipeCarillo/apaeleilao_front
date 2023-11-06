@@ -102,7 +102,6 @@ export default function MeuPerfil() {
                         <label className="text-lg underline underline-offset-2 mb-2 flex justify-items-start cursor-pointer">Redefinir Senha</label>
                         <label className={`text-lg flex items-end cursor-pointer mb-2`}onClick={()=>{setviewPass(!viewPass)}}>Mostrar Senha</label>
                     </div>
-                    
                 </div>
                 
            </form>
