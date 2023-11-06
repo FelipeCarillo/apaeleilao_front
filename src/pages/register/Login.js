@@ -48,7 +48,7 @@ export default function Login(){
             "password": password,
             "keep_login": connected
         }
-        console.log(json)
+        // console.log(json)
         
         await fetch(process.env.REACT_APP_API+'/get-token', {
             method: 'POST',

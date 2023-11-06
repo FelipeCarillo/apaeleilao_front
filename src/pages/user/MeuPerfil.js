@@ -16,6 +16,11 @@ export default function MeuPerfil() {
 
     const [placeholder, setPlaceholder] = useState(false)
 
+    function sair() {
+        localStorage.removeItem('token')
+        window.location.href = '/login'
+    }
+
     function getUser() {
         fetch(process.env.REACT_APP_API+'/get-user', {
             method: 'GET',
@@ -101,7 +106,7 @@ export default function MeuPerfil() {
                 </div>
                 
            </form>
-           <div className="flex justify-center">
+           <div className="flex justify-between px-24">
                 <button className="bg-yellow-300 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2" onClick={()=>{setEdit(!edit)}}><i className={`fa-solid fa-pen ${edit ? '' : ''}`}></i>Editar</button>
             </div>
         </main>

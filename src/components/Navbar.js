@@ -9,17 +9,35 @@ export default function Navbar({...props}){
 
     menu ? disableBodyScroll(document) : enableBodyScroll(document)
 
-    function validate(){
-        const token = localStorage.getItem('token')
-        if(token === null){
-            setValidado(false)
-        }else{
-            setValidado(true)
-        }
+    async function login(){
+        await fetch(process.env.REACT_APP_API+'/get-user', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token') ? localStorage.getItem('token') : '',
+            }   
+        }).then(response => {
+            console.log(response)
+            if(response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+                
+            }
+        }).then(data => {
+            console.log(data.body)
+            if(data.status === 400){
+                setValidado(false)
+            }else{
+                data.body.status_account === 'ACTIVE' ? setValidado(true) : setValidado(false)
+            }
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     return (
-        <nav onLoad={validate} className="bg-azul p-4 flex justify-between items-center rounded-b-2xl shadow-xl z-50">
+        <nav onLoad={login} className="bg-azul p-4 flex justify-between items-center rounded-b-2xl shadow-xl z-50">
             <img className="w-[200px]" src={logoApae} alt="Logo da APAE"/>
             <ul className={`flex gap-16 items-center text-3xl text-white ${menu ? 'max-lg:absolute max-lg:bg-black max-lg:bg-opacity-90 max-lg:flex-col max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:h-full max-lg:justify-center max-lg:items-center' : 'max-lg:hidden'}`}>
                 <li className={`${props.pag === 'Inicio' ? "text-yellow-400 underline" : ""}`}><Link to='/'>Início</Link></li>
