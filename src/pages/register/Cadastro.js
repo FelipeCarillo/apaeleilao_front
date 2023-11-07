@@ -29,7 +29,7 @@ export default function Cadastro() {
     }
 
     function next() {
-        if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName) || firstName.length < 3 || firstName.length > 200 || lastName.length < 3 || lastName.length > 200){
+        if(/[0-9]/.test(firstName) || /[0-9]/.test(lastName) || firstName.length < 3 || firstName.length > 200 || lastName.length < 3 || lastName.length > 200 || firstName.trim() === '' || lastName.trim() === ''){
             return toast.error('Nome Inválido', {
                 position: "top-center",
                 autoClose: 3000,
@@ -187,14 +187,14 @@ export default function Cadastro() {
             "password": password,
             "email": email,
             "accepted_terms": termos,
-            "first_name": String.prototype.toUpperCase(firstName),
-            "last_name": String.prototype.toUpperCase(lastName),
+            "first_name": firstName,
+            "last_name": lastName,
             "cpf": cpfFormat,
             "phone": phoneFormat
         }
-        console.log(JSON.stringify(json))
+        // console.log(JSON.stringify(json))
 
-        await fetch('https://0qwpk6pzki.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/create-user', {
+        await fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/dev/apae-leilao/create-user', {
             mode: 'cors',
             method: 'POST',
             body: JSON.stringify(json),
