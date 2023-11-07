@@ -5,14 +5,20 @@ import ReactInputMask from "react-input-mask";
 import { ToastContainer, toast } from 'react-toastify';
 
 export default function MeuPerfil() {
+    // GETUSER
     const [inicials, setInicials] = useState('')
     const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
-    const [password, setPassword] = useState('')
 
-    const [edit,setEdit] = useState(false)
-    const [viewPass,setviewPass] =useState(false)
+    // UPDATEUSER
+    const [newFirstName, setNewFirstName] = useState('')
+    const [newLastName, setNewLastName] = useState('')
+    const [newPhone, setNewPhone] = useState('')
+
+    // MODAL EDITAR
+    const [modal, setModal] = useState(false)
 
     const [placeholder, setPlaceholder] = useState(false)
 
@@ -36,9 +42,9 @@ export default function MeuPerfil() {
         }).then(data => {
             setInicials(data.body.first_name.charAt(0) + data.body.last_name.charAt(0))
             setFirstName(data.body.first_name)
+            setLastName(data.body.last_name)
             setEmail(data.body.email)
             setPhone(data.body.phone)
-            setPassword(data.body.password)
         }).catch(error => {
             // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
             console.log("ERROOOO " + error.status);
@@ -58,6 +64,66 @@ export default function MeuPerfil() {
             })
         })
     }
+
+    function updateUser() {
+        const json = {}
+        const first_name = newFirstName === '' ? firstName : newFirstName
+        const last_name = newLastName === '' ? lastName : newLastName
+        const telefone = newPhone === '' ? phone : newPhone
+
+        if (first_name !== firstName) {
+            json.first_name = first_name
+        }
+        if (last_name !== lastName) {
+            json.last_name = last_name
+        }
+        if (telefone !== phone) {
+            json.phone = telefone
+        }
+
+        console.log(json)
+        fetch(process.env.REACT_APP_API+"/update-user",{
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify(json)
+        }).then((response)=>{
+            if(response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+            }
+        }).then((data)=>{
+            toast.success(data.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            setModal(false)
+            getUser()
+        }).catch((error)=>{
+            console.log(error)
+            toast.error(error.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        })
+    }
+
+
 
     return (
         <>
@@ -95,23 +161,48 @@ export default function MeuPerfil() {
                     <label className='md:w-1/2' htmlFor="Perfil">Celular:</label>
                     <ReactInputMask className="flex bg-gray-300 rounded-full py-1 px-3 w-full" mask="(99)99999-9999" name="tel" id="tel" value={phone} disabled/>
                 </div>
-                <div className="flex flex-col mb-4">
-                    <label className='md:w-1/2' htmlFor="Perfil">Senha:</label>
-                        <input type={`${viewPass ?'text': 'password'}`} className="bg-gray-300 rounded-full py-1 px-3 w-full" value={password} disabled/>
-                    <div className="flex items-center justify-between">
-                        <label className="text-lg underline underline-offset-2 mb-2 flex justify-items-start cursor-pointer">Redefinir Senha</label>
-                        <label className={`text-lg flex items-end cursor-pointer mb-2`}onClick={()=>{setviewPass(!viewPass)}}>Mostrar Senha</label>
-                    </div>
-                </div>
                 
            </form>
            <div className="flex justify-between px-24 max-md:flex-col">
-                <button className="bg-yellow-300 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2" onClick={()=>{setEdit(!edit)}}><i className={`fa-solid fa-pen ${edit ? '' : ''}`}></i>Editar</button>
+                <button className="bg-yellow-300 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2" onClick={()=>{setModal(true)}}><i className="fa-solid fa-pen"></i>Editar</button>
                 <button className="bg-red-500 py-4 px-16 text-xl mb-4 rounded-full cursor-pointer flex items-center gap-2 text-white" onClick={sair}>Sair</button>
             </div>
         </main>
 
         <Footer />
+
+        {/* MODAL */}
+        <div className={`${modal ? 'relative z-10' : 'hidden'}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <h3 className="font-semibold text-center text-azul text-2xl mb-4">Editar Perfil</h3>
+                    <div className="flex flex-col gap-2">
+                        <div>
+                            <label>Nome:</label>
+                            <input className="w-full border-2 rounded-lg p-1" placeholder={firstName} type="text" onChange={(e)=>{setNewFirstName(e.target.value)}}/>
+                        </div>
+                        <div>
+                            <label>Sobrenome:</label>
+                            <input className="w-full border-2 rounded-lg p-1" placeholder={lastName} type="text" onChange={(e)=>{setNewLastName(e.target.value)}}/>
+                        </div>
+                        <div>
+                            <label>Celular:</label>
+                            <input className="w-full border-2 rounded-lg p-1" placeholder={phone} type="text" onChange={(e)=>{setNewPhone(e.target.value)}}/>
+                        </div>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" className="inline-flex w-full justify-center rounded-md bg-yellow-300 px-3 py-2 text-sm font-semibold shadow-sm hover:bg-yellow-400 sm:ml-3 sm:w-auto" onClick={()=> {updateUser()}}>Atualizar</button>
+                    <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={()=>{setModal(false)}}>Voltar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
         </>
     )
 }

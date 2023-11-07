@@ -83,6 +83,7 @@ export default function Login(){
             // 3. get error messages, if any
             error.json().then((json: any) => {
                 console.log(json);
+                setLoading(false)
                 toast.error(json.message, {
                     position: "top-center",
                     autoClose: 3000,
@@ -98,11 +99,44 @@ export default function Login(){
 
     }
 
-    function forgetPassUser(){
-        const json = {
-            "email": forgetPass
-        }
-        console.log(json)
+    async function forgetPassUser(){
+        await fetch(process.env.REACT_APP_API+'/send-reset-password-link?email='+forgetPass, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+            if(response.status === 200){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+            }
+        }).then(data => {
+            toast.success(data.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            setModal(false)
+        }).catch(error => {
+            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+            console.log("ERROOOO " + error.status);
+            toast.error(error.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        })
     }
 
     return (
@@ -145,7 +179,7 @@ export default function Login(){
                 </div>
                 
                 <div className="flex justify-center mt-4">
-                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer"><i class={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</label>
+                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer"><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</label>
                 </div>
             </form>
             <p className="text-lg text-center my-4">Ainda não possui uma conta? <Link className='text-azul' to="/cadastro">Clique Aqui</Link> </p>

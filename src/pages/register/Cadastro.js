@@ -322,7 +322,7 @@ export default function Cadastro() {
 
                     <div className='flex max-sm:flex-col-reverse text-center justify-between md:justify-center gap-4'>
                         <label className="py-4 px-10 text-xl rounded-full border-2 border-yellow-300 cursor-pointer" onClick={back}>Voltar</label>
-                        <label className="bg-yellow-300 py-4 px-10 text-xl rounded-full cursor-pointer" onClick={POSTCadastrar}><i class={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> Cadastrar</label>
+                        <label className="bg-yellow-300 py-4 px-10 text-xl rounded-full cursor-pointer" onClick={POSTCadastrar}><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> Cadastrar</label>
                     </div>
                 </section>
 

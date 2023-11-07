@@ -9,9 +9,14 @@ import Verificacao from './pages/register/Verificacao'
 import LoginAdmin from './pages/admin/LoginAdmin'
 import Feedback from './pages/user/Feedback'
 import RedefinirSenha from './pages/register/RedefinirSenha'
+import { Usuarios } from './pages/admin/Usuarios'
+
+// LIBRAS
+import VLibras from '@djpfs/react-vlibras'
 
 export default function App() {
   return (
+    <>
     <Router>
       <Routes>
         <Route path='/' element={<Principal />}/>
@@ -25,7 +30,13 @@ export default function App() {
         {/* ADMIN */}
         <Route path='/admin' element={<Leiloes />} />
         <Route path='/admin/login' element={<LoginAdmin />} />
+        <Route path='/admin/usuarios' element={<Usuarios />} />
       </Routes>
     </Router>
+    
+    <div className='App'>
+      <VLibras forceOnload={true}/>
+    </div>
+    </>
   )
 }

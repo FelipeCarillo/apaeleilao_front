@@ -11,17 +11,6 @@ export default function Feedback() {
         <Navbar pag='Perfil'/>
         
         <main>
-            {/* <form className="border-black mx-[100px] text-2xl mr-24 mt-4 ml-24 box-content h-100 w-2200"> 
-                <div className="flex flex-col gap-2 mb-4 ">
-                            <label className="block">
-                                <span className='block'htmlFor="Perfil">Email</span>
-                                    <input type="email" className="w-full peer border-2 bg-gray-300 rounded-full py-1 px-3" placeholder={placeholder ? "exemplo@gmail.com" : ""} onBlur={() => {setPlaceholder(false)}} onFocus={() => {setPlaceholder(true)}}/>
-                                        <p className="hidden peer-invalid:block text-red-600 text-base">
-                                             Insira um email valido!
-                                        </p>
-                            </label>
-                </div>
-            </form> */}
                 <section className="border-black mx-[100px] text-2xl mr-24 mt-4 ml-24 box-content h-100 w-2200">
                     <div className="flex flex-col gap-2 mb-4 text-center">
                      <label className="text-5xl "htmlFor="Perfil">Feedback</label>
@@ -37,10 +26,6 @@ export default function Feedback() {
                                         </p>
                         </div>
                     </label>
-                    {/* <div className="flex flex-col gap-2 mt-4 mb-4">
-                     <label className='md:w-1/2' htmlFor="Perfil">Assunto</label>
-                        <input type="text" className="bg-gray-300 rounded-full py-1 px-3 w-full"/>
-                    </div> */}
                 </form>
                 <section className="border-black mx-[100px] text-2xl mt-4 box-content h-100 w-2200"> 
                     <div className="flex flex-col gap-2 text-center">                

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import logoApae from './logoApae.jpg'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
@@ -9,7 +9,6 @@ export default function Navbar({...props}){
     const [user, setUser] = useState('')
 
     // REDIRECT
-    const history = useNavigate();
     menu ? disableBodyScroll(document) : enableBodyScroll(document)
 
     async function login(){
@@ -30,11 +29,6 @@ export default function Navbar({...props}){
             if(data.status === 401){
                 setValidado(false)
             }else{
-                if(data.body.status_account === 'PENDING'){
-                    setTimeout(() => {
-                        history('/verificacao')
-                    }, 1000);   
-                }
                 data.body.status_account === 'ACTIVE' ? setValidado(true) : setValidado(false)
                 setUser(data.body.first_name)
 
@@ -46,7 +40,7 @@ export default function Navbar({...props}){
 
     return (
         <nav onLoad={login} className="bg-azul p-4 flex justify-between items-center rounded-b-2xl shadow-xl z-50">
-            <img className="w-[200px]" src={logoApae} alt="Logo da APAE"/>
+            <a href="/"><img className="w-[200px]" src={logoApae} alt="Logo da APAE"/></a>
             <ul className={`flex gap-16 items-center text-3xl text-white ${menu ? 'max-lg:absolute max-lg:bg-black max-lg:bg-opacity-90 max-lg:flex-col max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:h-full max-lg:justify-center max-lg:items-center' : 'max-lg:hidden'}`}>
                 <li className={`${props.pag === 'Inicio' ? "text-yellow-400 underline" : ""}`}><Link to='/'>Início</Link></li>
                 <li className={`${props.pag === 'Participados' ? "text-yellow-400 underline" : ""}`}><Link to='/participados'>Leilões Participados</Link></li>
