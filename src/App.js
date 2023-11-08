@@ -34,6 +34,7 @@ export default function App() {
       </Routes>
     </Router>
     
+    {/* LIBRAS API */}
     <div className='App'>
       <VLibras forceOnload={true}/>
     </div>
