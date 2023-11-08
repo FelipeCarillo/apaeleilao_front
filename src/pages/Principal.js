@@ -2,6 +2,8 @@ import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import Carrossel from "../components/Carrossel"
 import { ToastContainer, toast } from 'react-toastify';
+import { useEffect, useState } from "react";
+import { min } from "moment/moment";
 
 export default function Principal() {
     const data = [
@@ -52,6 +54,40 @@ export default function Principal() {
         },
     ]
 
+    const Timer = () => {
+        const [days, setDays] = useState(0);
+        const [hours, setHours] = useState(0);
+        const [minutes, setMinutes] = useState(0);
+        const [seconds, setSeconds] = useState(0);
+
+        const deadline = "December, 31, 2024";
+
+        const getTime = () => {
+            const time = Date.parse(deadline) - Date.now();
+
+            setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
+            setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
+            setMinutes(Math.floor((time / 1000 / 60) % 60));
+            setSeconds(Math.floor((time / 1000) % 60));
+        };
+
+        useEffect(() => {
+            const interval = setInterval(() => getTime(), 1000);
+
+            return () => clearInterval(interval);
+        }, []);
+
+        return (
+            <div>
+                <p>DeadLine: {deadline}</p>
+                <p>Dias: {days}</p>
+                <p>Horas: {hours}</p>
+                <p>Minutos: {minutes}</p>
+                <p>Segundos: {seconds}</p>
+            </div>
+        )
+    }
+
     function getLeiloes(){
         fetch(process.env.REACT_APP_API+'/get-all-auctions-menu', {
             method: 'GET',
@@ -86,9 +122,7 @@ export default function Principal() {
     return (
         <>
         <Navbar pag="Inicio"/>
-        {
-
-        }
+        <Timer />
         <main>
             <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
  

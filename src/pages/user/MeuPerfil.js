@@ -81,7 +81,6 @@ export default function MeuPerfil() {
             json.phone = telefone
         }
 
-        console.log(json)
         fetch(process.env.REACT_APP_API+"/update-user",{
             method: "POST",
             headers: {
