@@ -3,7 +3,6 @@ import Footer from "../components/Footer"
 import Carrossel from "../components/Carrossel"
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect, useState } from "react";
-import { min } from "moment/moment";
 
 export default function Principal() {
     const data = [
@@ -60,15 +59,27 @@ export default function Principal() {
         const [minutes, setMinutes] = useState(0);
         const [seconds, setSeconds] = useState(0);
 
-        const deadline = "December, 31, 2024";
+        // const deadline = "December, 31, 2024";
 
         const getTime = () => {
-            const time = Date.parse(deadline) - Date.now();
+            // const time = Date.parse(deadline) - Date.now();
+            
+            // setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
+            // setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
+            // setMinutes(Math.floor((time / 1000 / 60) % 60));
+            // setSeconds(Math.floor((time / 1000) % 60));
+            
+            const time = Date.now();
+            const days = new Date(time).getDate()
+            const hours = new Date(time).getHours();
+            const minutes = new Date(time).getMinutes();
+            const seconds = new Date(time).getSeconds();
+            setDays(days);
+            setHours(hours);
+            setMinutes(minutes);
+            setSeconds(seconds);
+            return time;
 
-            setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
-            setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
-            setMinutes(Math.floor((time / 1000 / 60) % 60));
-            setSeconds(Math.floor((time / 1000) % 60));
         };
 
         useEffect(() => {
@@ -79,11 +90,7 @@ export default function Principal() {
 
         return (
             <div>
-                <p>DeadLine: {deadline}</p>
-                <p>Dias: {days}</p>
-                <p>Horas: {hours}</p>
-                <p>Minutos: {minutes}</p>
-                <p>Segundos: {seconds}</p>
+                <p>Datetime: {days}d {hours}h {minutes}m {seconds}s</p>
             </div>
         )
     }

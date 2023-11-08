@@ -22,9 +22,8 @@ export default function LoginAdmin() {
             "keep_login": connected
         }
 
-        fetch('https://aoltolsszk.execute-api.sa-east-1.amazonaws.com/prod/apae-leilao/get-token', {
+        fetch(process.env.REACT_APP_API+'/get-token', {
             method: 'POST',
-            mode: 'cors',
             body: JSON.stringify(json)
         }).then(response => {
             if(response.ok){
