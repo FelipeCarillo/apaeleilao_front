@@ -1,8 +1,8 @@
 export default function CardParticipados({data}){
     return (
         <>
-        {data.map((data) => (
-            <div className="border-2 border-black rounded-[25px]">
+        {data.map((data, index) => (
+            <div key={index} className="border-2 border-black rounded-[25px]">
             <div>
                 <img src={data.img} alt="Imagem do evento" className="w-[100%] h-[250px] rounded-t-[25px] object-cover"/>
             </div>

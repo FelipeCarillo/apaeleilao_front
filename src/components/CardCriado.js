@@ -4,7 +4,7 @@ export default function CardCriados({data}){
         {data.map((data) => (
             <div className="border-2 border-black rounded-[25px]">
                 <div>
-                    <div class="relative">
+                    <div className="relative">
                         <button className="absolute mt-1 me-1 top-0 right-0 bg-yellow-300 text-xl rounded-full py-1 px-2"><i className="fa-solid fa-trash-can"></i></button>
                     </div>
                     <img src={data.img} alt="Imagem do evento" className="w-[100%] h-[250px] rounded-t-[25px] object-cover"/>
