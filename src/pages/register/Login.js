@@ -162,7 +162,7 @@ export default function Login(){
                     <label className='md:w-1/2' htmlFor="password">Senha:</label>
                     <input onChange={(e) => {setPassword(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type={`${viewPass ? "text" : "password"}`} name="password" id="password"/>
                     <div className="flex justify-between w-1/2 max-md:w-full">
-                        <label className='underline max-md:self-start md:w-1/2 cursor-pointer' onClick={()=>{setModal(true)}}>Esqueceu sua Senha?</label>
+                        <p className='underline max-md:self-start md:w-1/2 cursor-pointer' onClick={()=>{setModal(true)}}>Esqueceu sua Senha?</p>
                         <label className="cursor-pointer" onClick={(e) => {setViewPass(!viewPass)}}>Mostrar Senha</label>  
                     </div>
                 </div>
@@ -179,7 +179,7 @@ export default function Login(){
                 </div>
                 
                 <div className="flex justify-center mt-4">
-                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer"><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</label>
+                    <button onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer"><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</button>
                 </div>
             </form>
             <p className="text-lg text-center my-4">Ainda não possui uma conta? <Link className='text-azul' to="/cadastro">Clique Aqui</Link> </p>

@@ -285,7 +285,7 @@ export default function Cadastro() {
                     </div>
 
                     <div className='flex justify-center'>
-                        <label htmlFor="" className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer" onClick={next}>Continuar</label>
+                        <label type="button" htmlFor="" className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer" onClick={next}>Continuar</label>
                     </div>
                 </section>
 
