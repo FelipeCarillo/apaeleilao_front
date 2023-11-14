@@ -65,33 +65,41 @@ export default function Leiloes() {
     e.style.display = "none";
   }
 
-  function toDataURL(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-      var reader = new FileReader();
-      reader.onloadend = function() {
-        callback(reader.result);
-      }
-      reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob';
-    xhr.send();
-  }
+function toDataURL(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      callback(reader.result);
+    }
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
 
-  function addImage() {
-    const files = document.getElementById("upload-photo").files;
-    const images = Array.from(files).map((file) => ({
-      image_id: file.name,
-      image: URL.createObjectURL(file),
-      image_base64: toDataURL(URL.createObjectURL(file), function(dataUrl) {
-        console.log('RESULT:', dataUrl)
-      }),  
-    }));
+function addImage() {
+  const files = document.getElementById("upload-photo").files;
+  const imagesPromises = Array.from(files).map((file) => {
+    return new Promise((resolve) => {
+      toDataURL(URL.createObjectURL(file), function(dataUrl) {
+        // console.log('RESULT:', dataUrl);
+        resolve({
+          image_id: images.length + 1,
+          image_name: file.name,
+          image: URL.createObjectURL(file),
+          image_base64: dataUrl,
+        });
+      });
+    });
+  });
+
+  Promise.all(imagesPromises).then((images) => {
     console.log(images);
     setImages((prevImages) => prevImages.concat(images));
     Array.from(files).map(
-      (file) => URL.revokeObjectURL(file) // avoid memory leak
+      (file) => URL.revokeObjectURL(file) // evitar vazamento de memória
     );
 
     if (images.length > 0) {
@@ -99,7 +107,8 @@ export default function Leiloes() {
       const cardImage = document.getElementById("cardImage");
       cardImage.innerHTML = `<img src="${images[0].image}" alt="${images[0].image_id}" class="rounded-t-3xl h-[280px] w-[100%]"/>`;
     }
-  }
+  });
+}
 
   // function viewPreview(imageNumber) {
   //   const preview = images.map((image) => (
@@ -119,14 +128,14 @@ export default function Leiloes() {
       const preview = images.map((image) => (
         <img src={image.image} alt={image.image_id} />
       ));
-      if (side == "left" && position > 0) {
+      if (side === "left" && position > 0) {
         setImageNumber(position - 1);
         let x = images[position - 1].image;
         x = `<img src="${x}" alt="${
           images[position - 1].image_id
         }" class="rounded-t-3xl h-[280px] w-[100%]"/>`;
         cardImage.innerHTML = x;
-      } else if (side == "right" && position < preview.length - 1) {
+      } else if (side === "right" && position < preview.length - 1) {
         setImageNumber(position + 1);
         let x = images[position + 1].image;
         x = `<img src="${x}" alt="${
@@ -179,7 +188,7 @@ export default function Leiloes() {
     focusScreen.current.focus();
   }, [closeModal]);
 
-  function criarLeilao() {
+  async function criarLeilao() {
 
     if (nome === "" || nome === "Nome do Produto" || nome === " " || nome.length< 5 || nome.trim() === ""|| /[?!,@#$%¨&*()-+=/|;:<>.'´`]/.test(nome) || nome.length > 100) {
       return toast.error("Nome do produto não pode ser vazio, deve conter mais de 5 caracteres, no máximo 100 e não pode conter nenhum caracter especial (?,!,@,#,$,%,¨,&,*,(,),-,+,=,/,|,;,:,<,>,.,',´,`).", {
@@ -195,7 +204,7 @@ export default function Leiloes() {
     }
     var valor_teste = valor.replace("R$", "").replace(",", "").replace(".", "").replace(" ", "").replace(".", "").replace(".", "");
     console.log(valor_teste);
-    var new_valor = valor.replace("R$", "").replace(",", ".").replace(".", "");
+    var new_valor = valor.replace("R$", "").replace(".", "").replace(".", "").replace(".", "").replace(",", ".");
     console.log(new_valor);
     if (valor === "" || valor === "Valor do Produto" || valor === " " || valor.trim() === " " || valor < 0 || /[?!@#%¨&*()-+=/|;:<>'´`]/.test(valor) || valor === "R$ 0,00" || !/[0-9]/.test(valor) || valor_teste > 1000000000) {
       return toast.error("O valor inicial não pode ser nulo, negativo ou maior que R$1.000.000.000,00", {
@@ -251,15 +260,68 @@ export default function Leiloes() {
         theme: "light",
       })
     }
+
+    var end = moment(abertura).add(duracao.split(':')[0], 'hours').format("YYYY-MM-DDTHH:mm");
+    end = moment(end).add(duracao.split(':')[1], 'minutes').format("YYYY-MM-DDTHH:mm");
+    
     const json = {
-      nome: nome,
-      valor: valor,
-      descricao: desc,
-      abertura: abertura,
-      duracao: duracao,
-      imagens: images,
+      title : nome,
+      description : desc,
+      start_date : Date.parse(abertura)/1000,
+      end_date :  Date.parse(end)/1000,
+      start_amount : parseFloat(new_valor),
+      images : Array.from(images).map((image) => ({
+        image_id: image.image_id,
+        image_body: image.image_base64,
+      })),
     };
     console.log(json);
+    await fetch(process.env.REACT_APP_API + '/create-auction', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify(json),
+        }).then(response => {
+            if(response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+            }
+        }).then(data => {
+            // AQUI VC CONTROLA O JSON DE RETORNO
+            console.log(data);
+            toast.success(data.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            // console.log("data: " + data.message)
+        }).catch(error => {
+            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+            console.log("ERROOOO " + error.status);
+            // 3. get error messages, if any
+            error.json().then((json: any) => {
+                console.log(json);
+                toast.error(json.message, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            })
+        });
   }
 
   return (
