@@ -9,10 +9,12 @@ import Verificacao from './pages/register/Verificacao'
 import LoginAdmin from './pages/admin/LoginAdmin'
 import Feedback from './pages/user/Feedback'
 import RedefinirSenha from './pages/register/RedefinirSenha'
+import Pagamento from './pages/leilao/Pagamento'
 import { Usuarios } from './pages/admin/Usuarios'
 
 // LIBRAS
 import VLibras from '@djpfs/react-vlibras'
+import Leilao from './pages/leilao/Leilao'
 
 export default function App() {
   return (
@@ -27,6 +29,9 @@ export default function App() {
         <Route path='/meuPerfil' element={<MeuPerfil />} />
         <Route path='/feedback' element={<Feedback />} />
         <Route path='/redefinirSenha' element={<RedefinirSenha />} />
+        {/* LEILAO ATIVO */}
+        <Route path='/leilao' element={<Leilao />} />
+        <Route path='/pagamento' element={<Pagamento />} />
         {/* ADMIN */}
         <Route path='/admin' element={<Leiloes />} />
         <Route path='/admin/login' element={<LoginAdmin />} />

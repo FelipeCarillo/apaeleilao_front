@@ -3,6 +3,7 @@ import Footer from "../components/Footer"
 import Carrossel from "../components/Carrossel"
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Principal() {
     const data = [
@@ -59,16 +60,8 @@ export default function Principal() {
         const [minutes, setMinutes] = useState(0);
         const [seconds, setSeconds] = useState(0);
 
-        // const deadline = "December, 31, 2024";
-
         const getTime = () => {
-            // const time = Date.parse(deadline) - Date.now();
-            
-            // setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
-            // setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
-            // setMinutes(Math.floor((time / 1000 / 60) % 60));
-            // setSeconds(Math.floor((time / 1000) % 60));
-            
+
             const time = Date.now();
             const days = new Date(time).getDate()
             const hours = new Date(time).getHours();
@@ -149,7 +142,7 @@ export default function Principal() {
                         </div>
                         <div className="flex justify-between gap-12 items-center w-full max-md:flex-col">
                             <p className="font-bold text-3xl">Lance: R$750,00</p>
-                            <button className="flex items-center gap-1 bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl"><i className="fa-solid fa-gavel"></i>Dar Lance</button>
+                            <Link to="/leilao" className="flex items-center gap-1 bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl"><i className="fa-solid fa-gavel"></i>Dar Lance</Link>
                         </div>
                     </div>
                 </div>
