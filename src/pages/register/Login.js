@@ -179,7 +179,7 @@ export default function Login(){
                 </div>
                 
                 <div className="flex justify-center mt-4">
-                    <button onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer"><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</button>
+                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer"><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</label>
                 </div>
             </form>
             <p className="text-lg text-center my-4">Ainda não possui uma conta? <Link className='text-azul' to="/cadastro">Clique Aqui</Link> </p>

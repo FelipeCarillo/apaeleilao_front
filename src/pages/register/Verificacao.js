@@ -10,8 +10,8 @@ export default function Verificacao() {
     // REDIRECT
     const history = useNavigate();
 
-    function enviarEmail(){
-        fetch(process.env.REACT_APP_API+'/send-verification-email-code', {
+    async function enviarEmail(){
+        await fetch(process.env.REACT_APP_API+'/send-verification-email-code', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

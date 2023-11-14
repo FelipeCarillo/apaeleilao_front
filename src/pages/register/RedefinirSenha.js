@@ -42,7 +42,7 @@ export default function RedefinirSenha() {
             }
         }).then((data)=>{
             // console.log(data)
-            toast.error(data.message, {
+            toast.success(data.message, {
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: false,
