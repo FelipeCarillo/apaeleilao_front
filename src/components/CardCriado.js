@@ -1,8 +1,8 @@
 export default function CardCriados({data}){
     return (
         <>
-        {data.map((data) => (
-            <div className="border-2 border-black rounded-[25px]">
+        {data.map((data, index) => (
+            <div key={index} className="border-2 border-black rounded-[25px]">
                 <div>
                     <div className="relative">
                         <button className="absolute mt-1 me-1 top-0 right-0 bg-yellow-300 text-xl rounded-full py-1 px-2"><i className="fa-solid fa-trash-can"></i></button>

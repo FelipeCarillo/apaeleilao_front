@@ -190,8 +190,8 @@ function addImage() {
 
   async function criarLeilao() {
 
-    if (nome === "" || nome === "Nome do Produto" || nome === " " || nome.length< 5 || nome.trim() === ""|| /[?!,@#$%¨&*()-+=/|;:<>.'´`]/.test(nome) || nome.length > 100) {
-      return toast.error("Nome do produto não pode ser vazio, deve conter mais de 5 caracteres, no máximo 100 e não pode conter nenhum caracter especial (?,!,@,#,$,%,¨,&,*,(,),-,+,=,/,|,;,:,<,>,.,',´,`).", {
+    if (nome === "" || nome === "Nome do Produto" || nome === " " || nome.length< 5 || nome.trim() === ""|| /[?!,@#$%¨&*()-+=/|;:<>.'´`[{}]/.test(nome) || /]/.test(nome) || nome.length > 100) {
+      return toast.error("Nome do produto não pode ser vazio, deve conter mais de 5 caracteres, no máximo 100 e não pode conter nenhum caracter especial (?,!,@,#,$,%,¨,&,*,(,),-,+,=,/,|,;,:,<,>,.,',´,`,[,],{,}).", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -202,11 +202,9 @@ function addImage() {
         theme: "light",
       })
     }
-    var valor_teste = valor.replace("R$", "").replace(",", "").replace(".", "").replace(" ", "").replace(".", "").replace(".", "");
-    console.log(valor_teste);
-    var new_valor = valor.replace("R$", "").replace(".", "").replace(".", "").replace(".", "").replace(",", ".");
-    console.log(new_valor);
-    if (valor === "" || valor === "Valor do Produto" || valor === " " || valor.trim() === " " || valor < 0 || /[?!@#%¨&*()-+=/|;:<>'´`]/.test(valor) || valor === "R$ 0,00" || !/[0-9]/.test(valor) || valor_teste > 1000000000) {
+    var valor_trabalhado = valor.replace("R$", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(",", ".").replace("-","");
+    console.log(valor_trabalhado);
+    if (valor === "" || valor === "Valor do Produto" || valor === " " || valor.trim() === " " || valor < 0 || /[?!@#%¨&*()-+=/|;:<>'´`]/.test(valor) || valor === "R$ 0,00" || !/[0-9]/.test(valor) || valor_trabalhado > 1000000000 || parseFloat(valor_trabalhado) === 0) {
       return toast.error("O valor inicial não pode ser nulo, negativo ou maior que R$1.000.000.000,00", {
         position: "top-center",
         autoClose: 3000,
@@ -218,14 +216,14 @@ function addImage() {
         theme: "light",
       })
     }
-    var date = Date.now();
-    var date = new Date(date);
+    var date_now = Date.now();
+    var date = new Date(date_now);
     date = date.toISOString();
     date = moment(date).format("YYYY-MM-DDTHH:mm")
     var date5 = moment(date).add(5, 'minutes').format("YYYY-MM-DDTHH:mm")
     var date100 = moment(date).add(100, 'years').format("YYYY-MM-DDTHH:mm")
     if (abertura === "" || abertura === "xx/xx/xx xx:xx" || abertura === " " || abertura.trim() === " " || abertura === date || abertura < date5 || abertura > date100) {
-      return toast.error("Você não pode cirar um leilão pra agora, somente para daqui no mínimo 5 minutos e no máximo pra daqui a 100 anos", {
+      return toast.error("Você não pode criar um leilão pra agora, somente para daqui no mínimo 5 minutos e no máximo pra daqui a 100 anos", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -269,7 +267,7 @@ function addImage() {
       description : desc,
       start_date : Date.parse(abertura)/1000,
       end_date :  Date.parse(end)/1000,
-      start_amount : parseFloat(new_valor),
+      start_amount : parseFloat(valor_trabalhado),
       images : Array.from(images).map((image) => ({
         image_id: image.image_id,
         image_body: image.image_base64,
@@ -403,7 +401,7 @@ function addImage() {
           id="LeiloesFinalizadosCards"
           className="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-[70px] gap-10 mb-10"
         >
-          <CardCriados data={participados} />
+          {/* <CardCriados data={participados} /> */}
         </section>
         {/* Botão para cria leilão */}
         <div id="botaoCriar">
