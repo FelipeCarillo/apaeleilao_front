@@ -27,7 +27,7 @@ const Estrelas = () => {
                             
                     <FaStar className='star'
                     size={30}
-                    color={ratingvalue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                    color={ratingvalue <= (hover || rating) ? "#fbbf24" : "#d9d9d9"}
                     onMouseEnter={() => setHover(ratingvalue)}
                     onMouseLeave={() => setHover(null)}
                     />
