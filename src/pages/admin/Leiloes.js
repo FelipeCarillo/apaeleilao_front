@@ -10,13 +10,17 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Leiloes() {
   const participados = [
     {
-      img: "https://picsum.photos/200/300",
-      nome: "Evento 1",
-      categoria: "Categoria 1",
-      lance: "R$ 100,00",
-      prazo: "10/10/2021",
-      abertura: "10/10/2021",
-      encerramento: "10/10/2021",
+      auction_id: "drtyaw90",
+      crated_by: "fugiat laboris",
+      title: "Fusca",
+      description: "Fusca azul com 3 portas",
+      start_date: "10/10/2021",
+      end_date: "10/10/2021",
+      start_amount: "100",
+      current_amount: "1000",
+      images: "https://picsum.photos/200/300",
+      status_auction: "OPEN",
+      created_at: ""
     },
   ];
 
@@ -86,7 +90,7 @@ function addImage() {
       toDataURL(URL.createObjectURL(file), function(dataUrl) {
         // console.log('RESULT:', dataUrl);
         resolve({
-          image_id: images.length + 1,
+          // image_id: (images.length + 1).toString(),
           image_name: file.name,
           image: URL.createObjectURL(file),
           image_base64: dataUrl,
@@ -109,17 +113,6 @@ function addImage() {
     }
   });
 }
-
-  // function viewPreview(imageNumber) {
-  //   const preview = images.map((image) => (
-  //     <img
-  //       className="rounded-t-3xl h-[280px] w-[100%]"
-  //       src={image.image}
-  //       alt={image.image_id}
-  //     />
-  //   ));
-  //   return preview[imageNumber];
-  // }
 
   function rotateImage(side) {
     return () => {
@@ -188,12 +181,28 @@ function addImage() {
     focusScreen.current.focus();
   }, [closeModal]);
 
+  function teste() {
+    document.getElementById("cardImage").innerHTML = `<div class=' flex w-[100%] h-[280px] border-b-2 mb-2 justify-center items-center text-center text-9xl'><i class='fa-solid fa-image'></i></div>`;
+    document.getElementById('nome_prod').value="";
+    document.getElementById('valor_prod').value=""; //Não funciona
+    document.getElementById('desc_prod').value="";
+    document.getElementById('abertura_prod').value="";
+    document.getElementById('duracao_prod').value="";
+    setImages([]);
+    setNome("Nome do Produto");
+    setValor("Valor do Produto");
+    setDesc("");
+    setAbertura("xx/xx/xx xx:xx");
+    setDuracao("xx:xx");
+    setImageNumber(0);
+  }
+
   async function criarLeilao() {
 
     if (nome === "" || nome === "Nome do Produto" || nome === " " || nome.length< 5 || nome.trim() === ""|| /[?!,@#$%¨&*()-+=/|;:<>.'´`[{}]/.test(nome) || /]/.test(nome) || nome.length > 100) {
       return toast.error("Nome do produto não pode ser vazio, deve conter mais de 5 caracteres, no máximo 100 e não pode conter nenhum caracter especial (?,!,@,#,$,%,¨,&,*,(,),-,+,=,/,|,;,:,<,>,.,',´,`,[,],{,}).", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -205,9 +214,9 @@ function addImage() {
     var valor_trabalhado = valor.replace("R$", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(",", ".").replace("-","");
     console.log(valor_trabalhado);
     if (valor === "" || valor === "Valor do Produto" || valor === " " || valor.trim() === " " || valor < 0 || /[?!@#%¨&*()-+=/|;:<>'´`]/.test(valor) || valor === "R$ 0,00" || !/[0-9]/.test(valor) || valor_trabalhado > 1000000000 || parseFloat(valor_trabalhado) === 0) {
-      return toast.error("O valor inicial não pode ser nulo, negativo ou maior que R$1.000.000.000,00", {
+      return toast.error("O valor inicial não pode ser nulo, negativo ou maior que R$1.000.000.000,00.", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -223,9 +232,9 @@ function addImage() {
     var date5 = moment(date).add(5, 'minutes').format("YYYY-MM-DDTHH:mm")
     var date100 = moment(date).add(100, 'years').format("YYYY-MM-DDTHH:mm")
     if (abertura === "" || abertura === "xx/xx/xx xx:xx" || abertura === " " || abertura.trim() === " " || abertura === date || abertura < date5 || abertura > date100) {
-      return toast.error("Você não pode criar um leilão pra agora, somente para daqui no mínimo 5 minutos e no máximo pra daqui a 100 anos", {
+      return toast.error("Você não pode criar um leilão pra agora, somente para daqui no mínimo 5 minutos.", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -235,9 +244,9 @@ function addImage() {
       })
     }
     if (duracao === "" || duracao === "xx:xx" || duracao === " " || duracao.trim() === " " || duracao === "00:00" || duracao < "00:05") {
-      return toast.error("O leilão deve ter duração mínima de 5 minutos", {
+      return toast.error("O leilão deve ter duração mínima de 5 minutos.", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -247,9 +256,9 @@ function addImage() {
       })
     }
     if (images.length === 0) {
-      return toast.error("Você deve adicionar pelo menos uma imagem", {
+      return toast.error("Você deve adicionar pelo menos uma imagem.", {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -261,6 +270,12 @@ function addImage() {
 
     var end = moment(abertura).add(duracao.split(':')[0], 'hours').format("YYYY-MM-DDTHH:mm");
     end = moment(end).add(duracao.split(':')[1], 'minutes').format("YYYY-MM-DDTHH:mm");
+    
+    var i = 1;
+    for (let image of images) {
+      image['image_id'] = i.toString();
+      i++;
+    }
     
     const json = {
       title : nome,
@@ -274,52 +289,63 @@ function addImage() {
       })),
     };
     console.log(json);
-    await fetch(process.env.REACT_APP_API + '/create-auction', {
-            mode: 'cors',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token')
-            },
-            body: JSON.stringify(json),
-        }).then(response => {
-            if(response.ok){
-                return response.json()
-            }else{
-                return Promise.reject(response);
-            }
-        }).then(data => {
-            // AQUI VC CONTROLA O JSON DE RETORNO
-            console.log(data);
-            toast.success(data.message, {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-            // console.log("data: " + data.message)
-        }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
-            // 3. get error messages, if any
-            error.json().then((json: any) => {
-                console.log(json);
-                toast.error(json.message, {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
-            })
-        });
+
+    // await fetch(process.env.REACT_APP_API + '/create-auction', {
+    //         mode: 'cors',
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': localStorage.getItem('token')
+    //         },
+    //         body: JSON.stringify(json),
+    //     }).then(response => {
+    //         if(response.ok){
+    //             return response.json()
+    //         }else{
+    //             return Promise.reject(response);
+    //         }
+    //     }).then(data => {
+    //         // AQUI VC CONTROLA O JSON DE RETORNO
+    //         setImages([]);
+    //         setNome("Nome do Produto");
+    //         setValor("Valor do Produto");
+    //         setDesc("");
+    //         setAbertura("xx/xx/xx xx:xx");
+    //         setDuracao("xx:xx");
+    //         setImageNumber(0);
+
+    //         setCloseModal(false);
+            
+    //         console.log(data);
+    //         toast.success(data.message, {
+    //             position: "top-center",
+    //             autoClose: 3000,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "light",
+    //         })
+    //         // console.log("data: " + data.message)
+    //     }).catch(error => {
+    //         // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+    //         console.log("ERROOOO " + error.status);
+    //         // 3. get error messages, if any
+    //         error.json().then((json: any) => {
+    //             console.log(json);
+    //             toast.error(json.message, {
+    //                 position: "top-center",
+    //                 autoClose: 3000,
+    //                 hideProgressBar: false,
+    //                 closeOnClick: true,
+    //                 pauseOnHover: true,
+    //                 draggable: true,
+    //                 progress: undefined,
+    //                 theme: "light",
+    //             })
+    //         })
+    //     });
   }
 
   return (
@@ -537,6 +563,7 @@ function addImage() {
                   <div className="flex flex-col w-[90%] mx-auto">
                     <label className="text-2xl">Nome do evento</label>
                     <input
+                      id="nome_prod"
                       className=" mb-2 border-2 border-black rounded text-lg ps-1"
                       type="text"
                       placeholder="Nome do evento: Kit de Panelas"
@@ -548,6 +575,7 @@ function addImage() {
                   <div className="flex flex-col w-[90%] mx-auto">
                     <label className="text-2xl">Valor</label>
                     <CurrencyInput
+                      id="valor_prod"
                       className=" mb-2 border-2 border-black rounded text-lg ps-1"
                       placeholder="Valor: 00,00"
                       maxLength={13}
@@ -561,6 +589,7 @@ function addImage() {
                   <div className="flex flex-col w-[90%] mx-auto">
                     <label className="text-2xl">Descrição</label>
                     <textarea
+                      id="desc_prod"
                       className=" mb-2 border-2 h-[200px] border-black rounded text-lg resize-none ps-1"
                       placeholder="Descrição"
                       onChange={(e) => {
@@ -572,6 +601,7 @@ function addImage() {
                     <div className="flex flex-col">
                       <label className="text-2xl">Data de início</label>
                       <input
+                        id="abertura_prod"
                         className=" mb-2 border-2 border-black rounded text-lg"
                         type="datetime-local"
                         placeholder="Data de início"
@@ -584,6 +614,7 @@ function addImage() {
                       <label className="text-2xl">Duração</label>
                       <div className="text-center">
                         <input
+                          id="duracao_prod"
                           className="ps-1 text-lg border-2 border-black rounded"
                           type="time"
                           placeholder="Duração"
@@ -602,6 +633,7 @@ function addImage() {
                 <button className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[40%] mt-10 text-xl" onClick={criarLeilao}>
                   Criar leilão
                 </button>
+                <button onClick={teste}>aaaaaaaaa</button>
               </div>
             </div>
           </div>
