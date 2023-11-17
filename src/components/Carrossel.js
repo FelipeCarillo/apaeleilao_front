@@ -17,7 +17,7 @@ export default function Carrossel({data}) {
                     {data.map(data => (
                         <motion.div key={data.nome} className={`border-2 text-black min-w-[250px] text-center bg-white rounded-2xl`}>
                         {/* Conteúdo do card */}
-                        <img className=" rounded-t-2xl shadow-lg mb-4 w-full" src={data.img} alt={data.descImg}/>
+                        <img className="rounded-t-2xl shadow-lg mb-4 max-w-auto max-h-[250px]" src={data.img} alt={data.descImg}/>
                         <div className="px-2">
                             <h2 className="text-2xl">{data.nome}</h2>
                             <p className="font-bold text-xl">R${data.lance}</p>

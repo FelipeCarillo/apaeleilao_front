@@ -9,169 +9,208 @@ export default function Principal() {
     const [modal, setModal] = useState(false)
 
     const [nomeLeilaoAtivo, setNomeLeilaoAtivo] = useState('Exemplo')
-    const [lanceLeilaoAtivo, setLanceLeilaoAtivo] = useState('')
-    const [dataLeilaoAtivo, setDataLeilaoAtivo] = useState('')
-    const [startHour, setStartHour] = useState('')
-    const [endHour, setEndHour] = useState('')
-    const [statusLeilao, setStatusLeilao] = useState('')
-    const [descricaoLeilão, setDescricaoLeilão] = useState('')
+    const [lanceLeilaoAtivo, setLanceLeilaoAtivo] = useState('0')
+    const [dataLeilaoAtivo, setDataLeilaoAtivo] = useState('00/00/0000')
+    const [startHour, setStartHour] = useState('00:00')
+    const [endHour, setEndHour] = useState('00:00')
+    const [statusLeilao, setStatusLeilao] = useState('Leilão')
+    const [descricaoLeilão, setDescricaoLeilão] = useState('Sem descrição')
+    const [stsLeilao, setStsLeilao] = useState('')
+    const [imageLeilao, setImageLeilao] = useState('http://via.placeholder.com/500x500')
 
-    const data = [
-        {
-            "img": 'http://via.placeholder.com/500x500',
-            "nome": 'Exemplo1',
-            "desc": 'Usado',
-            "lance": '1.000,00',
-            "date": '23/08/2023',
-            "timeStart": '12:00',
-            "timeEnd": '12:30',
-        },
-        {
-            "img": 'http://via.placeholder.com/500x500',
-            "nome": 'Exemplo2',
-            "desc": 'Novo',
-            "lance": '750,00',
-            "date": '24/08/2023',
-            "timeStart": '17:00',
-            "timeEnd": '17:30',
-        },
-        {
-            "img": 'http://via.placeholder.com/500x500',
-            "nome": 'Exemplo3',
-            "desc": 'Usado',
-            "lance": '1.600,00',
-            "date": '25/08/2023',
-            "timeStart": '08:30',
-            "timeEnd": '09:00',
-        },
-        {
-            "img": 'http://via.placeholder.com/500x500',
-            "nome": 'Exemplo4',
-            "desc": 'Usado',
-            "lance": '10.000,00',
-            "date": '26/08/2023',
-            "timeStart": '16:30',
-            "timeEnd": '17:00',
-        },
-        {
-            "img": 'http://via.placeholder.com/500x500',
-            "nome": 'Exemplo5',
-            "desc": 'Usado',
-            "lance": '10.000,00',
-            "date": '26/08/2023',
-            "timeStart": '16:30',
-            "timeEnd": '17:00',
-        },
-    ]
+    const [dataLeilao, setDataLeilao] = useState([])
 
-    const Timer = () => {
-        const [days, setDays] = useState(0);
-        const [hours, setHours] = useState(0);
-        const [minutes, setMinutes] = useState(0);
-        const [seconds, setSeconds] = useState(0);
+    // const data = [
+    //     {
+    //         "img": 'http://via.placeholder.com/500x500',
+    //         "nome": 'Exemplo1',
+    //         "lance": '1.000,00',
+    //         "date": '23/08/2023',
+    //         "timeStart": '12:00',
+    //         "timeEnd": '12:30',
+    //     },
+    //     {
+    //         "img": 'http://via.placeholder.com/500x500',
+    //         "nome": 'Exemplo2',
+    //         "lance": '750,00',
+    //         "date": '24/08/2023',
+    //         "timeStart": '17:00',
+    //         "timeEnd": '17:30',
+    //     },
+    //     {
+    //         "img": 'http://via.placeholder.com/500x500',
+    //         "nome": 'Exemplo3',
+    //         "lance": '1.600,00',
+    //         "date": '25/08/2023',
+    //         "timeStart": '08:30',
+    //         "timeEnd": '09:00',
+    //     },
+    //     {
+    //         "img": 'http://via.placeholder.com/500x500',
+    //         "nome": 'Exemplo4',
+    //         "lance": '10.000,00',
+    //         "date": '26/08/2023',
+    //         "timeStart": '16:30',
+    //         "timeEnd": '17:00',
+    //     },
+    //     {
+    //         "img": 'http://via.placeholder.com/500x500',
+    //         "nome": 'Exemplo5',
+    //         "lance": '10.000,00',
+    //         "date": '26/08/2023',
+    //         "timeStart": '16:30',
+    //         "timeEnd": '17:00',
+    //     },
+    // ]
 
-        const getTime = () => {
+    // const Timer = () => {
+    //     const [days, setDays] = useState(0);
+    //     const [hours, setHours] = useState(0);
+    //     const [minutes, setMinutes] = useState(0);
+    //     const [seconds, setSeconds] = useState(0);
 
-            const time = Date.now();
-            const days = new Date(time).getDate()
-            const hours = new Date(time).getHours();
-            const minutes = new Date(time).getMinutes();
-            const seconds = new Date(time).getSeconds();
-            setDays(days);
-            setHours(hours);
-            setMinutes(minutes);
-            setSeconds(seconds);
-            return time;
+    //     const getTime = () => {
 
-        };
+    //         const time = Date.now();
+    //         const days = new Date(time).getDate()
+    //         const hours = new Date(time).getHours();
+    //         const minutes = new Date(time).getMinutes();
+    //         const seconds = new Date(time).getSeconds();
+    //         setDays(days);
+    //         setHours(hours);
+    //         setMinutes(minutes);
+    //         setSeconds(seconds);
+    //         return time;
 
-        useEffect(() => {
-            const interval = setInterval(() => getTime(), 1000);
+    //     };
 
-            return () => clearInterval(interval);
-        }, []);
+    //     useEffect(() => {
+    //         const interval = setInterval(() => getTime(), 1000);
 
-        return (
-            <div>
-                <p>Datetime: {days}d {hours}h {minutes}m {seconds}s</p>
-            </div>
-        )
-    }
+    //         return () => clearInterval(interval);
+    //     }, []);
 
-    function getLeiloes(){
-        fetch(process.env.REACT_APP_API+'/get-all-auctions-menu', {
-            method: 'GET',
-        }).then(response => {
-            if(response.ok){
-                return response.json()
-            }else{
-                return Promise.reject(response);
-            }
-        }).then(data => {
-            // console.log(data.body.auctions[0])
-            // console.log(data.body.auctions[0].status_auction)
-            if(data.body.auctions[0].status_auction === 'OPEN'){
-                setStatusLeilao('Leilão Ativo')
-            }else{
-                setStatusLeilao('Próximo Leilão')
-            }
-            // console.log(data.body.auctions[0])
-            localStorage.setItem('idLeilaoAtivo', data.body.auctions[0].auction_id)
-            setNomeLeilaoAtivo(data.body.auctions[0].title)
-            setDescricaoLeilão(data.body.auctions[0].description)
-            setLanceLeilaoAtivo(data.body.auctions[0].current_amount)
-            // CONVERTER START DATA
-            const startDate = new Date(data.body.auctions[0].start_date * 1000)
-            setDataLeilaoAtivo(startDate.getDate() + "/" + (startDate.getMonth() + 1) + "/" + startDate.getFullYear())
-            setStartHour(startDate.getHours() + ":" + startDate.getMinutes())
-            // CONVERTER END DATA
-            const endDate = new Date(data.body.auctions[0].end_date * 1000)
-            setEndHour(endDate.getHours() + ":" + endDate.getMinutes())
-            
-        }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
-            // 3. get error messages, if any
-            error.json().then((json: any) => {
-                console.log(json);
-                toast.error(json.message, {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
+    //     return (
+    //         <div>
+    //             <p>Datetime: {days}d {hours}h {minutes}m {seconds}s</p>
+    //         </div>
+    //     )
+    // }
+    useEffect(()=> {
+        function getLeiloes(){
+            fetch(process.env.REACT_APP_API+'/get-all-auctions-menu', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(response => {
+                if(response.ok){
+                    return response.json()
+                }else{
+                    return Promise.reject(response);
+                }
+            }).then(data => {
+                // console.log(data)
+                if(data.body.auctions.length === 0){
+                    return toast.error('Nenhum leilão encontrado', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                }
+                // console.log(data.body.auctions[0])
+                if(data.body.auctions[0].status_auction === 'OPEN'){
+                    setStatusLeilao('Leilão Ativo')
+                    setStsLeilao('OPEN')
+                }else{
+                    setStatusLeilao('Próximo Leilão')
+                    setStsLeilao('NEXT')
+                }
+                console.log(data.body.auctions[0])
+                localStorage.setItem('idLeilaoAtivo', data.body.auctions[0].auction_id)
+                setNomeLeilaoAtivo(data.body.auctions[0].title)
+                setDescricaoLeilão(data.body.auctions[0].description)
+                setLanceLeilaoAtivo(data.body.auctions[0].current_amount)
+                setImageLeilao(data.body.auctions[0].images[0].image_body)
+                // console.log(imageLeilao)
+                // CONVERTER START DATA
+                const startDate = new Date(data.body.auctions[0].start_date * 1000)
+                setDataLeilaoAtivo(startDate.getDate() + "/" + (startDate.getMonth() + 1) + "/" + startDate.getFullYear())
+                setStartHour(startDate.getHours() + ":" + startDate.getMinutes())
+                // CONVERTER END DATA
+                const endDate = new Date(data.body.auctions[0].end_date * 1000)
+                setEndHour(endDate.getHours() + ":" + endDate.getMinutes())
+
+                // GERAR DATA DO CARROSSEL
+                if(data.body.auctions.length > 0){
+                    let i
+                    for(i=0; i<data.body.auctions.length; i++){
+                        const startDate = new Date(data.body.auctions[i].start_date * 1000)
+                        const endDate = new Date(data.body.auctions[i].end_date * 1000)
+                        const obj = {
+                            "img": data.body.auctions[i].images[0].image_body,
+                            "nome": data.body.auctions[i].title,
+                            "lance": data.body.auctions[i].current_amount,
+                            "date": startDate.getDate() + "/" + (startDate.getMonth() + 1) + "/" + startDate.getFullYear(),
+                            "timeStart": startDate.getHours() + ":" + startDate.getMinutes(),
+                            "timeEnd": endDate.getHours() + ":" + endDate.getMinutes(),
+                        }
+                        setDataLeilao(oldArray => [...oldArray, obj])
+                        console.log("dataLeilao: ")
+                        console.log(dataLeilao)
+                    }
+                }
+
+            }).catch(error => {
+                // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+                console.log("ERROOOO " + error.status);
+                // 3. get error messages, if any
+                error.json().then((json: any) => {
+                    console.log(json);
+                    toast.error(json.message, {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
                 })
-            })
-        })  
-    }
-
+            })  
+        }
+        getLeiloes()
+    }, [])
+    
     return (
         <>
         <Navbar pag="Inicio"/>
-        <Timer />
+        {/* <Timer /> */}
         <main>
             <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
- 
-            {getLeiloes()}
+
             <section className="px-4 py-8 mb-12 flex flex-col gap-8 items-center">
                 <h1 className="text-4xl text-center">{statusLeilao}</h1>
                 {/* CARD LEITAO ATIVO */}
                 <div className="flex border-2 border-black rounded-xl max-md:flex-col">
-                    <img className="rounded-l-xl w-[300px] max-md:rounded-xl max-md:w-full max-md:h-[300px]" src="http://via.placeholder.com/500x500" alt="Imagem do Leilão"/>
+                    <img className="rounded-l-xl w-[300px] max-md:rounded-xl max-md:w-full max-md:h-[300px]" src={imageLeilao} alt=""/>
                     <div className="flex flex-col w-full items-end gap-12 p-4 max-md:flex-col max-md:items-center">
                         <div className="flex flex-col self-start gap-2 text-lg">
                             <div>
                                 <h2 className="text-3xl">{nomeLeilaoAtivo}</h2>
                             </div>
-                            <p className="underline" onClick={()=>{setModal(true)}}>Informações</p>
+                            <p className="underline cursor-pointer" onClick={()=>{setModal(true)}}>Informações</p>
                             <p>Data: {dataLeilaoAtivo} - {startHour} à {endHour}</p>
                         </div>
                         <div className="flex justify-between gap-12 items-center w-full max-md:flex-col">
                             <p className="font-bold text-3xl">Lance: R${lanceLeilaoAtivo}</p>
-                            <Link to={`${localStorage.getItem('token') ? "/leilao" : "/login"}`} className="flex items-center gap-1 bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl"><i className="fa-solid fa-gavel"></i>Dar Lance</Link>
+                            <Link to={`${stsLeilao === 'OPEN' ? "/leilao" : '/'}`} className="flex items-center gap-1 bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl"><i className="fa-solid fa-gavel"></i>Dar Lance</Link>
                         </div>
                     </div>
                 </div>
@@ -179,7 +218,7 @@ export default function Principal() {
 
             <section className="text-white bg-blue-500 py-8">
                 <h1 className="text-center text-4xl underline mb-8">Próximos Leilões</h1>
-                <Carrossel data={data}/>
+                <Carrossel data={dataLeilao}/>
             </section>
         </main>
 
@@ -197,7 +236,7 @@ export default function Principal() {
                         <div className="flex justify-between items-center">
                             <p></p>
                             <h3 className="font-semibold text-2xl text-center">Informações do Leilão</h3>
-                            <i onClick={()=>{setModal(false)}} className="fa-solid fa-x"></i>
+                            <i onClick={()=>{setModal(false)}} className="fa-solid fa-x cursor-pointer"></i>
                         </div>
                         <div className="h-[2px] bg-azul" />
                         <p className="text-center mt-4">{descricaoLeilão}</p>
