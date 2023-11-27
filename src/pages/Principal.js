@@ -131,7 +131,7 @@ export default function Principal() {
                     setStatusLeilao('Próximo Leilão')
                     setStsLeilao('NEXT')
                 }
-                console.log(data.body.auctions[0])
+                // console.log(data.body.auctions[0])
                 localStorage.setItem('idLeilaoAtivo', data.body.auctions[0].auction_id)
                 setNomeLeilaoAtivo(data.body.auctions[0].title)
                 setDescricaoLeilão(data.body.auctions[0].description)
@@ -161,8 +161,8 @@ export default function Principal() {
                             "timeEnd": endDate.getHours() + ":" + endDate.getMinutes(),
                         }
                         setDataLeilao(oldArray => [...oldArray, obj])
-                        console.log("dataLeilao: ")
-                        console.log(dataLeilao)
+                        // console.log("dataLeilao: ")
+                        // console.log(dataLeilao)
                     }
                 }
 
@@ -187,7 +187,6 @@ export default function Principal() {
         }
         getLeiloes()
     }, [])
-    
     return (
         <>
         <Navbar pag="Inicio"/>

@@ -10,8 +10,82 @@
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>APAE | Leilão</title>
+
+    <!-- CSS -->
+    <style>
+      .fontSizeConfig {
+        font-size: 16px;
+        position: fixed;
+        top: 47%;
+        left: 8px;
+        display: flex;
+        flex-direction: column;
+        /* background-color: red; */
+      }
+      .fontSizeConfig h1 {
+        font-size: 16px;
+      }
+      .fontSizeConfig button:first-child {
+        background-color: rgb(59, 130, 246);
+        border-radius: 5px;
+        color: #fff;
+        font-size: 20px;
+        padding: 8px;
+      }
+      #modal{
+        display: none;
+        flex-direction: column;
+        border: 1px solid #2C4FBC;
+        background-color: #fff;
+      }
+      #modal h1{
+        font-size: 20px;
+        padding: 8px;
+      }
+      .fontSizeConfig button:nth-child(2), .fontSizeConfig button:nth-child(3){
+        background-color: #2C4FBC;
+        color: #fff;
+        font-size: 24px;
+        padding: 8px;
+      }
+    </style>
   </head>
   <body>
+    <div class="fontSizeConfig">
+      <button onclick="showModal()"><i class="fa-solid fa-font"></i></button>
+      <div id="modal">
+        <h1>Configuração de fonte</h1>
+        <button onclick="fontSize('plus')"><i class="fa-solid fa-plus"></i></button>
+        <button onclick="fontSize('minus')"><i class="fa-solid fa-minus"></i></button>
+      </div>
+    </div>
     <div id="root"></div>
   </body>
+
+  <!-- SCRIPT FONT-SIZE -->
+  <script>
+
+    function showModal() {
+      var modal = document.getElementById('modal');
+      if(modal.style.display == 'flex'){
+        modal.style.display = 'none';
+        return;
+      }
+      modal.style.display = 'flex';
+    }
+
+    function fontSize(type){
+      var ids = ['#root'];
+      ids.forEach(id => {
+        var element = document.querySelector('*');
+        var fontSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
+        var fontSizeNumber = parseFloat(fontSize);
+        if(type == 'plus'){
+          element.style.fontSize = (fontSizeNumber + 5) + 'px';
+        }else if(type == 'minus'){
+          element.style.fontSize = (fontSizeNumber - 5) + 'px';
+        }
+      });
+    }
+  </script>
 </html>
