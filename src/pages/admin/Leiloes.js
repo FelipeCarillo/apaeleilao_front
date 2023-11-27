@@ -22,6 +22,19 @@ export default function Leiloes() {
       status_auction: "OPEN",
       created_at: ""
     },
+    {
+      auction_id: "drtyaw100",
+      crated_by: "fugiat laboris",
+      title: "Fusqueta",
+      description: "aaaaaaaaaaaaaaaaa",
+      start_date: "10/10/2021",
+      end_date: "10/10/2021",
+      start_amount: "200",
+      current_amount: "1000",
+      images: "https://picsum.photos/200/300",
+      status_auction: "OPEN",
+      created_at: ""
+    },
   ];
 
   const [images, setImages] = useState([]);
@@ -181,22 +194,6 @@ function addImage() {
     focusScreen.current.focus();
   }, [closeModal]);
 
-  function teste() {
-    document.getElementById("cardImage").innerHTML = `<div class=' flex w-[100%] h-[280px] border-b-2 mb-2 justify-center items-center text-center text-9xl'><i class='fa-solid fa-image'></i></div>`;
-    document.getElementById('nome_prod').value="";
-    document.getElementById('valor_prod').value=""; //Não funciona
-    document.getElementById('desc_prod').value="";
-    document.getElementById('abertura_prod').value="";
-    document.getElementById('duracao_prod').value="";
-    setImages([]);
-    setNome("Nome do Produto");
-    setValor("Valor do Produto");
-    setDesc("");
-    setAbertura("xx/xx/xx xx:xx");
-    setDuracao("xx:xx");
-    setImageNumber(0);
-  }
-
   async function criarLeilao() {
 
     if (nome === "" || nome === "Nome do Produto" || nome === " " || nome.length< 5 || nome.trim() === ""|| /[?!,@#$%¨&*()-+=/|;:<>.'´`[{}]/.test(nome) || /]/.test(nome) || nome.length > 100) {
@@ -213,7 +210,7 @@ function addImage() {
     }
     var valor_trabalhado = valor.replace("R$", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(",", ".").replace("-","");
     console.log(valor_trabalhado);
-    if (valor === "" || valor === "Valor do Produto" || valor === " " || valor.trim() === " " || valor < 0 || /[?!@#%¨&*()-+=/|;:<>'´`]/.test(valor) || valor === "R$ 0,00" || !/[0-9]/.test(valor) || valor_trabalhado > 1000000000 || parseFloat(valor_trabalhado) === 0) {
+    if (valor === "" || valor === "Valor do Produto" || valor === " " || valor.trim() === " " || valor < 0 || /[?!@#%¨&*()-+=/|;:<>'´`]/.test(valor) || valor === "R$ 0,00" || !/[0-9]/.test(valor) || valor_trabalhado > 1000000000 || parseFloat(valor_trabalhado) === 0 || valor_trabalhado < 0) {
       return toast.error("O valor inicial não pode ser nulo, negativo ou maior que R$1.000.000.000,00.", {
         position: "top-center",
         autoClose: 5000,
@@ -290,62 +287,55 @@ function addImage() {
     };
     console.log(json);
 
-    // await fetch(process.env.REACT_APP_API + '/create-auction', {
-    //         mode: 'cors',
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': localStorage.getItem('token')
-    //         },
-    //         body: JSON.stringify(json),
-    //     }).then(response => {
-    //         if(response.ok){
-    //             return response.json()
-    //         }else{
-    //             return Promise.reject(response);
-    //         }
-    //     }).then(data => {
-    //         // AQUI VC CONTROLA O JSON DE RETORNO
-    //         setImages([]);
-    //         setNome("Nome do Produto");
-    //         setValor("Valor do Produto");
-    //         setDesc("");
-    //         setAbertura("xx/xx/xx xx:xx");
-    //         setDuracao("xx:xx");
-    //         setImageNumber(0);
-
-    //         setCloseModal(false);
-            
-    //         console.log(data);
-    //         toast.success(data.message, {
-    //             position: "top-center",
-    //             autoClose: 3000,
-    //             hideProgressBar: false,
-    //             closeOnClick: true,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         })
-    //         // console.log("data: " + data.message)
-    //     }).catch(error => {
-    //         // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-    //         console.log("ERROOOO " + error.status);
-    //         // 3. get error messages, if any
-    //         error.json().then((json: any) => {
-    //             console.log(json);
-    //             toast.error(json.message, {
-    //                 position: "top-center",
-    //                 autoClose: 3000,
-    //                 hideProgressBar: false,
-    //                 closeOnClick: true,
-    //                 pauseOnHover: true,
-    //                 draggable: true,
-    //                 progress: undefined,
-    //                 theme: "light",
-    //             })
-    //         })
-    //     });
+    await fetch(process.env.REACT_APP_API + '/create-auction', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify(json),
+        }).then(response => {
+            if(response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response);
+            }
+        }).then(data => {
+            // AQUI VC CONTROLA O JSON DE RETORNO
+            console.log(data);
+            toast.success(data.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+            // console.log("data: " + data.message)
+        }).catch(error => {
+            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
+            console.log("ERROOOO " + error.status);
+            // 3. get error messages, if any
+            error.json().then((json: any) => {
+                console.log(json);
+                toast.error(json.message, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            })
+        });
   }
 
   return (
@@ -517,7 +507,7 @@ function addImage() {
                         <p className="text-2xl pb-2">
                           <strong>Lance Inicial: {valor}</strong>
                         </p>
-                        <div className="flex justify-between px-2">
+                        <div className="flex justify-between px-2 mb-2">
                           <div className="text-left">
                             <p className="text-lg">Data de início:</p>
                             <p>{moment(abertura).format("DD/MM/YYYY HH:mm")}</p>
@@ -633,7 +623,6 @@ function addImage() {
                 <button className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[40%] mt-10 text-xl" onClick={criarLeilao}>
                   Criar leilão
                 </button>
-                <button onClick={teste}>aaaaaaaaa</button>
               </div>
             </div>
           </div>
