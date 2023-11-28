@@ -136,7 +136,7 @@ export default function Leilao(){
     //             {hours}h : {minutes}m : {seconds}s
     //         </div>
     //     );
-    /// }
+    // }
 
     return (
         <>

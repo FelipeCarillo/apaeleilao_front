@@ -139,7 +139,7 @@ export default function Principal() {
                         </div>
                         <div className="flex justify-between gap-12 items-center w-full max-md:flex-col">
                             <p className="font-bold text-3xl">Lance: R${lanceLeilaoAtivo}</p>
-                            <Link to={`${stsLeilao === 'OPEN' ? "/leilao" : '/'}`} className="flex items-center gap-1 bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl"><i className="fa-solid fa-gavel"></i>Dar Lance</Link>
+                            <Link to={`${stsLeilao === 'OPEN' ? localStorage.getItem('token') ? "/leilao" : '/login' : '/'}`} className="flex items-center gap-1 bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl"><i className="fa-solid fa-gavel"></i>Dar Lance</Link>
                         </div>
                     </div>
                 </div>

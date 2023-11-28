@@ -4,12 +4,9 @@
   "private": true,
   "dependencies": {
     "@djpfs/react-vlibras": "^2.0.2",
-<<<<<<< HEAD
     "@radix-ui/react-scroll-area": "^1.0.5",
-=======
     "@googlemaps/react-wrapper": "^1.1.35",
     "@react-google-maps/api": "^2.19.2",
->>>>>>> d36cbbe8d4051b21e64c722c738dcd047d06a67d
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
