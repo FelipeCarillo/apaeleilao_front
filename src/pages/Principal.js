@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export default function Principal() {
     const [modal, setModal] = useState(false)
 
-    const [nomeLeilaoAtivo, setNomeLeilaoAtivo] = useState('Exemplo')
+    const [nomeLeilaoAtivo, setNomeLeilaoAtivo] = useState('Sem leilão')
     const [lanceLeilaoAtivo, setLanceLeilaoAtivo] = useState('0')
     const [dataLeilaoAtivo, setDataLeilaoAtivo] = useState('00/00/0000')
     const [startHour, setStartHour] = useState('00:00')
@@ -20,82 +20,6 @@ export default function Principal() {
 
     const [dataLeilao, setDataLeilao] = useState([])
 
-    // const data = [
-    //     {
-    //         "img": 'http://via.placeholder.com/500x500',
-    //         "nome": 'Exemplo1',
-    //         "lance": '1.000,00',
-    //         "date": '23/08/2023',
-    //         "timeStart": '12:00',
-    //         "timeEnd": '12:30',
-    //     },
-    //     {
-    //         "img": 'http://via.placeholder.com/500x500',
-    //         "nome": 'Exemplo2',
-    //         "lance": '750,00',
-    //         "date": '24/08/2023',
-    //         "timeStart": '17:00',
-    //         "timeEnd": '17:30',
-    //     },
-    //     {
-    //         "img": 'http://via.placeholder.com/500x500',
-    //         "nome": 'Exemplo3',
-    //         "lance": '1.600,00',
-    //         "date": '25/08/2023',
-    //         "timeStart": '08:30',
-    //         "timeEnd": '09:00',
-    //     },
-    //     {
-    //         "img": 'http://via.placeholder.com/500x500',
-    //         "nome": 'Exemplo4',
-    //         "lance": '10.000,00',
-    //         "date": '26/08/2023',
-    //         "timeStart": '16:30',
-    //         "timeEnd": '17:00',
-    //     },
-    //     {
-    //         "img": 'http://via.placeholder.com/500x500',
-    //         "nome": 'Exemplo5',
-    //         "lance": '10.000,00',
-    //         "date": '26/08/2023',
-    //         "timeStart": '16:30',
-    //         "timeEnd": '17:00',
-    //     },
-    // ]
-
-    // const Timer = () => {
-    //     const [days, setDays] = useState(0);
-    //     const [hours, setHours] = useState(0);
-    //     const [minutes, setMinutes] = useState(0);
-    //     const [seconds, setSeconds] = useState(0);
-
-    //     const getTime = () => {
-
-    //         const time = Date.now();
-    //         const days = new Date(time).getDate()
-    //         const hours = new Date(time).getHours();
-    //         const minutes = new Date(time).getMinutes();
-    //         const seconds = new Date(time).getSeconds();
-    //         setDays(days);
-    //         setHours(hours);
-    //         setMinutes(minutes);
-    //         setSeconds(seconds);
-    //         return time;
-
-    //     };
-
-    //     useEffect(() => {
-    //         const interval = setInterval(() => getTime(), 1000);
-
-    //         return () => clearInterval(interval);
-    //     }, []);
-
-    //     return (
-    //         <div>
-    //             <p>Datetime: {days}d {hours}h {minutes}m {seconds}s</p>
-    //         </div>
-    //     )
-    // }
     useEffect(()=> {
         function getLeiloes(){
             fetch(process.env.REACT_APP_API+'/get-all-auctions-menu', {
@@ -141,11 +65,18 @@ export default function Principal() {
                 // CONVERTER START DATA
                 const startDate = new Date(data.body.auctions[0].start_date * 1000)
                 setDataLeilaoAtivo(startDate.getDate() + "/" + (startDate.getMonth() + 1) + "/" + startDate.getFullYear())
-                setStartHour(startDate.getHours() + ":" + startDate.getMinutes())
+                if(startDate.getMinutes() < 10){
+                    setStartHour(startDate.getHours() + ":0" + startDate.getMinutes())
+                }else{
+                    setStartHour(startDate.getHours() + ":" + startDate.getMinutes())
+                }
                 // CONVERTER END DATA
                 const endDate = new Date(data.body.auctions[0].end_date * 1000)
-                setEndHour(endDate.getHours() + ":" + endDate.getMinutes())
-
+                if(endDate.getMinutes() < 10){
+                    setEndHour(endDate.getHours() + ":0" + endDate.getMinutes())
+                }else{
+                    setEndHour(endDate.getHours() + ":" + endDate.getMinutes())
+                }
                 // GERAR DATA DO CARROSSEL
                 if(data.body.auctions.length > 0){
                     let i
@@ -157,12 +88,10 @@ export default function Principal() {
                             "nome": data.body.auctions[i].title,
                             "lance": data.body.auctions[i].current_amount,
                             "date": startDate.getDate() + "/" + (startDate.getMonth() + 1) + "/" + startDate.getFullYear(),
-                            "timeStart": startDate.getHours() + ":" + startDate.getMinutes(),
-                            "timeEnd": endDate.getHours() + ":" + endDate.getMinutes(),
+                            "timeStart": startDate.getMinutes() < 10 ? startDate.getHours() + ":0" + startDate.getMinutes() : startDate.getHours() + ":" + startDate.getMinutes(),
+                            "timeEnd": endDate.getMinutes() < 10 ? endDate.getHours() + ":0" + endDate.getMinutes() : endDate.getHours() + ":" + endDate.getMinutes(),
                         }
                         setDataLeilao(oldArray => [...oldArray, obj])
-                        // console.log("dataLeilao: ")
-                        // console.log(dataLeilao)
                     }
                 }
 
@@ -187,6 +116,7 @@ export default function Principal() {
         }
         getLeiloes()
     }, [])
+
     return (
         <>
         <Navbar pag="Inicio"/>
@@ -198,7 +128,7 @@ export default function Principal() {
                 <h1 className="text-4xl text-center">{statusLeilao}</h1>
                 {/* CARD LEITAO ATIVO */}
                 <div className="flex border-2 border-black rounded-xl max-md:flex-col">
-                    <img className="rounded-l-xl w-[300px] max-md:rounded-xl max-md:w-full max-md:h-[300px]" src={imageLeilao} alt=""/>
+                    <img className="rounded-l-xl w-[300px] h-[300px] max-md:rounded-xl max-md:w-full max-md:h-[300px]" src={imageLeilao} alt="imagem do leilao ativo"/>
                     <div className="flex flex-col w-full items-end gap-12 p-4 max-md:flex-col max-md:items-center">
                         <div className="flex flex-col self-start gap-2 text-lg">
                             <div>
