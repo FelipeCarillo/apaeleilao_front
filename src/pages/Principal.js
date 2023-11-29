@@ -141,7 +141,7 @@ export default function Principal() {
                             <div>
                                 <h2 className="text-3xl">{nomeLeilaoAtivo}</h2>
                             </div>
-                            <p className="underline cursor-pointer" onClick={()=>{setModal(true)}} tabIndex={0}>Informações</p>
+                            <p className="underline cursor-pointer" onClick={()=>{setModal(true)}} tabIndex={0} onKeyDown={(event)=> event.keyCode === 13 && setModal(true)}>Informações</p>
                             <p>Data: {dataLeilaoAtivo} - {startHour} à {endHour}</p>
                         </div>
                         <div className="flex justify-between gap-12 items-center w-full max-md:flex-col">

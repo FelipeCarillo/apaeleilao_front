@@ -169,7 +169,7 @@ export default function Leilao(){
                     <img className="w-full max-h-[500px] rounded-t-xl" src={image} alt=""/>
                     <div className="text-center text-2xl h-1/3 flex flex-col">
                         <h1>{nomeLeilao}</h1>
-                        <button className="underline" onClick={() => setModal(true)}>Informações</button>
+                        <button className="underline" onClick={() => setModal(true)} tabIndex={0} onKeyDown={(event)=> event.keyCode === 13 && setModal(true)}>Informações</button>
                     </div>
                     <div className="text-2xl text-center mt-12">
                         <label>Tempo Restante: <Timer/></label>
@@ -224,7 +224,7 @@ export default function Leilao(){
                         <div className="flex justify-between items-center">
                             <p></p>
                             <h3 className="font-semibold text-2xl text-center">Informações do Leilão</h3>
-                            <i onClick={()=>{setModal(false)}} className="fa-solid fa-x cursor-pointer"></i>
+                            <i onClick={()=>{setModal(false)}} className="fa-solid fa-x cursor-pointer" tabIndex={0} onKeyDown={(event)=> event.keyCode === 13 && setModal(false)}></i>
                         </div>
                         <div className="h-[2px] bg-azul" />
                         <p className="text-center mt-4">{descricaoLeilão}</p>

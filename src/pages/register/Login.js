@@ -21,6 +21,7 @@ export default function Login(){
     async function Login(){
         setLoading(true)
         if(login === ''){
+            setLoading(false)
             return toast.error('Email Inválido', {
                 position: "top-center",
                 autoClose: 3000,
@@ -33,6 +34,7 @@ export default function Login(){
             })
         }
         if(password === ''){
+            setLoading(false)
             return toast.error('Senha Inválida', {
                 position: "top-center",
                 autoClose: 3000,
@@ -162,8 +164,8 @@ export default function Login(){
                     <label className='md:w-1/2' htmlFor="password">Senha:</label>
                     <input onChange={(e) => {setPassword(e.target.value)}} className="bg-gray-200 rounded-full py-1 px-3 md:w-1/2" type={`${viewPass ? "text" : "password"}`} name="password" id="password"/>
                     <div className="flex justify-between w-1/2 max-md:w-full">
-                        <p className='underline max-md:self-start md:w-1/2 cursor-pointer' onClick={()=>{setModal(true)}} tabIndex={0}>Esqueceu sua Senha?</p>
-                        <label className="cursor-pointer" onClick={(e) => {setViewPass(!viewPass)}} tabIndex={0}>Mostrar Senha</label>  
+                        <p className='underline max-md:self-start md:w-1/2 cursor-pointer' onClick={()=>{setModal(true)}} tabIndex={0} onKeyDown={(event)=> event.keyCode === 13 && setModal(true)}>Esqueceu sua Senha?</p>
+                        <label className="cursor-pointer" onClick={(e) => {setViewPass(!viewPass)}} tabIndex={0} onKeyDown={(event)=> event.keyCode === 13 && setViewPass(!viewPass)}>Mostrar Senha</label>  
                     </div>
                 </div>
 
@@ -179,7 +181,7 @@ export default function Login(){
                 </div>
                 
                 <div className="flex justify-center mt-4">
-                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer" tabIndex={0}><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</label>
+                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer" tabIndex={0} onKeyDown={(event)=> event.keyCode === 13 && Login()}><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</label>
                 </div>
             </form>
             <p className="text-lg text-center my-4">Ainda não possui uma conta? <Link className='text-azul' to="/cadastro">Clique Aqui</Link> </p>

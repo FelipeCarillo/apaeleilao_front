@@ -292,7 +292,7 @@ export default function Cadastro() {
                     </div>
 
                     <div className='flex justify-center'>
-                        <label type="button" htmlFor="" className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer" onClick={next} tabIndex={0}>Continuar</label>
+                        <label type="button" htmlFor="" className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer" onClick={next} tabIndex={0} onKeyDown={(event)=> event.keyCode === 13 && next()}>Continuar</label>
                     </div>
                 </section>
 
@@ -328,7 +328,7 @@ export default function Cadastro() {
                     </div>
 
                     <div className='flex max-sm:flex-col-reverse text-center justify-between md:justify-center gap-4'>
-                        <label className="py-4 px-10 text-xl rounded-full border-2 border-yellow-300 cursor-pointer" onClick={back} tabIndex={0}>Voltar</label>
+                        <label className="py-4 px-10 text-xl rounded-full border-2 border-yellow-300 cursor-pointer" onClick={back} tabIndex={0} onKeyDown={(event)=> event.keyCode === 13 && back()}>Voltar</label>
                         <label className="bg-yellow-300 py-4 px-10 text-xl rounded-full cursor-pointer" onClick={POSTCadastrar} tabIndex={0} onKeyDown={keyDown}><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> Cadastrar</label>
                     </div>
                 </section>
