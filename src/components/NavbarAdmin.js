@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import LogoApae from './logoApae.jpg'
-
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 export default function NavbarAdmin({...props}){
     const [menu, setMenu] = useState(false)
     
+    menu ? disableBodyScroll(document) : enableBodyScroll(document)
     return (
-        <nav className="bg-azul p-4 flex justify-between items-center rounded-b-2xl shadow-xl">
+        <nav className="bg-azul p-4 flex justify-between items-center rounded-b-2xl shadow-xl z-50">
             <img className="w-[200px]" src={LogoApae} alt="Logo da APAE"/>
             <ul className={`flex gap-16 items-center text-3xl text-white ${menu ? 'max-lg:absolute max-lg:bg-black max-lg:bg-opacity-90 max-lg:flex-col max-lg:bottom-0 max-lg:left-0 max-lg:w-full max-lg:h-full max-lg:justify-center max-lg:items-center max-lg:overscroll-none' : 'max-lg:hidden'}`}>
                 <li className={`${props.pag === undefined ? "text-yellow-400 underline" : ""}`}><Link to='/admin'>Leilões</Link></li>
