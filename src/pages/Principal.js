@@ -134,14 +134,14 @@ export default function Principal() {
             <section className="px-4 py-8 mb-12 flex flex-col gap-8 items-center">
                 <h1 className="text-4xl text-center">{statusLeilao}</h1>
                 {/* CARD LEITAO ATIVO */}
-                <div className="flex border-2 border-black rounded-xl max-md:flex-col">
+                <div className="flex border-2 border-black rounded-xl max-md:flex-col" tabIndex={0}>
                     <img className="rounded-l-xl w-[300px] h-[300px] max-md:rounded-xl max-md:w-full max-md:h-[300px]" src={imageLeilao} alt="imagem do leilao ativo"/>
                     <div className="flex flex-col w-full items-end gap-12 p-4 max-md:flex-col max-md:items-center">
                         <div className="flex flex-col self-start gap-2 text-lg">
                             <div>
                                 <h2 className="text-3xl">{nomeLeilaoAtivo}</h2>
                             </div>
-                            <p className="underline cursor-pointer" onClick={()=>{setModal(true)}}>Informações</p>
+                            <p className="underline cursor-pointer" onClick={()=>{setModal(true)}} tabIndex={0}>Informações</p>
                             <p>Data: {dataLeilaoAtivo} - {startHour} à {endHour}</p>
                         </div>
                         <div className="flex justify-between gap-12 items-center w-full max-md:flex-col">
