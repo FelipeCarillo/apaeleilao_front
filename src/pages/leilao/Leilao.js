@@ -6,14 +6,14 @@ import { useState, useEffect } from "react";
 import CurrencyInput from "react-currency-input-field";
 
 export default function Leilao(){
+    const [modal, setModal] = useState(false)
     const [nomeLeilao, setNomeLeilao] = useState('')
     const [lanceLeilao, setLanceLeilao] = useState('')
     const [lances, setLances] = useState([])
     const [valor, setValor] = useState(0)
     const [image, setImage] = useState('')
-    const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
-
+    const [descricaoLeilão, setDescricaoLeilao] = useState('Sem Descrição')
 
     function getLeilao(){
         fetch (process.env.REACT_APP_API+'/get-auction?auction_id='+localStorage.getItem('idLeilaoAtivo'), {
@@ -34,9 +34,8 @@ export default function Leilao(){
             setLanceLeilao(data.body.current_amount)
             setLances(data.body.bids)
             setImage(data.body.images[0].image_body)
-            setStartDate(new Date(data.body.start_date * 1000))
             setEndDate(new Date(data.body.end_date * 1000))
-
+            setDescricaoLeilao(data.body.description)
 
         }).catch(error => {
             console.log("ERROOOO " + error.status);
@@ -111,32 +110,50 @@ export default function Leilao(){
         })
     }
 
-    // const Timer = () => {
-    //     const [hours, setHours] = useState(0);
-    //     const [minutes, setMinutes] = useState(0);
-    //     const [seconds, setSeconds] = useState(0);
+    const Timer = () => {
+        const calculateTimeLeft = () => {
+            const difference = +new Date(endDate) - +new Date();
+            let timeLeft = {};
 
-    //     const deadline = "December, 29, 2024";
+            if (difference > 0) {
+                timeLeft = {
+                    h: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    min: Math.floor((difference / 1000 / 60) % 60),
+                    seg: Math.floor((difference / 1000) % 60),
+                };
+            }
 
-    //     const getTime = () => {
-    //         const time = Date.parse(deadline) - Date.now();
+            return timeLeft;
+        };
 
-    //         setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
-    //         setMinutes(Math.floor((time / 1000 / 60) % 60));
-    //         setSeconds(Math.floor((time / 1000) % 60));
-    //     };
-    
-    //     useEffect(() => {
-    //         const interval = setInterval(() => getTime(deadline), 1000);
-    //         console.log(hours, minutes, seconds)
-    //         return () => clearInterval(interval);
-    //     }, []);
-    //     return (
-    //         <div className="timer">
-    //             {hours}h : {minutes}m : {seconds}s
-    //         </div>
-    //     );
-    // }
+        const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+        useEffect(() => {
+            setTimeout(() => {
+                setTimeLeft(calculateTimeLeft());
+            }, 1000);
+        });
+
+        const timerComponents = [];
+
+        Object.keys(timeLeft).forEach((interval) => {
+            if (!timeLeft[interval]) {
+                return;
+            }
+
+            timerComponents.push(
+                <span>
+                    {timeLeft[interval]} {interval}{" "}
+                </span>
+            );
+        });
+
+        return (
+            <div>
+                {timerComponents.length ? timerComponents : <span>Finalizado!</span>}
+            </div>
+        );
+    }
 
     return (
         <>
@@ -152,10 +169,10 @@ export default function Leilao(){
                     <img className="w-full max-h-[500px] rounded-t-xl" src={image} alt=""/>
                     <div className="text-center text-2xl h-1/3 flex flex-col">
                         <h1>{nomeLeilao}</h1>
-                        <button className="underline">Informações</button>
+                        <button className="underline" onClick={() => setModal(true)}>Informações</button>
                     </div>
                     <div className="text-2xl text-center mt-12">
-                        <label>Tempo Restante: 0h : 0min : 0seg</label>
+                        <label>Tempo Restante: <Timer/></label>
                     </div>
                 </div>
             </section>
@@ -195,6 +212,28 @@ export default function Leilao(){
         </main>
 
         <Footer/>
+        {/* MODAL */}
+        <div className={`${modal ? 'relative z-10' : 'hidden'}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div className="">
+                        <div className="flex justify-between items-center">
+                            <p></p>
+                            <h3 className="font-semibold text-2xl text-center">Informações do Leilão</h3>
+                            <i onClick={()=>{setModal(false)}} className="fa-solid fa-x cursor-pointer"></i>
+                        </div>
+                        <div className="h-[2px] bg-azul" />
+                        <p className="text-center mt-4">{descricaoLeilão}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
         </>
     )
 }

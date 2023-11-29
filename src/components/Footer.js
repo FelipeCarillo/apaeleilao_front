@@ -10,7 +10,7 @@ export default function Footer(){
                     <h2 className="text-2xl font-bold">Navegação</h2>
                     <div className="flex flex-col text-xl">    
                         <Link to='/' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Início</Link>
-                        <Link to='/participados' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Leilões Participados</Link>
+                        <Link to={localStorage.getItem('token') ? '/participados' : '/login'} className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Leilões Participados</Link>
                         <Link to='/login' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Login</Link>
                         <Link to='/admin/login' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Login administrativo</Link>
                         <Link to='/feedback' className=" hover:underline"><i className="fa-solid fa-check text-green-500"></i> Feedback</Link>
