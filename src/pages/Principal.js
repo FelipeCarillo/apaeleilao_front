@@ -62,21 +62,16 @@ export default function Principal() {
                 setLanceLeilaoAtivo(data.body.auctions[0].current_amount)
                 setImageLeilao(data.body.auctions[0].images[0].image_body)
                 // console.log(imageLeilao)
+
                 // CONVERTER START DATA
                 const startDate = new Date(data.body.auctions[0].start_date * 1000)
                 setDataLeilaoAtivo(startDate.getDate() + "/" + (startDate.getMonth() + 1) + "/" + startDate.getFullYear())
-                if(startDate.getMinutes() < 10){
-                    setStartHour(startDate.getHours() + ":0" + startDate.getMinutes())
-                }else{
-                    setStartHour(startDate.getHours() + ":" + startDate.getMinutes())
-                }
+                // FOMATANDO
+                setStartHour(formatData(startDate.getHours(), startDate.getMinutes()))
                 // CONVERTER END DATA
                 const endDate = new Date(data.body.auctions[0].end_date * 1000)
-                if(endDate.getMinutes() < 10){
-                    setEndHour(endDate.getHours() + ":0" + endDate.getMinutes())
-                }else{
-                    setEndHour(endDate.getHours() + ":" + endDate.getMinutes())
-                }
+                // FOMATANDO
+                setEndHour(formatData(endDate.getHours(), endDate.getMinutes()))
                 // GERAR DATA DO CARROSSEL
                 if(data.body.auctions.length > 0){
                     let i
@@ -88,8 +83,8 @@ export default function Principal() {
                             "nome": data.body.auctions[i].title,
                             "lance": data.body.auctions[i].current_amount,
                             "date": startDate.getDate() + "/" + (startDate.getMonth() + 1) + "/" + startDate.getFullYear(),
-                            "timeStart": startDate.getMinutes() < 10 ? startDate.getHours() + ":0" + startDate.getMinutes() : startDate.getHours() + ":" + startDate.getMinutes(),
-                            "timeEnd": endDate.getMinutes() < 10 ? endDate.getHours() + ":0" + endDate.getMinutes() : endDate.getHours() + ":" + endDate.getMinutes(),
+                            "timeStart": formatData(startDate.getHours(), startDate.getMinutes()),
+                            "timeEnd": formatData(endDate.getHours(), endDate.getMinutes()),
                         }
                         setDataLeilao(oldArray => [...oldArray, obj])
                     }
@@ -116,6 +111,18 @@ export default function Principal() {
         }
         getLeiloes()
     }, [])
+
+    function formatData(hour, minute){
+        if(hour < 10 && minute < 10){
+            return ("0" + hour + ":0" + minute)
+        }else if(minute < 10){
+            return (hour + ":0" + minute)
+        }else if(hour < 10){
+            return ("0" + hour + ":" + minute)
+        }else{
+            return (hour + ":" + minute)
+        }
+    }
 
     return (
         <>
