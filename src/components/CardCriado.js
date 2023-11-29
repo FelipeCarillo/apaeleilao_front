@@ -48,19 +48,19 @@ export default function CardCriados({data}){
     return (
         <>
         {data.map((data, index) => (
-          <div>
+          <div key={index}>
             {/* Card */}
-            <div key={index} className="border-2 border-black rounded-[25px]">
+            <div className="border-2 border-black rounded-[25px]">
                 <div>
                     <div className="relative">
-                        <button className="absolute mt-1 me-1 top-0 right-0 bg-yellow-300 text-xl rounded-full py-1 px-2" onClick={() => {createModalD(data.auction_id, data.title)}}><i className="fa-solid fa-trash-can"></i></button>
+                        <button className="absolute mt-1 me-1 top-0 right-0 bg-yellow-300 text-xl rounded-full py-1 px-2 hover:w-[40px] hover:h-[40px]" onClick={() => {createModalD(data.auction_id, data.title)}}><i className="fa-solid fa-trash-can"></i></button>
                     </div>
                     <img src={data.images} alt="Imagem do evento" className="w-[100%] h-[250px] rounded-t-[25px] object-cover"/>
                 </div>
                 <div className="text-center">
                     <p className="text-2xl pb-0">{data.title}</p>
                     <p className="text-2xl"><strong>Lance: R${data.start_amount}</strong></p>
-                    <button className="bg-yellow-300 py-2 px-10 text-xl rounded-full cursor-pointer mt-1">Editar</button>
+                    <button className="bg-yellow-300 py-2 px-10 text-xl rounded-full cursor-pointer mt-1 hover:text-2xl">Editar</button>
                     <div className="flex justify-between gap-2">
                         <div>
                             <p className="text-md text-left ms-2 py-0 my-0">Abre:</p>
@@ -88,14 +88,14 @@ export default function CardCriados({data}){
                 <div className="relative m-0">
                   <div className="bg-azul">
                     <button
-                      className="absolute top-0 right-0 me-2 text-4xl text-vermelho"
+                      className="absolute top-0 right-0 me-2 text-4xl w-[40px] text-vermelho hover:bg-vermelho hover:text-white"
                       onClick={() => {
                         setCloseModalD(false);
                       }}
                     >
                       <i className="fa-solid fa-xmark"></i>
                     </button>
-                    <h6 className="text-4xl text-center py-2 text-white">Deseja excluir o evento {nome}?</h6>
+                    <h6 className="text-4xl text-center py-2 text-white">Deseja excluir o evento <br/>{nome}?</h6>
                   </div>
                   <div className="mt-2 px-5">
                     <p id="modalD_message" className="text-xl">Após você deletar o leilao, não será mais possível de recupera-lo, realmente deseja deletar o leilão {nome}?</p>
@@ -107,6 +107,8 @@ export default function CardCriados({data}){
                 </div>
               </div>
             </div>
+
+            {/* Modal Edit */}
           </div>
         ))}
         </>

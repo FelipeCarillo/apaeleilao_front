@@ -48,6 +48,9 @@ export default function CardParticipados({data}){
             theme: "light",
         });
     }
+    function abrirMapa () {
+        window.open("https://maps.app.goo.gl/K97x1sZdQziXugSh7", "mozillaTab");
+    }
 
     // get payment
     const fetchPaymentData = (auction_id) => {
@@ -83,7 +86,7 @@ export default function CardParticipados({data}){
         }
     }, [auction_id, modalIsOpen]);
 
-    //Verificação se está pago para o map
+    //Verificação se está pago para o mapa
     function verificaPago (status_payment) {
         if (status_payment === 'PENDING'){
             return <img className="mx-auto border-2 border-gray-400 rounded-[10px] w-[100%] md:w-[50%]" src={payment.pix_base64 === undefined ? 'https://placehold.co/500x500' : `data:image/png;base64,${payment.pix_base64}`}></img>
@@ -92,7 +95,7 @@ export default function CardParticipados({data}){
             return <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.9919541606373!2d-46.556860474306305!3d-23.
             640459178745584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce42d64e24abeb%3A0xf631b86ca3704b82!2sAPAE%20São%20
             Caetano%20do%20Sul!5e0!3m2!1sen!2sbr!4v1701172670863!5m2!1sen!2sbr" 
-            width="400" height="300" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" className="mx-auto"></iframe>
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" className="mx-auto w-[100%] h-[200px] md:w-[70%] md:h-[300px]"></iframe>
         }
     }
 
@@ -110,9 +113,9 @@ export default function CardParticipados({data}){
                         <p className="text-2xl pb-0">{data.title}</p>
                         <p className="text-2xl"><strong>Lance: R${data.amount}</strong></p>
                         <p className="text-lg">Prazo: {convertData(data.end_date)}</p>
-                        { data.status_payment === 'PENDING' ? <button className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[80%] my-3 text-xl" onClick={() => {openModal(data)}}>Pagar</button>
-                        : data.status_payment === 'PAID' ? <button className="bg-verde p-2 border-2 border-black rounded-[45px] w-[80%] my-3 text-white text-xl" onClick={() => {openModal(data)}}> <i className="fa-solid fa-check"></i> </button> 
-                        : <button className="bg-vermelho p-2 border-2 border-black rounded-[45px] w-[80%] my-3 text-white text-xl" onClick={() => {openModal(data)}}> <i className="fa-solid fa-x"></i> </button>}
+                        { data.status_payment === 'PENDING' ? <button className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[80%] my-3 text-xl hover:text-2xl" onClick={() => {openModal(data)}}>Pagar</button>
+                        : data.status_payment === 'PAID' ? <button className="bg-verde p-2 border-2 border-black rounded-[45px] w-[80%] my-3 text-white text-xl hover:text-2xl" onClick={() => {openModal(data)}}> <i className="fa-solid fa-check"></i> </button> 
+                        : <button className="bg-vermelho p-2 border-2 border-black rounded-[45px] w-[80%] my-3 text-white text-xl hover:text-2xl" onClick={() => {openModal(data)}}> <i className="fa-solid fa-x"></i> </button>}
                     </div>
                 </div>
                 {/* Modal */}
@@ -143,7 +146,7 @@ export default function CardParticipados({data}){
                     <div className="flex justify-between bg-azul p-2 mb-5 md:mb-10">
                         <p className="text-azul">a</p>
                         <h2 className="text-white text-4xl">Pagamento</h2>
-                        <button className="text-4xl text-vermelho" onClick={closeModal}><i className="fa-solid fa-xmark"></i></button>
+                        <button className="text-4xl w-[40px] text-vermelho hover:bg-vermelho hover:text-white rounded-tr-lg" onClick={closeModal}><i className="fa-solid fa-xmark"></i></button>
                     </div>
                     {/* Conteudo */}
                     <div className="flex flex-col md:flex-row">
@@ -163,10 +166,13 @@ export default function CardParticipados({data}){
                         </div>
                         {/* Lado Direito - Pagamento */}
                         <div className="w-[100%] md:w-[50%] px-10 text-center">
-                            <h6 className="text-4xl underline mb-5">{data.status_payment === 'PENDING' ? 'PIX' : data.status_payment === 'PAID' ? 'Retire aqui o seu pedido' : ''}</h6>
+                            <h6 className="text-3xl md:text-4xl underline mb-5">{data.status_payment === 'PENDING' ? 'PIX' : data.status_payment === 'PAID' ? 'Retire aqui o seu pedido' : ''}</h6>
                             {verificaPago(payment.status_payment)}
                             {/* <img className="mx-auto border-2 border-gray-400 rounded-[10px] w-[100%] md:w-[50%]" src={payment.pix_base64 === undefined ? 'https://placehold.co/500x500' : `data:image/png;base64,${payment.pix_base64}`}></img> */}
-                            <button className="bg-yellow-300 mt-3 px-6 py-1 text-2xl rounded-[45px] border border-black" onClick={copiarCodigo}>Copiar Código</button>
+                            {data.status_payment === 'PENDING' ? <button className="bg-yellow-300 mt-3 px-6 py-1 text-xl md:text-2xl rounded-[45px] border border-black hover:text-3xl" onClick={copiarCodigo}>Copiar Código</button>
+                            : data.status_payment === 'PAID' ? <button className="bg-yellow-300 mt-3 px-6 py-1 text-xl md:text-2xl rounded-[45px] border border-black hover:text-3xl" onClick={abrirMapa}>Acessar endereço</button>
+                            : ''}
+                            {/* <button className="bg-yellow-300 mt-3 px-6 py-1 text-2xl rounded-[45px] border border-black" onClick={() => {copiarCodigo((data.status_payment))}}>{data.status_payment === 'PENDING' ? 'Copiar Código' : data.status_payment === 'PAID' ? 'Copiar endereço' : ''}</button> */}
                             <p className="text-xl md:text-3xl mt-10">Status do Pagamento: <br/><strong>{data.status_payment === "PENDING" ? 'AGUARDANDO' : data.status_payment ? 'PAGO' : 'EXPIRADO'}</strong></p>
                             <div className="mt-5">
                                 {data.status_payment === "PENDING" ? <div className="rounded-full mx-auto mt-1 text-6xl"><i className="fa-solid fa-spinner animate-spin"></i></div> 

@@ -6,6 +6,7 @@ import moment from "moment";
 import CurrencyInput from "react-currency-input-field";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { func } from "prop-types";
 
 export default function Leiloes() {
   const participados = [
@@ -194,6 +195,20 @@ function addImage() {
     focusScreen.current.focus();
   }, [closeModal]);
 
+  function prox() {
+    document.getElementById("ladoEsq").classList.remove("hidden");
+    document.getElementById("ladoDir").classList.add("hidden");
+    document.getElementById("botao_cel_prox").classList.add("hidden");
+    document.getElementById("proxBot").classList.remove("hidden");
+  }
+
+  function back() {
+    document.getElementById("ladoEsq").classList.add("hidden");
+    document.getElementById("ladoDir").classList.remove("hidden");
+    document.getElementById("botao_cel_prox").classList.remove("hidden");
+    document.getElementById("proxBot").classList.add("hidden");
+  }
+
   async function criarLeilao() {
 
     if (nome === "" || nome === "Nome do Produto" || nome === " " || nome.length< 5 || nome.trim() === ""|| /[?!,@#$%¨&*()-+=/|;:<>.'´`[{}]/.test(nome) || /]/.test(nome) || nome.length > 100) {
@@ -342,16 +357,16 @@ function addImage() {
     <>
       <NavbarAdmin />
       {/* Navegação lielões */}
-      <main className="relative">
+      <main className="relative z-0">
         <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
         <ul className="grid grid-cols-2 border-b-2 mt-8 pb-2 mx-16">
-          <li className="col-span-1 text-center">
-            <button className="text-4xl text-center" onClick={LeiloesC}>
+          <li className="col-span-1 text-center rounded-tl-lg hover:bg-azul hover:text-white" onClick={LeiloesC}>
+            <button className="text-2xl md:text-4xl text-center">
               Leilões Criados
             </button>
           </li>
-          <li className="col-span-1 text-center">
-            <button className="text-4xl text-center" onClick={LeiloesF}>
+          <li className="col-span-1 text-center rounded-tr-lg hover:bg-azul hover:text-white" onClick={LeiloesF}>
+            <button className="text-2xl md:text-4xl text-center">
               Leilões Finalizados
             </button>
           </li>
@@ -360,16 +375,17 @@ function addImage() {
         {/* Parte de leilões criados */}
         <section
           id="LeiloesCriados"
-          className="px-4 py-8 mb-12 mx-[60px] flex flex-col gap-x-8 items-center pb-2 border-b border-black"
+          className="px-0 md:px-4 py-8 mb-12 mx-[60px] flex flex-col gap-x-8 items-center pb-2 border-b border-black"
         >
           <div className="grid grid-cols-10 gap-3 w-[95%]">
-            <div className="col-span-10">
+            <div className="col-span-10 flex">
               <input
                 className="w-[100%] h-14 shadow appearance-none border-2 border-black rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="username"
                 type="text"
                 placeholder="Pesquisar..."
               />
+              <button className="ms-2 flex md:hidden text-5xl rounded-full bg-yellow-300 w-[80px] justify-center align-middle" onClick={() => {setCloseModal(true);}}>+</button>
             </div>
           </div>
         </section>
@@ -423,7 +439,7 @@ function addImage() {
         <div id="botaoCriar">
           <div id="botaoCriar" className="w-[100%] text-center">
             <button
-              className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[20%] mb-3 text-xl"
+              className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[20%] mb-3 text-xl mx-auto md:block hidden hover:text-2xl"
               onClick={() => {
                 setCloseModal(true);
               }}
@@ -446,7 +462,7 @@ function addImage() {
             <div className="relative">
               <div className="bg-azul">
                 <button
-                  className="absolute top-0 right-0 me-2 text-4xl text-vermelho"
+                  className="absolute top-0 right-0 me-2 text-4xl text-vermelho w-[40px] hover:bg-vermelho hover:text-white"
                   onClick={() => {
                     setCloseModal(false);
                   }}
@@ -459,29 +475,22 @@ function addImage() {
               </div>
               <div className="flex">
                 {/* Lado Esquerdo*/}
-                <div className="w-[50%] border-r-2 border-black">
+                <div id="ladoEsq" className="hidden md:flex md:flex-col md:w-[50%] w-[100%] md:border-r-2 md:border-black">
                   <div className="flex">
                     {/* Rotação Esq */}
                     <button
-                      className="text-3xl ps-20"
+                      className="text-3xl ps-3 md:ps-20"
                       onClick={rotateImage("left")}
                     >
                       <i className="fa-solid fa-chevron-left"></i>
                     </button>
                     {/* Card */}
-                    <div className="border-2 border-black rounded-[25px] w-[60%] mx-auto">
+                    <div className="border-2 border-black rounded-[25px] w-[80%] md:w-[60%] mx-auto">
                       {/* Parte de cima do card */}
                       <div className="relative">
                         {/* Imagem card */}
                         <div id="cardImage">
-                          {/* {images.length > 0 ? (
-                            viewPreview(imageNumber)
-                          ) : (
-                            <div className=" flex w-[100%] h-[280px]  border-b-2 mb-2 justify-center items-center text-center text-9xl">
-                              <i className="fa-solid fa-image"></i>
-                            </div>
-                          )} */}
-                          <div className=" flex w-[100%] h-[280px]  border-b-2 mb-2 justify-center items-center text-center text-9xl">
+                          <div className=" flex w-[100%] h-[200px] md:h-[280px]  border-b-2 mb-2 justify-center items-center text-center text-9xl">
                             <i className="fa-solid fa-image"></i>
                           </div>
                         </div>
@@ -521,7 +530,7 @@ function addImage() {
                     </div>
                     {/* Rotação Dir */}
                     <button
-                      className="text-3xl pe-20"
+                      className="text-3xl md:pe-20"
                       onClick={rotateImage("right")}
                     >
                       <i className="fa-solid fa-chevron-right"></i>
@@ -529,10 +538,10 @@ function addImage() {
                   </div>
 
                   {/* upload */}
-                  <div className="mt-10">
+                  <div className="mt-6">
                     <label
                       htmlFor="upload-photo"
-                      className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[40%] my-3 text-xl cursor-pointer"
+                      className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[40%] my-3 text-xl cursor-pointer hover:text-2xl"
                     >
                       Adicionar imagem
                     </label>
@@ -549,7 +558,7 @@ function addImage() {
                 </div>
                 {/* Lado Direito */}
                 {/* Form(inputs) */}
-                <div className="w-[50%] border-l-2 border-black text-left">
+                <div id="ladoDir" className="w-[100%] md:w-[50%] md:border-l-2 md:border-black text-left flex flex-col">
                   <div className="flex flex-col w-[90%] mx-auto">
                     <label className="text-2xl">Nome do evento</label>
                     <input
@@ -580,14 +589,14 @@ function addImage() {
                     <label className="text-2xl">Descrição</label>
                     <textarea
                       id="desc_prod"
-                      className=" mb-2 border-2 h-[200px] border-black rounded text-lg resize-none ps-1"
+                      className=" mb-2 border-2 h-[150px] md:h-[200px] border-black rounded text-lg resize-none ps-1"
                       placeholder="Descrição"
                       onChange={(e) => {
                         setDesc(e.target.value);
                       }}
                     />
                   </div>
-                  <div className="flex justify-between w-[90%] mx-auto text-left">
+                  <div className="flex flex-col md:flex-row justify-between w-[90%] mx-auto text-left">
                     <div className="flex flex-col">
                       <label className="text-2xl">Data de início</label>
                       <input
@@ -600,9 +609,9 @@ function addImage() {
                         }}
                       />
                     </div>
-                    <div className="flex flex-col text-right pb-5">
+                    <div className="flex flex-col text-left md:text-right pb-5">
                       <label className="text-2xl">Duração</label>
-                      <div className="text-center">
+                      <div className="text-left md:text-center">
                         <input
                           id="duracao_prod"
                           className="ps-1 text-lg border-2 border-black rounded"
@@ -620,9 +629,19 @@ function addImage() {
               </div>
               {/* Botão de criar leilão */}
               <div>
-                <button className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[40%] mt-10 text-xl" onClick={criarLeilao}>
-                  Criar leilão
-                </button>
+                {window.innerWidth >= 768 ?
+                  <button className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[40%] md:mt-8 text-xl hover:text-2xl" onClick={criarLeilao}>
+                    Criar leilão
+                  </button>
+                  :<button id="botao_cel_prox" className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[60%] md:mt-8 mt-6 text-xl hover:text-2xl" onClick={prox}>
+                    Ver como ficou
+                   </button>}
+                   <div id="proxBot" className="hidden flex-row mt-10 w-[100%] text-center justify-center">
+                      <button className="bg-yellow-300 w-[15%] border-2 border-black rounded-full me-2" onClick={back}><i className="fa-solid fa-arrow-left"></i></button>
+                      <button className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[60%] md:mt-8 text-xl hover:text-2xl" onClick={criarLeilao}>
+                        Criar leilão
+                      </button>
+                   </div>
               </div>
             </div>
           </div>
