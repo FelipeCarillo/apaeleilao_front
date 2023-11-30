@@ -34,10 +34,10 @@ export default function Navbar({...props}){
 
             }
         }).catch(error => {
-            console.log("ERROOOO " + error.status);
+            // console.log("ERROOOO " + error.status);
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
+                // console.log(json);
             })
         })
     }
