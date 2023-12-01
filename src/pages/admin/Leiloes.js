@@ -6,37 +6,28 @@ import moment from "moment";
 import CurrencyInput from "react-currency-input-field";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { func } from "prop-types";
 
 export default function Leiloes() {
-  const participados = [
-    {
-      auction_id: "drtyaw90",
-      crated_by: "fugiat laboris",
-      title: "Fusca",
-      description: "Fusca azul com 3 portas",
-      start_date: "10/10/2021",
-      end_date: "10/10/2021",
-      start_amount: "100",
-      current_amount: "1000",
-      images: "https://picsum.photos/200/300",
-      status_auction: "OPEN",
-      created_at: ""
-    },
-    {
-      auction_id: "drtyaw100",
-      crated_by: "fugiat laboris",
-      title: "Fusqueta",
-      description: "aaaaaaaaaaaaaaaaa",
-      start_date: "10/10/2021",
-      end_date: "10/10/2021",
-      start_amount: "200",
-      current_amount: "1000",
-      images: "https://picsum.photos/200/300",
-      status_auction: "OPEN",
-      created_at: ""
-    },
-  ];
+  const [leiloes, setLeiloes] = useState([]);
+  useEffect(() => {
+    fetch(process.env.REACT_APP_API + "/get-all-auctions-admin?auctions_closed="+false, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token"),
+      },}).then((response) => {
+        if(response.ok){
+          return response.json();
+        }else{
+          return Promise.reject(response);
+        }
+      }).then((data) => {
+        console.log(data);
+        setLeiloes(data.body.auctions);
+      }).catch((error) => {
+        console.log(error.json());
+      });
+    }, []);
 
   const [images, setImages] = useState([]);
   const [nome, setNome] = useState("Nome do Produto");
@@ -99,13 +90,11 @@ function toDataURL(url, callback) {
 
 function addImage() {
   const files = document.getElementById("upload-photo").files;
-  const imagesPromises = Array.from(files).map((file) => {
+
+  const newImagesPromises = Array.from(files).map((file) => {
     return new Promise((resolve) => {
-      toDataURL(URL.createObjectURL(file), function(dataUrl) {
-        // console.log('RESULT:', dataUrl);
+      toDataURL(URL.createObjectURL(file), function (dataUrl) {
         resolve({
-          // image_id: (images.length + 1).toString(),
-          image_name: file.name,
           image: URL.createObjectURL(file),
           image_base64: dataUrl,
         });
@@ -113,20 +102,20 @@ function addImage() {
     });
   });
 
-  Promise.all(imagesPromises).then((images) => {
-    console.log(images);
-    setImages((prevImages) => prevImages.concat(images));
-    Array.from(files).map(
-      (file) => URL.revokeObjectURL(file) // evitar vazamento de memória
-    );
+  Promise.all(newImagesPromises).then((newImages) => {
+    setImages((prevImages) => [...prevImages, ...newImages]);
+    Array.from(files).forEach((file) => URL.revokeObjectURL(file));
 
-    if (images.length > 0) {
-      console.log(images);
-      const cardImage = document.getElementById("cardImage");
-      cardImage.innerHTML = `<img src="${images[0].image}" alt="${images[0].image_id}" class="rounded-t-3xl h-[280px] w-[100%]"/>`;
-    }
+    // Mostrar a última imagem adicionada
+    const lastImage = newImages[newImages.length - 1];
+    const cardImage = document.getElementById("cardImage");
+    cardImage.innerHTML = `<img src="${lastImage.image}" class="rounded-t-3xl h-[280px] w-[100%]"/>`;
+
+    // Atualizar a posição para a última imagem
+    setImageNumber(images.length);
   });
 }
+
 
   function rotateImage(side) {
     return () => {
@@ -393,21 +382,16 @@ function addImage() {
           id="LeiloesCriadosCards"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-[70px] gap-10 mb-10"
         >
-          <CardCriados data={participados} />
+          <CardCriados data={leiloes} />
         </section>
 
         {/* Parte de leilões finalizados */}
-        <section
-          id="LeiloesFinalizados"
-          className="hidden px-4 py-8 mb-12 mx-[60px] flex-col gap-x-8 items-center pb-2 border-b border-black"
-        >
+        <section id="LeiloesFinalizados" className="hidden px-4 py-8 mb-12 mx-[60px] flex-col gap-x-8 items-center pb-2 border-b border-black" >
           <div className="grid grid-cols-10 gap-3 w-[95%]">
             <div className="col-span-10 md:col-span-8">
               <input
                 className="w-[100%] h-14 shadow appearance-none border-2 border-black rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Pesquisar..."
+                id="username" type="text" placeholder="Pesquisar..."
               />
             </div>
             <div className="col-span-10 md:col-span-2">
@@ -433,7 +417,7 @@ function addImage() {
           id="LeiloesFinalizadosCards"
           className="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-[70px] gap-10 mb-10"
         >
-          {/* <CardCriados data={participados} /> */}
+          {/* <CardCriados data={participados}  EDITAR AQUI ANIMAL COLOCA OS FINALIZADOS N ESQUECE/> */}
         </section>
         {/* Botão para cria leilão */}
         <div id="botaoCriar">
