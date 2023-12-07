@@ -319,7 +319,7 @@ export default function Cadastro() {
                     <div className="flex flex-col items-center text-xl gap-4 my-4">
                         <div className='flex items-center max-md:self-start gap-1 md:w-1/2'>
                             <input onChange={(e) => {setTermos(e.target.checked)}} className="w-4 h-4" type="checkbox" id="conected" name="conected"/>
-                            <label className="underline text-blue-500 cursor-pointer" onClick={()=> {setModal(true)}}>Concordo com os Termos de Uso</label>
+                            <label className="underline text-blue-500 cursor-pointer"  onClick={()=> {setModal(true)}}>Concordo com os Termos de Uso</label>
                         </div>
                     </div>
 
