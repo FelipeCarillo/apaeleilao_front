@@ -20,10 +20,8 @@ export default function Participados() {
               return Promise.reject(response);
             }
           }).then((data) => {
-            console.log(data);
             setLeiloes(data.body.auctions);
           }).catch((error) => {
-            console.log(error.json());
           });
       }, []);
 
@@ -33,7 +31,6 @@ export default function Participados() {
         x.style.display = 'none';
       } else {
         x.style.display = 'flex';
-        console.log(leiloes.length);
       }
     }
 

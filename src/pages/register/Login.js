@@ -52,7 +52,6 @@ export default function Login(){
             "password": password,
             "keep_login": connected
         }
-        // console.log(json)
         
         await fetch(process.env.REACT_APP_API+'/get-token', {
             method: 'POST',
@@ -65,26 +64,23 @@ export default function Login(){
             }
         }).then(data => {
             // AQUI VC CONTROLA O JSON DE RETORNO
-            // toast.success(data.message, {
-            //     position: "top-center",
-            //     autoClose: 3000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "light",
-            // })
+            toast.success(data.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
             localStorage.setItem('token', data.body.token)
             setTimeout(() => {
                 history('/')
             }, 2000)
         }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
                 setLoading(false)
                 toast.error(json.message, {
                     position: "top-center",
@@ -127,7 +123,6 @@ export default function Login(){
             setModal(false)
         }).catch(error => {
             // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
             toast.error(error.message, {
                 position: "top-center",
                 autoClose: 3000,

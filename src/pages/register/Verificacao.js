@@ -35,15 +35,9 @@ export default function Verificacao() {
                 progress: undefined,
                 theme: "light",
             })
-            // console.log("data: " + data.message)
         }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            // console.log("ERROOOO " + error.status);
-            // console.log(error.data);
-            console.log(error);
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
                 toast.error(json.message, {
                     position: "top-center",
                     autoClose: 3000,
@@ -77,12 +71,10 @@ export default function Verificacao() {
             if(response.ok){
                 return response.json()
             }else{
-                // console.log("response: "+response)
                 return Promise.reject(response);
             }
         }).then(data => {
             // AQUI VC CONTROLA O JSON DE RETORNO
-            // console.log("data:"+data)
             toast.success(data.message, {
                 position: "top-center",
                 autoClose: 3000,
@@ -97,14 +89,9 @@ export default function Verificacao() {
             setTimeout(() => {
                 history('/login')
             }, 5000)
-            // console.log("data: " + data.message)
         }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
-            console.log(error);
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
                 toast.error(json.message, {
                     position: "top-center",
                     autoClose: 3000,

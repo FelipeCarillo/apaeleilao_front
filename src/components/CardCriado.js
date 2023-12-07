@@ -50,14 +50,12 @@ export default function CardCriados({data}){
     // Modal Delete
     function createModalD(auction_id, title){
         setCloseModalD(true);
-        console.log(auction_id);
         setNome(title);
         setIdModal(auction_id);
     }
     
     function deletarEvento(auction_id){
         setCloseModalD(false);
-        console.log(auction_id + " deletado com sucesso!");
         fetch(process.env.REACT_APP_API + "/delete-auction?auction_id=" + auction_id, {
             method: "GET",
             headers: {
@@ -67,7 +65,6 @@ export default function CardCriados({data}){
           })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 window.location.reload();
             });
     }
@@ -85,10 +82,7 @@ export default function CardCriados({data}){
       setDesc(infos.description);
       setAbertura(moment(infos.start_date*1000).format("YYYY-MM-DDTHH:mm"));
       setDuracao(convertDuration(infos.start_date, infos.end_date));
-      setImages(infos.images);
       setImageNumber(0);
-
-      // saveImagesEdit(infos.images);
     }
 
     //Funções para o modal Edit
@@ -121,42 +115,32 @@ export default function CardCriados({data}){
     }
 
     function addImage() {
-      // const files = document.getElementById("upload-photo").files;
+      const files = document.getElementById("upload-foto").files;
     
-      // const newImagesPromises = Array.from(files).map((file) => {
-      //   return new Promise((resolve) => {
-      //     toDataURL(URL.createObjectURL(file), function (dataUrl) {
-      //       resolve({
-      //         image: URL.createObjectURL(file),
-      //         image_base64: dataUrl,
-      //       });
-      //     });
-      //   });
-      // });
+      const newImagesPromises = Array.from(files).map((file) => {
+        return new Promise((resolve) => {
+          toDataURL(URL.createObjectURL(file), function (dataUrl) {
+            resolve({
+              image_id: images.length + 1,
+              image: URL.createObjectURL(file),
+              image_base64: dataUrl,
+            });
+          });
+        });
+      });
     
-      // Promise.all(newImagesPromises).then((newImages) => {
-      //   setImages((prevImages) => [...prevImages, ...newImages]);
-      //   Array.from(files).forEach((file) => URL.revokeObjectURL(file));
+      Promise.all(newImagesPromises).then((newImages) => {
+        setImages((prevImages) => [...prevImages, ...newImages]);    
+        Array.from(files).forEach((file) => URL.revokeObjectURL(file));
     
-      //   // Mostrar a última imagem adicionada
-      //   const lastImage = newImages[newImages.length - 1];
-      //   const cardImage = document.getElementById("cardImage");
-      //   cardImage.innerHTML = `<img src="${lastImage.image}" class="rounded-t-3xl h-[280px] w-[100%]"/>`;
+        // Mostrar a última imagem adicionada
+        const lastImage = newImages[newImages.length - 1];
+        const cardImage = document.getElementById("cardImageEdit");
+        // cardImage.innerHTML = `<img src="${lastImage.image}" class="rounded-t-3xl h-[280px] w-[100%]"/>`;
     
-      //   // Atualizar a posição para a última imagem
-      //   setImageNumber(images.length);
-      //   console.log(images);
-      // });
-      return toast.info("Aviso função de adição de imagens para a edição de leilões ainda indisponível!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+        // Atualizar a posição para a última imagem
+        setImageNumber(images.length);
+      });
     }
 
     function rotateImage(side) {
@@ -208,12 +192,6 @@ export default function CardCriados({data}){
       }
       let position = imageNumber;
       let list = images;
-      console.log("deletar");
-      console.log(position);
-      console.log(list);
-      console.log(images.length);
-      console.log(images[position]);
-      console.log(images);
     }
 
     async function criarLeilao() {
@@ -231,7 +209,6 @@ export default function CardCriados({data}){
         })
       }
       var valor_trabalhado = String(valor).replace("R$", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(",", ".").replace("-","");
-      console.log(valor_trabalhado);
       if (valor === "" || valor === "Valor do Produto" || valor === " " || String(valor).trim() === " " || valor < 0 || /[?!@#%¨&*()-+=/|;:<>'´`]/.test(valor) || valor === "R$ 0,00" || !/[0-9]/.test(valor) || valor_trabalhado > 1000000000 || parseFloat(valor_trabalhado) === 0 || valor_trabalhado < 0) {
         return toast.error("O valor inicial não pode ser nulo, negativo ou maior que R$1.000.000.000,00.", {
           position: "top-center",
@@ -302,13 +279,11 @@ export default function CardCriados({data}){
         start_date : Date.parse(abertura)/1000,
         end_date :  Date.parse(end)/1000,
         start_amount : parseFloat(valor_trabalhado),
-        // images : Array.from(images).map((image) => ({
-        //   image_id: image.image_id,
-        //   image_body: image.image_base64,
-        // })),
-        images : images,
+        images : Array.from(images).map((image) => ({
+          image_id: image.image_id,
+          image_body: image.image_base64,
+        })),
       };
-      console.log(json);
   
       await fetch(process.env.REACT_APP_API + '/create-auction', {
               mode: 'cors',
@@ -326,8 +301,8 @@ export default function CardCriados({data}){
               }
           }).then(data => {
               // AQUI VC CONTROLA O JSON DE RETORNO
-              console.log(data);
-              toast.success(data.message, {
+              setIsOpen(false);
+              toast.success('Leilão Atualizado com sucesso', {
                   position: "top-center",
                   autoClose: 3000,
                   hideProgressBar: false,
@@ -341,13 +316,9 @@ export default function CardCriados({data}){
                 deletarEvento(idModal);
                 window.location.reload();
               }, 3000);
-              // console.log("data: " + data.message)
           }).catch(error => {
-              // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-              console.log("ERROOOO " + error.status);
               // 3. get error messages, if any
               error.json().then((json: any) => {
-                  console.log(json);
                   toast.error(json.message, {
                       position: "top-center",
                       autoClose: 3000,
@@ -465,9 +436,13 @@ export default function CardCriados({data}){
                           <div className="relative">
                             {/* Imagem card */}
                             <div id="cardImage">
-                              <div className=" flex w-[100%] h-[200px] md:h-[280px]  border-b-2 mb-2 justify-center items-center text-center text-9xl">
-                                <img src={images.length > 0 ? images[0].image_body : 'https://placehold.co/500x500'} alt="Imagem do evento" className="w-[100%] h-[280px] rounded-t-[25px] object-cover"/>
-                              </div>
+                               {images.length > 0 ? (
+                                  <img src={images[imageNumber].image} alt={images[imageNumber].image_id} className="rounded-t-3xl h-[280px] w-[100%]" />
+                               ) : (
+                                  <div className='flex w-[100%] h-[280px] border-b-2 mb-2 justify-center items-center text-center text-9xl'>
+                                     <i className='fa-solid fa-image'></i>
+                                  </div>
+                               )}
                             </div>
                             {/* botão deletar img card */}
                             <div id="deletarImgButton">
@@ -503,11 +478,10 @@ export default function CardCriados({data}){
                               
                       {/* upload */}
                       <div className="mt-6 mx-auto">
-                        {/* <label htmlFor="upload-photo" className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[40%] my-3 text-xl cursor-pointer hover:text-2xl">
+                        <label htmlFor="upload-foto" className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[40%] my-3 text-xl cursor-pointer hover:text-2xl">
                           Adicionar imagem
                         </label>
-                        <input type="file" name="photo" accept="image/png, image/gif, image/jpeg" multiple id="upload-photo" onChange={addImage} className="hidden"/> */}
-                        <button className="bg-yellow-300 p-2 border-2 border-black rounded-[45px] w-[100%] my-0 text-xl hover:text-2xl" onClick={addImage}>Adicionar Imagem</button>
+                        <input type="file" name="photo" accept="image/png, image/gif, image/jpeg" multiple id="upload-foto" onChange={addImage} className="hidden" />
                       </div>
                     </div>
                     {/* Lado Direito */}

@@ -29,7 +29,6 @@ export default function Leilao(){
                 return Promise.reject(response);
             }
         }).then(data => {
-            //console.log(data.body)
             setNomeLeilao(data.body.title)
             setLanceLeilao(data.body.current_amount)
             setLances(data.body.bids)
@@ -38,7 +37,6 @@ export default function Leilao(){
             setDescricaoLeilao(data.body.description)
 
         }).catch(error => {
-            console.log("ERROOOO " + error.status);
             toast.error(error.message, {
                 position: "top-center",
                 autoClose: 3000,
@@ -51,7 +49,6 @@ export default function Leilao(){
             })
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
             })
         })
     }
@@ -59,12 +56,10 @@ export default function Leilao(){
     function postLance(){
         let novoValor = String(valor).replace('R$', '').replace(',', '.').replace('.', '')
         novoValor = parseFloat(novoValor)
-        console.log(novoValor)
         const json = {
             "auction_id": localStorage.getItem('idLeilaoAtivo'),
             "amount": novoValor
         }
-        console.log(json)
         fetch(process.env.REACT_APP_API+'/create-bid', {
             method: 'POST',
             headers: {
@@ -79,7 +74,6 @@ export default function Leilao(){
                 return Promise.reject(response);
             }
         }).then(data => {
-            // console.log(data.body)
             document.getElementById('valor_prod').value = ''
             toast.success("Lance realizado com sucesso!", {
                 position: "top-center",
@@ -92,10 +86,8 @@ export default function Leilao(){
                 theme: "light",
             })
         }).catch(error => {
-            console.log("ERROOOO " + error.status);
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
                 toast.error(json.message, {
                     position: "top-center",
                     autoClose: 3000,

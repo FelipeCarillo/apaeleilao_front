@@ -2,33 +2,30 @@ import React, {useState} from 'react';
 import { FaStar } from 'react-icons/fa';
 
 
-
-
-const Estrelas = () => {
-    const [rating, setRating] = useState(null);
+const Estrelas = ({setGrade, grade}) => {
     const [hover, setHover] = useState(null);
 
     return (
     <section>
         <div className='estrelas'>
             {[...Array(5)].map((star, i) => {
-            const ratingvalue = i + 1;
+            const gradeValue = i + 1;
 
             return (
-            <label>
+            <label key={i}>
                 <input
                 className='hidden' 
                 type='radio'
                 name='rating'
-                value={{ratingvalue}}
-                onClick={() => setRating(ratingvalue)}
+                value={{gradeValue}}
+                onClick={() => setGrade(gradeValue)}
                             
                 />
                             
                     <FaStar className='star'
                     size={30}
-                    color={ratingvalue <= (hover || rating) ? "#fbbf24" : "#d9d9d9"}
-                    onMouseEnter={() => setHover(ratingvalue)}
+                    color={gradeValue <= (hover || grade) ? "#fbbf24" : "#d9d9d9"}
+                    onMouseEnter={() => setHover(gradeValue)}
                     onMouseLeave={() => setHover(null)}
                     />
                              
@@ -36,7 +33,7 @@ const Estrelas = () => {
             );
         })}
         </div>
-    <p>Você avaliou o nosso site em {rating} estrelas.</p>
+    <p>Você avaliou o nosso site em {grade} estrelas.</p>
 </section>
     );
 }

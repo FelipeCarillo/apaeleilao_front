@@ -223,13 +223,9 @@ export default function Cadastro() {
             setTimeout(() => {
                 history('/verificacao')
             }, 5000)
-            // console.log("data: " + data.message)
         }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
                 toast.error(json.message, {
                     position: "top-center",
                     autoClose: 3000,

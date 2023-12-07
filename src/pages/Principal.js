@@ -34,7 +34,6 @@ export default function Principal() {
                     return Promise.reject(response);
                 }
             }).then(data => {
-                // console.log(data)
                 if(data.body.auctions.length === 0){
                     return toast.error('Nenhum leilão encontrado', {
                         position: "top-center",
@@ -47,7 +46,6 @@ export default function Principal() {
                         theme: "light",
                     })
                 }
-                // console.log(data.body.auctions[0])
                 if(data.body.auctions[0].status_auction === 'OPEN'){
                     setStatusLeilao('Leilão Ativo')
                     setStsLeilao('OPEN')
@@ -55,13 +53,11 @@ export default function Principal() {
                     setStatusLeilao('Próximo Leilão')
                     setStsLeilao('NEXT')
                 }
-                // console.log(data.body.auctions[0])
                 localStorage.setItem('idLeilaoAtivo', data.body.auctions[0].auction_id)
                 setNomeLeilaoAtivo(data.body.auctions[0].title)
                 setDescricaoLeilão(data.body.auctions[0].description)
                 setLanceLeilaoAtivo(data.body.auctions[0].current_amount)
                 setImageLeilao(data.body.auctions[0].images[0].image_body)
-                // console.log(imageLeilao)
 
                 // CONVERTER START DATA
                 const startDate = new Date(data.body.auctions[0].start_date * 1000)
@@ -91,11 +87,8 @@ export default function Principal() {
                 }
 
             }).catch(error => {
-                // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-                console.log("ERROOOO " + error.status);
                 // 3. get error messages, if any
                 error.json().then((json: any) => {
-                    console.log(json);
                     toast.error(json.message, {
                         position: "top-center",
                         autoClose: 3000,
@@ -124,6 +117,32 @@ export default function Principal() {
         }
     }
 
+    function copiarCodigo () {
+        //localStorage.getItem('idLeilaoAtivo')
+        navigator.clipboard.writeText('https://apaeleilaoscsul-dev.techimtgroup.net');
+        toast.success('Código copiado com sucesso!', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
+
+    function compartilharWhatsApp() {
+        // Mensagem que você deseja enviar (substitua com a mensagem desejada)
+        var mensagem = 'https://apaeleilaoscsul-dev.techimtgroup.net';
+      
+        // Formatação do link do WhatsApp
+        var linkWhatsApp = 'https://api.whatsapp.com/send?phone=' + '&text=' + encodeURIComponent(mensagem);
+      
+        // Abre o link no WhatsApp
+        window.open(linkWhatsApp);
+      }
+
     return (
         <>
         <Navbar pag="Inicio"/>
@@ -136,7 +155,7 @@ export default function Principal() {
                 {/* CARD LEITAO ATIVO */}
                 <div className="flex border-2 border-black rounded-xl max-md:flex-col" tabIndex={0}>
                     <img className="rounded-l-xl w-[300px] h-[300px] max-md:rounded-xl max-md:w-full max-md:h-[300px]" src={imageLeilao} alt="imagem do leilao ativo"/>
-                    <div className="flex flex-col w-full items-end gap-12 p-4 max-md:flex-col max-md:items-center">
+                    <div className="flex flex-col w-full items-end gap-6 p-4 max-md:flex-col max-md:items-center">
                         <div className="flex flex-col self-start gap-2 text-lg">
                             <div>
                                 <h2 className="text-3xl">{nomeLeilaoAtivo}</h2>
@@ -148,6 +167,10 @@ export default function Principal() {
                             <p className="font-bold text-3xl">Lance: R${lanceLeilaoAtivo}</p>
                             <Link to={`${stsLeilao === 'OPEN' ? localStorage.getItem('token') ? "/leilao" : '/login' : '/'}`} className="flex items-center gap-1 bg-yellow-300 text-3xl rounded-full py-2 px-5 font-medium max-md:text-3xl"><i className="fa-solid fa-gavel"></i>Dar Lance</Link>
                         </div>
+                        <div className="flex gap-4 md:gap-12 justify-center w-full">
+                            <button className="rounded-full w-[50%] md:w-[40%] md:hover:w-[50%] bg-yellow-300 border-2 py-2 md:px-5 border-black text-lg hover:text-xl" onClick={copiarCodigo}><i className="fa-solid fa-copy"></i> Copiar Link</button>
+                            <button className="rounded-full w-[50%] md:w-[40%] md:hover:w-[50%] bg-[#25D366] border-2 py-2 md:px-5 border-black text-lg hover:text-xl text-white" onClick={compartilharWhatsApp}><i className="fa-brands fa-whatsapp text-2xl"></i> Whatsapp</button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -155,6 +178,11 @@ export default function Principal() {
             <section className="text-white bg-blue-500 py-8">
                 <h1 className="text-center text-4xl underline mb-8">Próximos Leilões</h1>
                 <Carrossel data={dataLeilao}/>
+            </section>
+            <section className="text-center py-8">
+                <p className="text-2xl">Gostaria de nos mandar um feedback? Dar a sua opinião sobre o site?</p>
+                <p className="text-xl mb-10">Então por favor click no botão abaixo</p>
+                <Link to='/feedback' className="rounded-full text-xl hover:text-2xl py-2 px-5 bg-yellow-300 border-2 border-black">Feedback</Link>
             </section>
         </main>
 

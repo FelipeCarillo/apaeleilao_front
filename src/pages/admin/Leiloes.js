@@ -6,11 +6,13 @@ import moment from "moment";
 import CurrencyInput from "react-currency-input-field";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CardFinalizados from "../../components/CardFinalizado";
 
 export default function Leiloes() {
   const [leiloes, setLeiloes] = useState([]);
+  const [finalizados, setFinalizados] = useState(false);
   useEffect(() => {
-    fetch(process.env.REACT_APP_API + "/get-all-auctions-admin?auctions_closed="+false, {
+    fetch(process.env.REACT_APP_API + "/get-all-auctions-admin?auctions_closed="+finalizados, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,12 +24,10 @@ export default function Leiloes() {
           return Promise.reject(response);
         }
       }).then((data) => {
-        console.log(data);
         setLeiloes(data.body.auctions);
-      }).catch((error) => {
-        console.log(error.json());
+      }).catch(error => {
       });
-    }, []);
+    }, [finalizados]);
 
   const [images, setImages] = useState([]);
   const [nome, setNome] = useState("Nome do Produto");
@@ -95,6 +95,7 @@ function addImage() {
     return new Promise((resolve) => {
       toDataURL(URL.createObjectURL(file), function (dataUrl) {
         resolve({
+          image_id: images.length + 1,
           image: URL.createObjectURL(file),
           image_base64: dataUrl,
         });
@@ -166,12 +167,6 @@ function addImage() {
     }
     let position = imageNumber;
     let list = images;
-    console.log("deletar");
-    console.log(position);
-    console.log(list);
-    console.log(images.length);
-    console.log(images[position]);
-    console.log(images);
   }
 
   function fecharTecla(tecla) {
@@ -198,6 +193,15 @@ function addImage() {
     document.getElementById("proxBot").classList.add("hidden");
   }
 
+  function mudaCriados() {
+    LeiloesC();
+    setFinalizados(false);
+  }
+  function mudaFinalizados() {
+    LeiloesF();
+    setFinalizados(true);
+  }
+
   async function criarLeilao() {
 
     if (nome === "" || nome === "Nome do Produto" || nome === " " || nome.length< 5 || nome.trim() === ""|| /[?!,@#$%¨&*()-+=/|;:<>.'´`[{}]/.test(nome) || /]/.test(nome) || nome.length > 100) {
@@ -213,7 +217,6 @@ function addImage() {
       })
     }
     var valor_trabalhado = valor.replace("R$", "").replace(".", "").replace(".", "").replace(".", "").replace(".", "").replace(",", ".").replace("-","");
-    console.log(valor_trabalhado);
     if (valor === "" || valor === "Valor do Produto" || valor === " " || valor.trim() === " " || valor < 0 || /[?!@#%¨&*()-+=/|;:<>'´`]/.test(valor) || valor === "R$ 0,00" || !/[0-9]/.test(valor) || valor_trabalhado > 1000000000 || parseFloat(valor_trabalhado) === 0 || valor_trabalhado < 0) {
       return toast.error("O valor inicial não pode ser nulo, negativo ou maior que R$1.000.000.000,00.", {
         position: "top-center",
@@ -289,7 +292,6 @@ function addImage() {
         image_body: image.image_base64,
       })),
     };
-    console.log(json);
 
     await fetch(process.env.REACT_APP_API + '/create-auction', {
             mode: 'cors',
@@ -307,7 +309,6 @@ function addImage() {
             }
         }).then(data => {
             // AQUI VC CONTROLA O JSON DE RETORNO
-            console.log(data);
             toast.success(data.message, {
                 position: "top-center",
                 autoClose: 3000,
@@ -321,13 +322,9 @@ function addImage() {
             setTimeout(() => {
               window.location.reload();
             }, 3000);
-            // console.log("data: " + data.message)
         }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
                 toast.error(json.message, {
                     position: "top-center",
                     autoClose: 3000,
@@ -349,12 +346,12 @@ function addImage() {
       <main className="relative z-0">
         <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
         <ul className="grid grid-cols-2 border-b-2 mt-8 pb-2 mx-16">
-          <li className="col-span-1 text-center rounded-tl-lg hover:bg-azul hover:text-white" onClick={LeiloesC}>
+          <li className="col-span-1 text-center rounded-tl-lg hover:bg-azul hover:text-white" onClick={mudaCriados}>
             <button className="text-2xl md:text-4xl text-center">
               Leilões Criados
             </button>
           </li>
-          <li className="col-span-1 text-center rounded-tr-lg hover:bg-azul hover:text-white" onClick={LeiloesF}>
+          <li className="col-span-1 text-center rounded-tr-lg hover:bg-azul hover:text-white" onClick={mudaFinalizados}>
             <button className="text-2xl md:text-4xl text-center">
               Leilões Finalizados
             </button>
@@ -417,7 +414,7 @@ function addImage() {
           id="LeiloesFinalizadosCards"
           className="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-[70px] gap-10 mb-10"
         >
-          {/* <CardCriados data={participados}  EDITAR AQUI ANIMAL COLOCA OS FINALIZADOS N ESQUECE/> */}
+          <CardFinalizados data={leiloes}/>
         </section>
         {/* Botão para cria leilão */}
         <div id="botaoCriar">

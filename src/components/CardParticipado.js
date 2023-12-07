@@ -63,7 +63,6 @@ export default function CardParticipados({data}){
             },
         }).then((response) => response.json())
         .then((data) => {
-            console.log(data);
             setPayment(data.body);
             setPayment_code((data.body.pix_code));
         });
@@ -166,12 +165,12 @@ export default function CardParticipados({data}){
                         </div>
                         {/* Lado Direito - Pagamento */}
                         <div className="w-[100%] md:w-[50%] px-10 text-center">
-                            <h6 className="text-3xl md:text-4xl underline mb-5">{data.status_payment === 'PENDING' ? 'PIX' : data.status_payment === 'PAID' ? 'Retire aqui o seu pedido' : ''}</h6>
+                            <h6 className="text-3xl md:text-4xl underline mb-5">{data.status_payment === 'PENDING' ? 'PIX' : data.status_payment === 'PAID' ? 'Retire aqui o seu pedido' : 'AVISO!'}</h6>
                             {verificaPago(payment.status_payment)}
                             {/* <img className="mx-auto border-2 border-gray-400 rounded-[10px] w-[100%] md:w-[50%]" src={payment.pix_base64 === undefined ? 'https://placehold.co/500x500' : `data:image/png;base64,${payment.pix_base64}`}></img> */}
                             {data.status_payment === 'PENDING' ? <button className="bg-yellow-300 mt-3 px-6 py-1 text-xl md:text-2xl rounded-[45px] border border-black hover:text-3xl" onClick={copiarCodigo}>Copiar Código</button>
                             : data.status_payment === 'PAID' ? <button className="bg-yellow-300 mt-3 px-6 py-1 text-xl md:text-2xl rounded-[45px] border border-black hover:text-3xl" onClick={abrirMapa}>Acessar endereço</button>
-                            : ''}
+                            : <p>Pagamento não efetuado, uma penalidade foi aplicada a sua conta</p>}
                             {/* <button className="bg-yellow-300 mt-3 px-6 py-1 text-2xl rounded-[45px] border border-black" onClick={() => {copiarCodigo((data.status_payment))}}>{data.status_payment === 'PENDING' ? 'Copiar Código' : data.status_payment === 'PAID' ? 'Copiar endereço' : ''}</button> */}
                             <p className="text-xl md:text-3xl mt-10">Status do Pagamento: <br/><strong>{data.status_payment === "PENDING" ? 'AGUARDANDO' : data.status_payment ? 'PAGO' : 'EXPIRADO'}</strong></p>
                             <div className="mt-5">

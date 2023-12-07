@@ -9,7 +9,6 @@ import Verificacao from './pages/register/Verificacao'
 import LoginAdmin from './pages/admin/LoginAdmin'
 import Feedback from './pages/user/Feedback'
 import RedefinirSenha from './pages/register/RedefinirSenha'
-import Pagamento from './pages/leilao/Pagamento'
 import { Usuarios } from './pages/admin/Usuarios'
 import Leilao from './pages/leilao/Leilao'
 import FeedbackAdmin from './pages/admin/Feedback'
@@ -32,7 +31,6 @@ export default function App() {
         <Route path='/redefinirSenha' element={<RedefinirSenha />} />
         {/* LEILAO ATIVO */}
         <Route path='/leilao' element={<Leilao />} />
-        <Route path='/pagamento' element={<Pagamento />} />
         {/* ADMIN */}
         <Route path='/admin' element={<Leiloes />} />
         <Route path='/admin/login' element={<LoginAdmin />} />
