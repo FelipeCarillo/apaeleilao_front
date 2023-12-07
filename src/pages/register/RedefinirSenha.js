@@ -41,8 +41,7 @@ export default function RedefinirSenha() {
                 return Promise.reject(response);
             }
         }).then((data)=>{
-            // console.log(data)
-            toast.error(data.message, {
+            toast.success(data.message, {
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -53,9 +52,7 @@ export default function RedefinirSenha() {
                 theme: "light",
             })
         }).catch((error)=>{
-            console.log(error)
             error.json().then((json: any) => {
-                console.log(json);
                 toast.error(json.message, {
                     position: "top-center",
                     autoClose: 3000,

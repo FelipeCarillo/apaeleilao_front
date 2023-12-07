@@ -1,45 +1,29 @@
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import CardParticipados from "../../components/CardParticipado"
+import { useEffect, useState } from "react";
 
 export default function Participados() {
-    const participados = [
-      {"img" : "https://picsum.photos/200/300",
-      "nome" : "Evento 1", 
-      "categoria" : "Categoria 1", 
-      "lance" : "R$ 100,00", 
-      "prazo" : "10/10/2021", 
-      "condicao" : "Participou"
-      },
-      {"img" : "https://picsum.photos/200/300",
-      "nome" : "Evento 2",
-      "categoria" : "Categoria 2",
-      "lance" : "R$ 200,00",
-      "prazo" : "10/10/2021",
-      "condicao" : "Andamento"
-      },
-      {"img" : "https://picsum.photos/200/300",
-      "nome" : "Evento 3",
-      "categoria" : "Categoria 3",
-      "lance" : "R$ 300,00",
-      "prazo" : "10/10/2021",
-      "condicao" : "Pago"
-      },
-      {"img" : "https://picsum.photos/200/300",
-      "nome" : "Evento 4",
-      "categoria" : "Categoria 4",
-      "lance" : "R$ 400,00",
-      "prazo" : "10/10/2021",
-      "condicao" : "Não Pago"
-      },
-      {"img" : "https://picsum.photos/200/300",
-      "nome" : "Evento 5",
-      "categoria" : "Categoria 5",
-      "lance" : "R$ 500,00",
-      "prazo" : "10/10/2021",
-      "condicao" : "Não Pago"
-      },
-    ]
+    const [leiloes, setLeiloes] = useState([]);
+    useEffect(() => {
+        fetch(process.env.REACT_APP_API + "/get-all-auctions-user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("token"),
+          },
+        })
+          .then((response) => {
+            if(response.ok){
+              return response.json();
+            }else{
+              return Promise.reject(response);
+            }
+          }).then((data) => {
+            setLeiloes(data.body.auctions);
+          }).catch((error) => {
+          });
+      }, []);
 
     function Dropdown(){
       var x = document.getElementById('myDIV');
@@ -72,9 +56,17 @@ export default function Participados() {
                   </div>
                 </div>
             </section>
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-[70px] gap-10 mb-10">
-              <CardParticipados data={participados}/>
-            </section>
+            <div>
+              {leiloes.length > 0 ? 
+                <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-[70px] gap-10 mb-10">
+                  <CardParticipados data={leiloes}/>
+                </section>
+              : 
+                <div id="Aviso" className="px-2 text-xl md:text-4xl w-[100%] m-auto text-center mb-10">
+                  <p>Você não participou de nenhum leilão até o momento.</p>
+                </div>
+              }
+            </div>
         </main>
 
         <Footer />

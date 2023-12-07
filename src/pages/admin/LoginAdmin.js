@@ -10,12 +10,14 @@ export default function LoginAdmin() {
     const [password, setPassword] = useState('')
     const [connected, setConnected] = useState(false)
     const [viewPass, setViewPass] = useState(false)
+    
+    const [loading, setLoading] = useState(false)
 
     // REDIRECT
     const history = useNavigate();
 
     function Login() {
-
+        setLoading(true)
         const json = {
             "access_key": login,
             "password": password,
@@ -34,15 +36,14 @@ export default function LoginAdmin() {
         }).then(data => {
             // AQUI VC CONTROLA O JSON DE RETORNO
             localStorage.setItem('token', data.body.token)
+            setLoading(false)
             setTimeout(() => {
                 history('/admin')
             }, 2000)
         }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
+            setLoading(false)
             // 3. get error messages, if any
             error.json().then((json: any) => {
-                console.log(json);
                 toast.error(json.message, {
                     position: "top-center",
                     autoClose: 3000,
@@ -96,7 +97,7 @@ export default function LoginAdmin() {
                 </div>
                 
                 <div className="flex justify-center mt-4">
-                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer">LOGIN</label>
+                    <label onClick={Login} className="bg-yellow-300 py-4 px-16 text-xl rounded-full cursor-pointer"><i className={`fa-solid fa-circle-notch animate-spin ${loading ? '' : 'hidden'}`}></i> LOGIN</label>
                 </div>
             </form>
             <p className="text-lg text-center my-4">Ainda não possui uma conta? <Link className='text-azul' to="/cadastro">Clique Aqui</Link> </p>

@@ -46,22 +46,6 @@ export default function MeuPerfil() {
             setEmail(data.body.email)
             setPhone(data.body.phone)
         }).catch(error => {
-            // AQUI VC CONTROLA O RESULTADO (STATUS CODE + MESSAGE)
-            console.log("ERROOOO " + error.status);
-            // 3. get error messages, if any
-            error.json().then((json: any) => {
-                console.log(json);
-                toast.error(json.message, {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
-            })
         })
     }
 
@@ -108,17 +92,6 @@ export default function MeuPerfil() {
             setModal(false)
             getUser()
         }).catch((error)=>{
-            console.log(error)
-            toast.error(error.message, {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
         })
     }
 
@@ -132,12 +105,9 @@ export default function MeuPerfil() {
         <main>
             {getUser()}
             <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
-            {/* BOTOES DO TOPO */}
-            <div className="mx-2 mt-2 grid justify-items-end">
-                <button className="border bg-[#f4db33] text-2xl rounded-full py-1 px-2"><i className="fa-solid fa-headset"></i></button>
-            </div>
+            {/* Iniciais */}
             <section className="border-b border-black mx-[100px]">
-                <div className="mb-24 mt-4 text-center">
+                <div className="mb-24 mt-20 text-center">
                     <label className="border-2 border-black bg-[#d9d9d9] text-6xl rounded-full py-7 p-6">{inicials}</label>
                 </div>
             {/* DADOS */}

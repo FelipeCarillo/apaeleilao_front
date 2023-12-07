@@ -7,3 +7,13 @@
 * {
     font-family: 'Fredoka', sans-serif;;
 }
+.estrelas{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:200ms;
+}
+.star {
+    cursor: pointer;
+    transition: color 200ms;
+}
