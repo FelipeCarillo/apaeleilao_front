@@ -319,7 +319,7 @@ export default function Cadastro() {
                     <div className="flex flex-col items-center text-xl gap-4 my-4">
                         <div className='flex items-center max-md:self-start gap-1 md:w-1/2'>
                             <input onChange={(e) => {setTermos(e.target.checked)}} className="w-4 h-4" type="checkbox" id="conected" name="conected"/>
-                            <label onClick={()=> {setModal(true)}}>Concordo com os Termos de Uso</label>
+                            <label className="underline text-blue-500 cursor-pointer" onClick={()=> {setModal(true)}}>Concordo com os Termos de Uso</label>
                         </div>
                     </div>
 
@@ -347,6 +347,53 @@ export default function Cadastro() {
                         <h3 className="font-semibold text-center text-xl mb-8">TERMOS DE USO</h3>
                         <div>
                             <h2 className="text-center">Termos de Uso do Site de Leilão Online para a APAE São Caetano do Sul</h2>
+                            <p>
+                            1.1 Ao se cadastrar em nosso site de leilão online beneficente, você concorda em fornecer informações precisas, atualizadas e completas sobre si mesmo, conforme solicitado no formulário de registro. 
+
+1.2 Idade Mínima: Ao se cadastrar, você declara e garante que tem pelo menos 18 anos de idade. Se você tiver menos de 18 anos, não é permitida a participação em nosso site. 
+
+1.3 Você é responsável por manter a confidencialidade de sua senha e nome de usuário. Qualquer atividade realizada em sua conta é de sua inteira responsabilidade. 
+
+1.4 Ao se cadastrar, você concorda em receber comunicações relacionadas ao site, incluindo notificações de leilões, ofertas e eventos beneficentes. 
+
+1.5 Você concorda que seus dados pessoais fornecidos durante o cadastro serão usados no sistema, de acordo com nossa Política de Privacidade. 
+
+ 
+
+Termos de Participação no Leilão 
+
+2.1 Nosso site de leilão online beneficente tem o propósito de arrecadar fundos para a APAE São Caetano do Sul. Ao participar de leilões em nosso site, você concorda em respeitar as regras estabelecidas por nós e em agir de forma ética e justa. 
+
+2.2 Você se compromete a não realizar lances falsos ou fraudulentos, bem como a não interromper ou prejudicar o funcionamento do site. 
+
+2.3 Os itens leiloados são doados com o propósito beneficente. Ao vencer um leilão, você concorda em efetuar o pagamento conforme os termos estabelecidos. 
+
+2.4 Reservamo-nos o direito de cancelar ou suspender sua participação em leilões em caso de violação destes termos ou de qualquer comportamento inadequado. 
+
+ 
+
+Termos de Pagamento via Pix - Adendo sobre Penalidades 
+
+3.1 O pagamento dos itens leiloados deve ser efetuado exclusivamente via Pix. 
+
+3.2 Você concorda em efetuar o pagamento dentro do prazo especificado no leilão. Os detalhes para o pagamento via Pix serão fornecidos a você no momento da vitória no leilão. 
+
+3.3 Caso não efetue o pagamento no prazo estabelecido, sua vitória no leilão será anulada, e serão aplicadas penalidades conforme descritas abaixo: 
+
+Primeiro Não Pagamento: Banimento da participação em leilões por 1 semana. 
+
+Segundo Não Pagamento: Banimento da participação em leilões por 2 semanas. 
+
+Terceiro Não Pagamento: Banimento permanente da participação em leilões. 
+
+3.4 Além das penalidades mencionadas acima, reservamo-nos o direito de tomar as medidas legais cabíveis para recuperar o valor do leilão não pago. 
+
+3.5 Em caso de qualquer contratempo relacionado ao pagamento, solicitamos que entre em contato imediatamente com a APAE São Caetano do Sul, utilizando as informações de contato fornecidas no site. Estamos comprometidos em encontrar soluções adequadas e manter a transparência em todas as transações. 
+
+ 
+
+Estes termos de uso regem a sua utilização do site de leilão online beneficente em apoio à APAE Scsul. Ao se cadastrar, participar de leilões ou efetuar pagamentos via Pix, você concorda em cumprir esses termos. Se tiver dúvidas ou preocupações, entre em contato conosco por meio das informações de contato fornecidas no site. 
+                            </p>
                         </div>
                     </div>
                   </div>
