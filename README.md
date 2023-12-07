@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Frontend do Projeto do Site de Leilão da Apae
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bem-vindo ao repositório do frontend do projeto do site de Leilão da Apae (Associação de Pais e Amigos de Pessoas Excepcionais). Neste repositório, você encontrará o código-fonte e informações sobre as tecnologias e serviços utilizados para criar o frontend deste projeto.
 
-## Available Scripts
+## Visão Geral
 
-In the project directory, you can run:
+Este repositório contém o código-fonte do frontend do site de Leilão da Apae, que é um sistema de leilões online para arrecadar fundos para a Associação de Pais e Amigos de Pessoas Excepcionais. O frontend é construído utilizando as seguintes tecnologias e serviços:
 
-### `npm start`
+- [React](https://pt-br.legacy.reactjs.org/): React é uma biblioteca JavaScript de código aberto para criar interfaces de usuário.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Tailwind](https://v2.tailwindcss.com/): Tailwind CSS é um framework CSS de baixo nível que permite criar interfaces de usuário elegantes e responsivas com pouca codificação.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Vlibras](https://www.gov.br/governodigital/pt-br/vlibras/): Vlibras é um plugin que permite adicionar acessibilidade em Libras a sites e aplicativos web.
 
-### `npm test`
+- [Figma](https://www.figma.com/): Figma é uma ferramenta de design de interface de usuário que permite criar designs responsivos e adaptáveis.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Contato
 
-### `npm run build`
+Se você tiver alguma dúvida ou precisar de assistência, entre em contato com a equipe de desenvolvimento do projeto de Leilão da Apae. Você também pode acompanhar o progresso do projeto e contribuir por meio de nossa conta no GitHub:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- GitHub: [Felipe Carillo](https://github.com/FelipeCarillo)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Agradecemos sua contribuição e apoio à causa da Apae!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Equipe de Desenvolvimento
 
-### `npm run eject`
+- Gabriel da Silva Merola - [Titans07](https://github.com/Titans07)
+- Guilherme Seabra Rodriguez - [0Guizo](https://github.com/0Guizo)
+- Isaias Cano Belo da Luz - [IsaiasCBLuz](https://github.com/IsaiasCBLuz)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Agradecimentos
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Gostaríamos de expressar nossa gratidão à seguintes fontes de inspiração que contribuíram para o sucesso deste projeto:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- [Institute Mauá of Technology](https://www.maua.br/)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Agradecemos a todos os envolvidos, direta ou indiretamente, e à comunidade de código aberto por suas contribuições e apoio contínuo.
