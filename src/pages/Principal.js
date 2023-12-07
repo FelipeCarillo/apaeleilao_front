@@ -119,7 +119,7 @@ export default function Principal() {
 
     function copiarCodigo () {
         //localStorage.getItem('idLeilaoAtivo')
-        navigator.clipboard.writeText('https://apaeleilaoscsul-dev.techimtgroup.net');
+        navigator.clipboard.writeText('https://apaeleilaoscsul.techimtgroup.net');
         toast.success('Código copiado com sucesso!', {
             position: "top-center",
             autoClose: 3000,
@@ -134,7 +134,7 @@ export default function Principal() {
 
     function compartilharWhatsApp() {
         // Mensagem que você deseja enviar (substitua com a mensagem desejada)
-        var mensagem = 'https://apaeleilaoscsul-dev.techimtgroup.net';
+        var mensagem = 'https://apaeleilaoscsul.techimtgroup.net';
       
         // Formatação do link do WhatsApp
         var linkWhatsApp = 'https://api.whatsapp.com/send?phone=' + '&text=' + encodeURIComponent(mensagem);
